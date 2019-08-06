@@ -3,3 +3,5 @@
 .DS_Store
 debug
 out
+test_debug
+test_out
