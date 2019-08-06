@@ -1,1 +1,5 @@
-./libft/obj
+/libft/obj/*.o
+.vscode
+.DS_Store
+debug
+out

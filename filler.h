@@ -12,6 +12,5 @@
 
 #ifndef FILLER_H
 # define FILLER_H
-# define BUFF_SIZE 1024
 
 #endif
