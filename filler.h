@@ -16,8 +16,10 @@
 # define MAP_KW "Plateau "
 # define PIE_KW "Piece "
 # define SHIFT_M 4
+# define MAX_INT 2147483647
 
-# define SHOW_FIND_DEBUG 2 // 0(don't show), 1(show all), 2(show only good)
+# define SHOW_FIND_DEBUG 0 // 0(don't show), 1(show all), 2(show only good)
+# define SHOW_VALUE_MAP 1 // 0, 1
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -32,7 +34,8 @@ typedef	struct		s_map
 }					t_map;
 
 void debug_print(char *str, int next_line, int to_free);
-void find_debug(t_map *map, int pos, int res);
+void find_debug(t_map *map, int pos, int res, int tmp_score);
+void debug_value_map(t_map *map);
 
 int set_player(char *line, int *player);
 int set_map(t_map *trg, char *keyword);

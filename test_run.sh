@@ -3,6 +3,8 @@
 #rm test_out test_debug && touch test_out test_debug
 #./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./read.filler -f ./resources/maps/map00 -t 1
 
+#cd /Users/wgorold/d06_filler_gitlab &&  ./test_run.sh -g 
+
 if [ $# -eq 0 ]
     then
         USERS=$(find . -maxdepth 1 -name 'test_*.c')
@@ -15,6 +17,9 @@ if [ $# -eq 0 ]
         done
     else
         case $1 in
+        -g)
+            choice="test_game.c"
+            ;;
 
         -v)
             choice="test_val.c"

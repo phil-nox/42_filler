@@ -25,7 +25,7 @@ void debug_print(char *str, int next_line, int to_free)
         free(str);
 }
 
-void find_debug(t_map *map, int pos, int res)
+void find_debug(t_map *map, int pos, int res, int tmp_score)
 {
     if (SHOW_FIND_DEBUG != 1 && res != 1)
         return ;
@@ -43,5 +43,19 @@ void find_debug(t_map *map, int pos, int res)
      if(res == 0)
          debug_print("\t- void", 1, 0);
      if(res == 1)
-        debug_print("\t- <== Good", 1, 0);
+     {
+        debug_print("\t- <== good ", 0, 0);
+        debug_print(ft_itoa(tmp_score), 1, 1);
+     }
+}
+
+
+void debug_value_map(t_map *map)
+{
+    int idx;
+
+    idx = -1;
+    while (++idx < map->row)
+        debug_print(map->map[idx], 1, 0);
+     debug_print("\n", 1, 0);
 }
