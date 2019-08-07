@@ -1,5 +1,3 @@
-#include "libft.h"
-#include "get_next_line.h"
 #include "filler.h"
 
 int set_player(char *line, int *player)

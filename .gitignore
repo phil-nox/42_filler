@@ -1,4 +1,5 @@
 /libft/obj/*.o
+/obj/*.o
 .vscode
 .DS_Store
 debug
