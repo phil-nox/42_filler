@@ -68,16 +68,21 @@ int is_a_place(int player, t_map *map, t_map *pie, int pos)
     return (1);
 }
 
-void find_place(int player, t_map *map, t_map *pie)
+int find_place(int player, t_map *map, t_map *pie)
 {
     int pos;
     int res;
+    int out;
 
+    out = -1;
     pos = -1;
     while (++pos / map->col < map->row)
     {
         res = is_a_place(player, map, pie, pos);
         if (SHOW_FIND_DEBUG)
             find_debug(map, pos, res);
+        if (res == 1)
+            out = pos;
     }
+    return (out);
 }

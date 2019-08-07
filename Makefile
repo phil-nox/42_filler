@@ -24,7 +24,7 @@ FLAG_PATH_OBJ= -o $@ -I./libft
 
 PATH_S=./obj/
 
-SRC= 	0_debug.o 1_read_map.o 2_place_for_pie.o
+SRC= 	0_debug.o 1_read_map.o 2_place_for_pie.o 3_send_pie.o
 
 PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
 
@@ -36,6 +36,8 @@ $(PATH_S)1_read_map.o: 1_read_map.c
 	$(CC) $(CFLAGS) 1_read_map.c $(FLAG_PATH_OBJ)
 $(PATH_S)2_place_for_pie.o: 2_place_for_pie.c
 	$(CC) $(CFLAGS) 2_place_for_pie.c $(FLAG_PATH_OBJ)
+$(PATH_S)3_send_pie.o: 3_send_pie.c
+	$(CC) $(CFLAGS) 3_send_pie.c $(FLAG_PATH_OBJ)
 
 clean:
 	rm -f $(PATH_SRC)

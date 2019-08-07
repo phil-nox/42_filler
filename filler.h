@@ -42,6 +42,8 @@ int row_p(t_map *map, int pos);
 int col_p(t_map *map, int pos);
 int not_in_borders(t_map *map, int pos, int t_r, int t_c);
 int is_a_place(int player, t_map *map, t_map *pie, int pos);
-void find_place(int player, t_map *map, t_map *pie);
+int find_place(int player, t_map *map, t_map *pie);
+
+void send_position(t_map *map, int pos);
 
 #endif
