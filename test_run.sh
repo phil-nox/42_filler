@@ -16,6 +16,10 @@ if [ $# -eq 0 ]
     else
         case $1 in
 
+        -v)
+            choice="test_val.c"
+            ;;
+
         -s)
             choice="test_send.c"
             ;;
