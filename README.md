@@ -9,4 +9,5 @@ touch test_out test_debug
 
 ### STEP 2
 ### test is_place
+### Setting: SHOW_FIND_DEBUG
 ./test_run.sh

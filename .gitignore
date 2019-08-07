@@ -6,3 +6,5 @@ debug
 out
 test_debug
 test_out
+filler.trace
+read.filler
