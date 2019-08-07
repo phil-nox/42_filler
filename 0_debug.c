@@ -112,19 +112,19 @@ int map_print(char input)
 	if (input == 'y')
 		return ft_pututf8("🦑");
 	if (input == 'z')
-		return ft_pututf8("🌵");
+		return ft_pututf8("🐢");
 	if (input == '.')
 		return ft_pututf8("🔹");
 	if (input == 49)
-		return ft_pututf8("🎱");
+		return ft_pututf8("🌕");
 	if (input == 50)
-		return ft_pututf8("🎾");
+		return ft_pututf8("🌖");
 	if (input == 51)
-		return ft_pututf8("🔔");
+		return ft_pututf8("🌗");
 	if (input == 52)
-		return ft_pututf8("🏐");
+		return ft_pututf8("🌘");
 	if (input == 53)
-		return ft_pututf8("⚽️");
+		return ft_pututf8("🌑");
 	if (input == 54)
 		return ft_pututf8("🕐");
 	if (input == 55)
