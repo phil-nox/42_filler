@@ -18,8 +18,9 @@
 # define SHIFT_M 4
 # define MAX_INT 2147483647
 
-# define SHOW_FIND_DEBUG 0 // 0(don't show), 1(show all), 2(show only good)
+# define SHOW_FIND_DEBUG 2 // 0(don't show), 1(show all), 2(show only good)
 # define SHOW_VALUE_MAP 1 // 0, 1
+# define SHOW_SEND 1 // 0, 1
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -36,6 +37,8 @@ typedef	struct		s_map
 void debug_print(char *str, int next_line, int to_free);
 void find_debug(t_map *map, int pos, int res, int tmp_score);
 void debug_value_map(t_map *map);
+void debug_value_map_color(t_map *map);
+void send_debug(t_map *map, int pos, int tmp_score);
 
 int set_player(char *line, int *player);
 int set_map(t_map *trg, char *keyword);
@@ -47,6 +50,7 @@ int col_pg(t_map *map, int pos);
 int not_in_borders(t_map *map, int pos, int t_r, int t_c);
 int is_a_place(int player, t_map *map, t_map *pie, int pos);
 int find_place(int player, t_map *map, t_map *pie);
+int calc_score(t_map *map, t_map *pie, int pos);
 
 void send_position(t_map *map, int pos);
 

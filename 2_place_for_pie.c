@@ -125,8 +125,6 @@ int find_place(int player, t_map *map, t_map *pie)
         }
         if (SHOW_FIND_DEBUG)
             find_debug(map, pos, res, tmp_score);
-        if (res == 1)
-            out = pos;
     }
     if (SHOW_FIND_DEBUG)
         debug_print(">>>>>>>>", 1, 0);

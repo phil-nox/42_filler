@@ -92,5 +92,5 @@ void set_val_map(t_map *map, int trg_ply)
         val++;
     }
     if (SHOW_VALUE_MAP)
-        debug_value_map(map);
+        debug_value_map_color(map);
 }

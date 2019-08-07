@@ -34,6 +34,10 @@ int main(void)
         {
             set_val_map(&map, player);
             out = find_place(player, &map, &pie);
+            if(SHOW_SEND)
+            {
+                send_debug(&map, out, calc_score(&map, &pie, out));
+            }
             send_position(&map, out);
             continue;
         }
