@@ -23,6 +23,7 @@ int main(void)
     t_map tmp;
     t_map pie;
 
+    t_score score;
     int out;
 
     player = 0;
@@ -40,10 +41,10 @@ int main(void)
             if (SHOW_VALUE_MAP)
                 debug_value_map_color(&map);
             //out = find_place(player, &map, &pie);
-            out = find_place_adv(&org, &map, &pie, &tmp);
+            score = find_place_adv(&org, &map, &pie, &tmp);
             if(SHOW_SEND)
-                send_debug(&map, out, calc_score(&map, &pie, out));
-            send_position(&map, out);
+                send_debug_adv(&map, score.pos, score);
+            send_position(&map, score.pos);
             continue;
         }
         if (init_map(line, &org, MAP_KW))

@@ -73,32 +73,6 @@ int is_a_place(int player, t_map *map, t_map *pie, int pos)
     return (1);
 }
 
-int calc_score(t_map *map, t_map *pie, int pos)
-{
-    int score;
-    int r;
-    int c;
-    char tmp;
-
-    score = 0;
-    r = -1;
-    c = -1;
-    while (++r < pie->row)
-    {
-        c = -1;
-        while(++c < pie->col)
-        {
-            if (pie->map[r][c] == '.')
-                continue;
-            tmp = map->map[row_p(map, pos) + r][col_p(map, pos) + c];
-            if (tmp == 'y' || tmp == 'z')
-                continue;
-            score += tmp - 48;
-        }
-    }
-    return (score);
-}
-
 int find_place(int player, t_map *map, t_map *pie)
 {
     int pos;
@@ -203,6 +177,83 @@ void place_pie(int pos, t_map *pie, t_map *adv)
     }
 }
 
+int calc_score(t_map *map, t_map *pie, int pos)
+{
+    int score;
+    int r;
+    int c;
+    char tmp;
+
+    score = 0;
+    r = -1;
+    c = -1;
+    while (++r < pie->row)
+    {
+        c = -1;
+        while(++c < pie->col)
+        {
+            if (pie->map[r][c] == '.')
+                continue;
+            tmp = map->map[row_p(map, pos) + r][col_p(map, pos) + c];
+            if (tmp == 'y' || tmp == 'z' || tmp == '.')
+                continue;
+            score += tmp - 48;
+        }
+    }
+    return (score);
+}
+
+int calc_iso_score(t_map *map, t_map *adv)
+{
+    int pos;
+    int out;
+
+    pos = -1;
+    out = 0;
+    while (++pos / map->col < map->row)
+        if(get_val(adv, pos) == '.' && get_val(map, pos) != '.')
+            out += 1;
+        
+    return (out);
+}
+
+int calc_diff_score(t_map *map, t_map *adv)
+{
+    int pos;
+    int ad;
+    int ma;
+    int out;
+
+    pos = -1;
+    out = 0;
+    while (++pos / map->col < map->row)
+    {
+        ad = get_val(adv, pos);
+        ma = get_val(map, pos);
+
+        if (SHOW_VALUE_MAP_ADV == 2)
+        {
+            if(ad > 48 && ad < 119 && ma > 48 && ma < 119)
+            {
+                if (ad == ma)
+                    set_val(adv, pos, 48);
+                else
+                {
+                    set_val(adv, pos, ad - ma + 48);
+                    out += ad - ma;
+                } 
+            }
+        }
+        else
+        {
+            if(ad > 48 && ad < 119 && ma > 48 && ma < 119 && ad !=ma)
+                out += ad - ma;
+        }
+    }   
+    return (out);
+}
+
+
 
 t_score get_score(int pos, t_map *map, t_map *pie, t_map *adv)
 {
@@ -210,9 +261,15 @@ t_score get_score(int pos, t_map *map, t_map *pie, t_map *adv)
     out.enemy_dist = 1;
     (void) map;
 
-    out.enemy_dist = calc_score(map, pie, pos);
     place_pie(pos, pie, adv);
     set_val_map(adv, adv->player);
+    
+    out.enemy_dist = calc_score(map, pie, pos);
+    out.diff_map = calc_diff_score(map, adv);
+    out.isolated = calc_iso_score(map, adv);
+
+    out.decision = out.enemy_dist * 1 - out.diff_map / 10 - out.isolated * 1;
+
     if (SHOW_VALUE_MAP_ADV)
     {
         score_debug(map, pos, out);
@@ -222,7 +279,7 @@ t_score get_score(int pos, t_map *map, t_map *pie, t_map *adv)
 }
 
 
-int find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv)
+t_score find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv)
 {
     int pos;
     int res;
@@ -242,14 +299,14 @@ int find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv)
             as_map(org, adv);
             score = get_score(pos, map, pie, adv);
 
-            if (score.enemy_dist < scr)
+            if (score.decision < scr)
             {
-                scr = score.enemy_dist;
-                out = pos;
+                scr = score.decision;
+                score.pos = pos;
             }
         }
         if (SHOW_FIND_DEBUG)
-            find_debug(map, pos, res, score.enemy_dist);
+            find_debug(map, pos, res, score.decision);
     }
     if (SHOW_FIND_DEBUG)
     {
@@ -257,5 +314,5 @@ int find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv)
         debug_print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", 1, 0);
         debug_print(">>>>>>>>>>>>>>>>", 1, 0);
     }
-    return (out);
+    return (score);
 }

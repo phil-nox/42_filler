@@ -94,7 +94,13 @@ void score_debug(t_map *map, int pos, t_score score)
 	debug_print(" ,", 0, 0);
 	debug_print(ft_itoa(col_p(map, pos) - SHIFT_M), 0, 1);
 	debug_print("]\t enemy_dist= ", 0, 0);
-	debug_print(ft_itoa(score.enemy_dist), 1, 1);
+	debug_print(ft_itoa(score.enemy_dist), 0, 1);
+	debug_print(" diff_map= ", 0, 0);
+	debug_print(ft_itoa(score.diff_map), 0, 1);
+	debug_print(" isolated= ", 0, 0);
+	debug_print(ft_itoa(score.isolated), 0, 1);
+	debug_print(" decision= ", 0, 0);
+	debug_print(ft_itoa(score.isolated), 1, 1);
 }
 
 void send_debug(t_map *map, int pos, int tmp_score)
@@ -106,6 +112,12 @@ void send_debug(t_map *map, int pos, int tmp_score)
 	debug_print(ft_itoa(col_pg(map, pos)), 0, 1);
 	debug_print("\t- => SEND ", 0, 0);
 	debug_print(ft_itoa(tmp_score), 1, 1);
+}
+
+void send_debug_adv(t_map *map, int pos, t_score score)
+{
+	debug_print(" => SEND <= ", 0, 0);
+	score_debug(map, pos, score);
 }
 
 
@@ -129,6 +141,8 @@ int map_print(char input)
 		return ft_pututf8("🐢");
 	if (input == '.')
 		return ft_pututf8("🔹");
+	if (input == 48)
+		return ft_pututf8("⬛️");
 	if (input == 49)
 		return ft_pututf8("🌕");
 	if (input == 50)

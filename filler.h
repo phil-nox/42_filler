@@ -21,7 +21,7 @@
 # define SHOW_FIND_DEBUG 0 // 0(don't show), 1(show all), 2(show only good)
 # define SHOW_VALUE_MAP 1 // 0, 1
 # define SHOW_SEND 1 // 0, 1
-# define SHOW_VALUE_MAP_ADV 1 // 0, 1
+# define SHOW_VALUE_MAP_ADV 2 // 0, 1, 2(show diff)
 
 #include <unistd.h>
 #include <fcntl.h>
@@ -41,6 +41,8 @@ typedef	struct		s_score
 	int			    enemy_dist;
 	int 			diff_map;
 	int		       	isolated;
+	int 			decision;
+	int				pos;
 }					t_score;
 
 void debug_print(char *str, int next_line, int to_free);
@@ -50,6 +52,7 @@ void debug_value_map_color(t_map *map);
 void debug_value_map_color_adv(t_map *map, char *str);
 void send_debug(t_map *map, int pos, int tmp_score);
 void score_debug(t_map *map, int pos, t_score score);
+void send_debug_adv(t_map *map, int pos, t_score score);
 
 int set_player(char *line, int *player);
 void set_player_adv(char *line, int *player, t_map *org);
@@ -62,8 +65,9 @@ int col_pg(t_map *map, int pos);
 int not_in_borders(t_map *map, int pos, int t_r, int t_c);
 int is_a_place(int player, t_map *map, t_map *pie, int pos);
 int find_place(int player, t_map *map, t_map *pie);
-int find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv);
+t_score find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv);
 int calc_score(t_map *map, t_map *pie, int pos);
+t_score get_score(int pos, t_map *map, t_map *pie, t_map *adv);
 
 void send_position(t_map *map, int pos);
 
