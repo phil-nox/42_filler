@@ -17,6 +17,10 @@ if [ $# -eq 0 ]
         done
     else
         case $1 in
+        -a)
+            choice="test_adv.c"
+            ;;
+
         -g)
             choice="test_game.c"
             ;;

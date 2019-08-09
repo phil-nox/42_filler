@@ -55,7 +55,7 @@ int calc_score(t_map *map, t_map *pie, int pos);
 void send_position(t_map *map, int pos);
 
 char get_val(t_map *map, int pos);
-void set_val(t_map *map, int pos, char val);
+int set_val(t_map *map, int pos, char val);
 void pre_set_val(t_map *map);
 int is_around(t_map *map, int pos, char to_find);
 void set_val_map(t_map *map, int trg_ply);

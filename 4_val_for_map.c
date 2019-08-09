@@ -5,9 +5,10 @@ char get_val(t_map *map, int pos)
     return (map->map[row_p(map, pos)][col_p(map, pos)]);
 }
 
-void set_val(t_map *map, int pos, char val)
+int set_val(t_map *map, int pos, char val)
 {
     map->map[row_p(map, pos)][col_p(map, pos)] = val;
+    return (1);
 }
 
 void pre_set_val(t_map *map)
@@ -61,6 +62,43 @@ int is_around(t_map *map, int pos, char to_find)
     return (0);
 }
 
+int set_around(t_map *map, int pos, char to_set)
+{
+    int r;
+    int cg;
+    int c;
+    int out;
+
+    r = row_p(map, pos);
+    cg = col_pg(map, pos);
+    c = col_p(map, pos);
+    out = 0;
+
+    if (cg + 1 < map->col && get_val(map, pos + 1) == '.')
+        out += set_val(map, pos + 1, to_set);
+    if (cg - 1 >= 0 && get_val(map, pos - 1) == '.')
+        out += set_val(map, pos - 1, to_set);
+    if (r > 0)
+    {
+        if (get_val(map, pos - map->col) == '.')
+            out += set_val(map, pos - map->col, to_set);
+        if (cg + 1 < map->col && get_val(map, pos + 1 - map->col) == '.')
+            out += set_val(map, pos + 1 - map->col, to_set);
+        if (cg - 1 >= 0 && get_val(map, pos - 1 - map->col) == '.')
+            out += set_val(map, pos - 1 - map->col, to_set);
+    }
+    if (r < map->row - 1)
+    {
+        if (get_val(map, pos + map->col) == '.')
+            out += set_val(map, pos + map->col, to_set);
+        if (cg + 1 < map->col && get_val(map, pos + 1 + map->col) == '.')
+            out += set_val(map, pos + 1 + map->col, to_set);
+        if (cg - 1 >= 0 && get_val(map, pos - 1 + map->col) == '.')
+            out += set_val(map, pos - 1 + map->col, to_set);
+    }
+    return (out);
+}
+
 void set_val_map(t_map *map, int trg_ply)
 {
     (void)trg_ply;
@@ -80,13 +118,9 @@ void set_val_map(t_map *map, int trg_ply)
         pos = -1;
         while (++pos / map->col < map->row)
         {
-            if (get_val(map, pos) != '.')
+            if (get_val(map, pos) != to_find)
                 continue;
-            if (is_around(map, pos, to_find))
-            {
-                set_val(map, pos, val);
-                count++;
-            }
+            count += set_around(map, pos, val);
         }
         to_find = val;
         val++;
