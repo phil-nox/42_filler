@@ -130,3 +130,132 @@ int find_place(int player, t_map *map, t_map *pie)
         debug_print(">>>>>>>>", 1, 0);
     return (out);
 }
+
+void as_map(t_map *src, t_map *trg)
+{
+    int idx;
+
+    idx = -1;
+    while (++idx < src->row)
+        ft_strcpy(trg->map[idx], src->map[idx]);
+}
+
+int cpy_map(t_map *src, t_map *trg)
+{
+    int idx;
+    int malloc_failed;
+
+    trg->row = src->row;
+    trg->col = src->col;
+    trg->player = src->player;
+
+    trg->map = (char **)malloc((trg->row) * sizeof(char **));
+    if (!trg->map)
+		return (1);
+    
+    malloc_failed = 0;
+    idx = -1;
+    while (++idx < trg->row)
+    {
+        if((trg->map[idx] = ft_strnew(trg->col + SHIFT_M)) == NULL)
+        {
+            malloc_failed = 1;
+            break;
+        }
+    }
+    if (malloc_failed)
+    {
+        while (--idx > -1)
+            free(trg->map[idx]);
+        free(trg->map);
+        return (1);
+    }
+    return (0);
+}
+
+int make_map(t_map *src, t_map *trg)
+{
+    if (cpy_map(src, trg))
+        return (1);
+    as_map(src, trg);
+    return (0);
+}
+
+void place_pie(int pos, t_map *pie, t_map *adv)
+{
+    char to_place;
+    int r;
+    int c;
+
+    //to_place = (adv->player == 1) ? 'y' : 'z';
+    to_place = 'w';
+    r = -1;
+    c = -1;
+    while (++r < pie->row)
+    {
+        c = -1;
+        while(++c < pie->col)
+        {
+            if (pie->map[r][c] == '.')
+                continue;
+            set_val(adv, pos + c + r * (adv->col),to_place);
+        }
+    }
+}
+
+
+t_score get_score(int pos, t_map *map, t_map *pie, t_map *adv)
+{
+    t_score out;
+    out.enemy_dist = 1;
+    (void) map;
+
+    out.enemy_dist = calc_score(map, pie, pos);
+    place_pie(pos, pie, adv);
+    set_val_map(adv, adv->player);
+    if (SHOW_VALUE_MAP_ADV)
+    {
+        score_debug(map, pos, out);
+        debug_value_map_color_adv(adv, "\t\t\t");
+    }
+    return (out);
+}
+
+
+int find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv)
+{
+    int pos;
+    int res;
+    int out;
+    int scr;
+    
+    t_score score;
+
+    out = -1;
+    pos = -1;
+    scr = MAX_INT;
+    while (++pos / map->col < map->row)
+    {
+        res = is_a_place(org->player, map, pie, pos);
+        if (res == 1)
+        {
+            as_map(org, adv);
+            score = get_score(pos, map, pie, adv);
+
+            if (score.enemy_dist < scr)
+            {
+                scr = score.enemy_dist;
+                out = pos;
+            }
+        }
+        if (SHOW_FIND_DEBUG)
+            find_debug(map, pos, res, score.enemy_dist);
+    }
+    if (SHOW_FIND_DEBUG)
+    {
+        debug_print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", 1, 0);
+        debug_print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", 1, 0);
+        debug_print(">>>>>>>>>>>>>>>>", 1, 0);
+    }
+    return (out);
+}

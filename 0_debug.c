@@ -85,6 +85,18 @@ void find_debug(t_map *map, int pos, int res, int tmp_score)
 	 }
 }
 
+void score_debug(t_map *map, int pos, t_score score)
+{
+	debug_print("pos= ", 0, 0);
+	debug_print(ft_itoa(pos), 0, 1);
+	debug_print(" [", 0, 0);
+	debug_print(ft_itoa(row_p(map, pos)), 0, 1);
+	debug_print(" ,", 0, 0);
+	debug_print(ft_itoa(col_p(map, pos) - SHIFT_M), 0, 1);
+	debug_print("]\t enemy_dist= ", 0, 0);
+	debug_print(ft_itoa(score.enemy_dist), 1, 1);
+}
+
 void send_debug(t_map *map, int pos, int tmp_score)
 {
 	debug_print(ft_itoa(pos), 0, 1);
@@ -109,6 +121,8 @@ void debug_value_map(t_map *map)
 
 int map_print(char input)
 {
+	if (input == 'w')
+		return ft_pututf8("🎯");
 	if (input == 'y')
 		return ft_pututf8("🦑");
 	if (input == 'z')
@@ -159,6 +173,27 @@ void debug_value_map_color(t_map *map)
 	while (++idx < map->row)
 	{
 		pos = -1;
+		while (map->map[idx][++pos])
+		{
+			if (pos < 4)
+				continue;
+			map_print(map->map[idx][pos]);
+		}
+		ft_pututf8("\n");
+	}
+	debug_print("\n", 1, 0);
+}
+
+void debug_value_map_color_adv(t_map *map, char *str)
+{
+	int idx;
+	int pos;
+
+	idx = -1;
+	while (++idx < map->row)
+	{
+		pos = -1;
+		debug_print(str, 0, 0);
 		while (map->map[idx][++pos])
 		{
 			if (pos < 4)

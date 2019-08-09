@@ -15,6 +15,12 @@ int set_player(char *line, int *player)
     return (0);
 }
 
+void set_player_adv(char *line, int *player, t_map *org)
+{
+    if (set_player(line, player) == 0)
+        org->player = *player;
+}
+
 int set_map(t_map *trg, char *keyword)
 {
     char *line;

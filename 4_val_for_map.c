@@ -125,6 +125,4 @@ void set_val_map(t_map *map, int trg_ply)
         to_find = val;
         val++;
     }
-    if (SHOW_VALUE_MAP)
-        debug_value_map_color(map);
 }
