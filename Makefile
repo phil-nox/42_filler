@@ -33,7 +33,8 @@ SRC= 	00_debug_wfile.o 01_debug_utf8.o 02_debug_base.o \
 		20_place_for_pie_base.o 21_place_for_pie_find.o \
 		22_place_for_pie_map.o 23_place_for_pie_score.o \
 		24_place_for_pie_find_adv.o 30_send_pie.o \
-		40_val_for_map_base.o 41_val_for_map_adv.o 90_old.o
+		40_val_for_map_base.o 41_val_for_map_set.o \
+		42_val_for_map_reset.o 90_old.o
 
 PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
 
@@ -75,8 +76,10 @@ $(PATH_S)30_send_pie.o: 30_send_pie.c
 	$(CC) $(CFLAGS) 30_send_pie.c $(FLAG_PATH_OBJ)
 $(PATH_S)40_val_for_map_base.o: 40_val_for_map_base.c
 	$(CC) $(CFLAGS) 40_val_for_map_base.c $(FLAG_PATH_OBJ)
-$(PATH_S)41_val_for_map_adv.o: 41_val_for_map_adv.c
-	$(CC) $(CFLAGS) 41_val_for_map_adv.c $(FLAG_PATH_OBJ)
+$(PATH_S)41_val_for_map_set.o: 41_val_for_map_set.c
+	$(CC) $(CFLAGS) 41_val_for_map_set.c $(FLAG_PATH_OBJ)
+$(PATH_S)42_val_for_map_reset.o: 42_val_for_map_reset.c
+	$(CC) $(CFLAGS) 42_val_for_map_reset.c $(FLAG_PATH_OBJ)
 $(PATH_S)90_old.o: 90_old.c
 	$(CC) $(CFLAGS) 90_old.c $(FLAG_PATH_OBJ)
 

@@ -25,6 +25,8 @@ OR
 ### STEP 4
 ### real test
 ./make.sh
+./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./build/boa_debug.filler -f ./resources/maps/map00
+
 ./test_run_games.sh
 cd games
 run_something_fromfile

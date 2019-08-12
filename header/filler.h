@@ -84,4 +84,8 @@ void as_map(t_map *src, t_map *trg);
 int cpy_map(t_map *src, t_map *trg);
 int make_map(t_map *src, t_map *trg);
 
+int reset_around(t_map *map, int pos);
+void reset_val_map(t_map *map, int init_val);
+
+
 #endif

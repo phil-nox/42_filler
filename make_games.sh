@@ -23,15 +23,17 @@ for map in $PATH_R/maps/*; do
         echo $IDX
         echo $CMD
         $($CMD)
+        echo "$CMD -s $(grep seed filler.trace | sed 's/seed = //')" >> filler.trace
         echo "$CMD_D -s $(grep seed filler.trace | sed 's/seed = //')" >> filler.trace
         mv filler.trace filler.trace$IDX
 
         ((IDX+=1))
         CMD="$CMD_BASE -p2 $YOUR_PLY -p1 $player -f $map -q"
-        CMD_D="$CMD_BASE -p1 $DEBUG_PLY -p2 $player -f $map"
+        CMD_D="$CMD_BASE -p2 $DEBUG_PLY -p1 $player -f $map"
         echo $IDX
         echo $CMD
         $($CMD)
+        echo "$CMD -s $(grep seed filler.trace | sed 's/seed = //')" >> filler.trace
         echo "$CMD_D -s $(grep seed filler.trace | sed 's/seed = //')"  >> filler.trace
         mv filler.trace filler.trace$IDX
     done
