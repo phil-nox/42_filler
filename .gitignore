@@ -1,5 +1,7 @@
 /libft/obj/*.o
 /obj/*.o
+/build/*.filler
+/games/filler.*
 .vscode
 .DS_Store
 debug

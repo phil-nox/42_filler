@@ -18,10 +18,15 @@
 # define SHIFT_M 4
 # define MAX_INT 2147483647
 
-# define SHOW_FIND_DEBUG 0 // 0(don't show), 1(show all), 2(show only good)
-# define SHOW_VALUE_MAP 1 // 0, 1
-# define SHOW_SEND 1 // 0, 1
-# define SHOW_VALUE_MAP_ADV 2 // 0, 1, 2(show diff)
+//# define SHOW_FIND_DEBUG 0 		// 0(don't show), 1(show all), 2(show only good)
+//# define SHOW_VALUE_MAP 1 		// 0, 1
+//# define SHOW_SEND 1 			// 0, 1
+//# define SHOW_VALUE_MAP_ADV 2	// 0, 1, 2(show diff)
+
+# define SHOW_FIND_DEBUG 0
+# define SHOW_VALUE_MAP 0
+# define SHOW_SEND 0
+# define SHOW_VALUE_MAP_ADV 0
 
 #include <unistd.h>
 #include <fcntl.h>

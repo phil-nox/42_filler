@@ -16,11 +16,17 @@
 # 	find . -maxdepth 1 -name '*.c' | sed "s/\.\///" | sed "s/\.c/\.o/" | tr '\n' ' '
 #
 
+NAME=wgorold.filler
+
 CC=gcc
 
-CFLAGS= -c -Wall -Wextra -Werror -g
+FLAGS= -Wall -Wextra -Werror
+
+CFLAGS= -c $(FLAGS)
 
 FLAG_PATH_OBJ= -o $@ -I./libft
+
+PATH_B=./build/
 
 PATH_S=./obj/
 
@@ -33,7 +39,16 @@ SRC= 	00_debug_wfile.o 01_debug_utf8.o 02_debug_base.o \
 
 PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
 
-all: $(PATH_SRC)
+$(NAME): $(PATH_SRC)
+	$(CC) $(FLAGS) 50_creating_player.c obj/*.o -L./libft/build -lft -I./libft -o $(PATH_B)$(NAME)
+
+all: $(NAME)
+
+play: re
+	./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map00
+
+play_h: re
+	./resources/filler_vm -p2 ./resources/players//abanlin.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map02
 
 $(PATH_S)00_debug_wfile.o: 00_debug_wfile.c
 	$(CC) $(CFLAGS) 00_debug_wfile.c $(FLAG_PATH_OBJ)
@@ -70,5 +85,5 @@ clean:
 	rm -f $(PATH_SRC)
 
 fclean: clean
-
+	rm -f $(PATH_B)$(NAME)
 re: fclean all

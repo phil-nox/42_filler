@@ -11,3 +11,12 @@ touch test_out test_debug
 ### test is_place
 ### Setting: SHOW_FIND_DEBUG
 ./test_run.sh
+
+### STEP 3
+### run try
+make play
+./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./build/wgorold.filler -f ./resources/maps/map00 -q
+-
+OR
+-
+./test_run_games.sh

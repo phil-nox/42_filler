@@ -11,6 +11,7 @@ t_score find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv)
     pos = -1;
     score.decision = MAX_INT;
     score.pos = -1;
+    tmp_score.pos = -1;
     while (++pos / org->col < org->row)
     {
         res = is_a_place(org->player, map, pie, pos);
@@ -32,7 +33,15 @@ t_score find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv)
     }
     if (score.pos == -1)
     {
-        score = tmp_score;
+        if (tmp_score.pos != -1)
+        {
+            score = tmp_score;
+        }
+        else
+        {
+            score.pos = 0;
+        }
+        
     }
     if (SHOW_FIND_DEBUG)
     {
