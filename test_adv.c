@@ -43,7 +43,8 @@ int main(void)
             //out = find_place(player, &map, &pie);
             score = find_place_adv(&org, &map, &pie, &tmp);
             if(SHOW_SEND)
-                send_debug_adv(&map, score.pos, score);
+                send_debug_adv(&map, &score);
+            //debug_print(ft_itoa(score.pos), 1, 1);
             send_position(&map, score.pos);
             continue;
         }

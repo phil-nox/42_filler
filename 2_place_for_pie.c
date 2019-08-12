@@ -264,6 +264,7 @@ t_score get_score(int pos, t_map *map, t_map *pie, t_map *adv)
     place_pie(pos, pie, adv);
     set_val_map(adv, adv->player);
     
+    out.pos = pos;
     out.enemy_dist = calc_score(map, pie, pos);
     out.diff_map = calc_diff_score(map, adv);
     out.isolated = calc_iso_score(map, adv);
@@ -272,7 +273,7 @@ t_score get_score(int pos, t_map *map, t_map *pie, t_map *adv)
 
     if (SHOW_VALUE_MAP_ADV)
     {
-        score_debug(map, pos, out);
+        score_debug(map, pos, &out);
         debug_value_map_color_adv(adv, "\t\t\t");
     }
     return (out);
@@ -283,30 +284,35 @@ t_score find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv)
 {
     int pos;
     int res;
-    int out;
-    int scr;
     
     t_score score;
+    t_score tmp_score;
 
-    out = -1;
     pos = -1;
-    scr = MAX_INT;
-    while (++pos / map->col < map->row)
+    score.decision = MAX_INT;
+    score.pos = -1;
+    while (++pos / org->col < org->row)
     {
         res = is_a_place(org->player, map, pie, pos);
         if (res == 1)
         {
             as_map(org, adv);
-            score = get_score(pos, map, pie, adv);
+            tmp_score = get_score(pos, map, pie, adv);
 
-            if (score.decision < scr)
+            if (tmp_score.enemy_dist != 0 && tmp_score.decision < score.decision)
             {
-                scr = score.decision;
-                score.pos = pos;
+                score = tmp_score;
             }
         }
         if (SHOW_FIND_DEBUG)
             find_debug(map, pos, res, score.decision);
+        //debug_print(ft_itoa(pos), 0, 1);
+        //debug_print(" ", 0, 0);
+        //debug_print(ft_itoa(score.pos), 1, 1);
+    }
+    if (score.pos == -1)
+    {
+        score = tmp_score;
     }
     if (SHOW_FIND_DEBUG)
     {

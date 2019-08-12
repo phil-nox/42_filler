@@ -51,8 +51,8 @@ void debug_value_map(t_map *map);
 void debug_value_map_color(t_map *map);
 void debug_value_map_color_adv(t_map *map, char *str);
 void send_debug(t_map *map, int pos, int tmp_score);
-void score_debug(t_map *map, int pos, t_score score);
-void send_debug_adv(t_map *map, int pos, t_score score);
+void score_debug(t_map *map, int pos, t_score *score);
+void send_debug_adv(t_map *map, t_score *score);
 
 int set_player(char *line, int *player);
 void set_player_adv(char *line, int *player, t_map *org);
