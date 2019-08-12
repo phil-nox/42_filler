@@ -16,15 +16,13 @@
 # 	find . -maxdepth 1 -name '*.c' | sed "s/\.\///" | sed "s/\.c/\.o/" | tr '\n' ' '
 #
 
-NAME=wgorold.filler
-
 CC=gcc
 
 FLAGS= -Wall -Wextra -Werror
 
 CFLAGS= -c $(FLAGS)
 
-FLAG_PATH_OBJ= -o $@ -I./libft
+FLAG_PATH_OBJ= -o $@ -I./libft -I$(PATH_H)
 
 PATH_B=./build/
 
@@ -40,7 +38,7 @@ SRC= 	00_debug_wfile.o 01_debug_utf8.o 02_debug_base.o \
 PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
 
 $(NAME): $(PATH_SRC)
-	$(CC) $(FLAGS) 50_creating_player.c obj/*.o -L./libft/build -lft -I./libft -o $(PATH_B)$(NAME)
+	$(CC) $(FLAGS) 50_creating_player.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(NAME)
 
 all: $(NAME)
 
@@ -49,6 +47,7 @@ play: re
 
 play_h: re
 	./resources/filler_vm -p2 ./resources/players//abanlin.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map02
+
 
 $(PATH_S)00_debug_wfile.o: 00_debug_wfile.c
 	$(CC) $(CFLAGS) 00_debug_wfile.c $(FLAG_PATH_OBJ)

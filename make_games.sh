@@ -4,7 +4,8 @@
 cd games
 
 PATH_R="../resources"
-YOUR_PLY="../build/wgorold.filler"
+YOUR_PLY="../build/boa.filler"
+DEBUG_PLY="../build/boa_debug.filler"
 
 IDX=0
 CMD_BASE=$PATH_R/filler_vm
@@ -18,18 +19,20 @@ for map in $PATH_R/maps/*; do
     for player in $PATH_R/players/*; do
         ((IDX+=1))
         CMD="$CMD_BASE -p1 $YOUR_PLY -p2 $player -f $map -q"
+        CMD_D="$CMD_BASE -p1 $DEBUG_PLY -p2 $player -f $map"
         echo $IDX
         echo $CMD
         $($CMD)
-        echo "$CMD -s $(grep seed filler.trace | sed 's/seed = //')"  >> filler.trace
+        echo "$CMD_D -s $(grep seed filler.trace | sed 's/seed = //')" >> filler.trace
         mv filler.trace filler.trace$IDX
 
         ((IDX+=1))
         CMD="$CMD_BASE -p2 $YOUR_PLY -p1 $player -f $map -q"
+        CMD_D="$CMD_BASE -p1 $DEBUG_PLY -p2 $player -f $map"
         echo $IDX
         echo $CMD
         $($CMD)
-        echo "$CMD -s $(grep seed filler.trace | sed 's/seed = //')"  >> filler.trace
+        echo "$CMD_D -s $(grep seed filler.trace | sed 's/seed = //')"  >> filler.trace
         mv filler.trace filler.trace$IDX
     done
 done

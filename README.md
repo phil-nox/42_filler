@@ -20,3 +20,11 @@ make play
 OR
 -
 ./test_run_games.sh
+
+
+### STEP 4
+### real test
+./make.sh
+./test_run_games.sh
+cd games
+run_something_fromfile
