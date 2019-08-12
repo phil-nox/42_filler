@@ -38,7 +38,6 @@ int set_map(t_map *trg, char *keyword)
     return (1);
 }
 
-
 int init_map(char *line, t_map *trg, char *keyword)
 {
     if (ft_strstr(line, keyword) == NULL)

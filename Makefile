@@ -24,23 +24,47 @@ FLAG_PATH_OBJ= -o $@ -I./libft
 
 PATH_S=./obj/
 
-SRC= 	0_debug.o 1_read_map.o 2_place_for_pie.o 3_send_pie.o \
-		4_val_for_map.o
+SRC= 	00_debug_wfile.o 01_debug_utf8.o 02_debug_base.o \
+		03_debug_color.o 04_debug_score.o 10_read_map.o \
+		20_place_for_pie_base.o 21_place_for_pie_find.o \
+		22_place_for_pie_map.o 23_place_for_pie_score.o \
+		24_place_for_pie_find_adv.o 30_send_pie.o \
+		40_val_for_map_base.o 41_val_for_map_adv.o 90_old.o
 
 PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
 
 all: $(PATH_SRC)
 
-$(PATH_S)0_debug.o: 0_debug.c
-	$(CC) $(CFLAGS) 0_debug.c $(FLAG_PATH_OBJ)
-$(PATH_S)1_read_map.o: 1_read_map.c
-	$(CC) $(CFLAGS) 1_read_map.c $(FLAG_PATH_OBJ)
-$(PATH_S)2_place_for_pie.o: 2_place_for_pie.c
-	$(CC) $(CFLAGS) 2_place_for_pie.c $(FLAG_PATH_OBJ)
-$(PATH_S)3_send_pie.o: 3_send_pie.c
-	$(CC) $(CFLAGS) 3_send_pie.c $(FLAG_PATH_OBJ)
-$(PATH_S)4_val_for_map.o: 4_val_for_map.c
-	$(CC) $(CFLAGS) 4_val_for_map.c $(FLAG_PATH_OBJ)
+$(PATH_S)00_debug_wfile.o: 00_debug_wfile.c
+	$(CC) $(CFLAGS) 00_debug_wfile.c $(FLAG_PATH_OBJ)
+$(PATH_S)01_debug_utf8.o: 01_debug_utf8.c
+	$(CC) $(CFLAGS) 01_debug_utf8.c $(FLAG_PATH_OBJ)
+$(PATH_S)02_debug_base.o: 02_debug_base.c
+	$(CC) $(CFLAGS) 02_debug_base.c $(FLAG_PATH_OBJ)
+$(PATH_S)03_debug_color.o: 03_debug_color.c
+	$(CC) $(CFLAGS) 03_debug_color.c $(FLAG_PATH_OBJ)
+$(PATH_S)04_debug_score.o: 04_debug_score.c
+	$(CC) $(CFLAGS) 04_debug_score.c $(FLAG_PATH_OBJ)
+$(PATH_S)10_read_map.o: 10_read_map.c
+	$(CC) $(CFLAGS) 10_read_map.c $(FLAG_PATH_OBJ)
+$(PATH_S)20_place_for_pie_base.o: 20_place_for_pie_base.c
+	$(CC) $(CFLAGS) 20_place_for_pie_base.c $(FLAG_PATH_OBJ)
+$(PATH_S)21_place_for_pie_find.o: 21_place_for_pie_find.c
+	$(CC) $(CFLAGS) 21_place_for_pie_find.c $(FLAG_PATH_OBJ)
+$(PATH_S)22_place_for_pie_map.o: 22_place_for_pie_map.c
+	$(CC) $(CFLAGS) 22_place_for_pie_map.c $(FLAG_PATH_OBJ)
+$(PATH_S)23_place_for_pie_score.o: 23_place_for_pie_score.c
+	$(CC) $(CFLAGS) 23_place_for_pie_score.c $(FLAG_PATH_OBJ)
+$(PATH_S)24_place_for_pie_find_adv.o: 24_place_for_pie_find_adv.c
+	$(CC) $(CFLAGS) 24_place_for_pie_find_adv.c $(FLAG_PATH_OBJ)
+$(PATH_S)30_send_pie.o: 30_send_pie.c
+	$(CC) $(CFLAGS) 30_send_pie.c $(FLAG_PATH_OBJ)
+$(PATH_S)40_val_for_map_base.o: 40_val_for_map_base.c
+	$(CC) $(CFLAGS) 40_val_for_map_base.c $(FLAG_PATH_OBJ)
+$(PATH_S)41_val_for_map_adv.o: 41_val_for_map_adv.c
+	$(CC) $(CFLAGS) 41_val_for_map_adv.c $(FLAG_PATH_OBJ)
+$(PATH_S)90_old.o: 90_old.c
+	$(CC) $(CFLAGS) 90_old.c $(FLAG_PATH_OBJ)
 
 clean:
 	rm -f $(PATH_SRC)

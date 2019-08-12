@@ -45,6 +45,8 @@ typedef	struct		s_score
 	int				pos;
 }					t_score;
 
+int get_fdd();
+int ft_pututf8(char const *s);
 void debug_print(char *str, int next_line, int to_free);
 void find_debug(t_map *map, int pos, int res, int tmp_score);
 void debug_value_map(t_map *map);
@@ -65,6 +67,7 @@ int col_pg(t_map *map, int pos);
 int not_in_borders(t_map *map, int pos, int t_r, int t_c);
 int is_a_place(int player, t_map *map, t_map *pie, int pos);
 int find_place(int player, t_map *map, t_map *pie);
+void place_pie(int pos, t_map *pie, t_map *adv);
 t_score find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv);
 int calc_score(t_map *map, t_map *pie, int pos);
 t_score get_score(int pos, t_map *map, t_map *pie, t_map *adv);

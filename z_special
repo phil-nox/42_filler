@@ -1,0 +1,7 @@
+### 1
+seed = 3344
+./resources/players/carli.filler won
+Score:
+2AGAINST168
+
+./test_run.sh -a

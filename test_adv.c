@@ -12,9 +12,6 @@
 
 int main(void)
 {
-    int fdw;
-    int fd_debug;
-    char *path2file;
     char *line;
 
     int player;
@@ -24,12 +21,8 @@ int main(void)
     t_map pie;
 
     t_score score;
-    int out;
 
     player = 0;
-
-    path2file = "test_out";
-    fdw = open(path2file, O_RDWR);
 
     while (get_next_line(0, &line) == 1)
 	{
@@ -52,8 +45,6 @@ int main(void)
             continue;
         //set_player(line, &player);
         set_player_adv(line, &player, &org);
-        write(fdw, line, ft_strlen(line));
-        write(fdw, "\n", 1);
 		free(line);
 	}
 
