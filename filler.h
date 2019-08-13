@@ -39,7 +39,6 @@ typedef	struct		s_map
 	int			    row;
 	int 			col;
 	int**        	map;
-	int 			player;
 }					t_map;
 
 typedef	struct		s_score
@@ -54,6 +53,8 @@ typedef	struct		s_score
 typedef	struct		s_game
 {
 	char			show_read_debug;
+	char			show_make_debug;
+	char			show_set_wave_debug;
 	char			show_find_debug;
 	char 			show_value_map;
 	char			show_send;
@@ -67,6 +68,7 @@ typedef	struct		s_game
 
 int get_fdd();
 int ft_pututf8(char const *s);
+int ft_putstrfile(char const *s);
 void debug_print(char *str, int next_line, int to_free);
 void debug_num(int num, int next_line);
 void debug_value_map(t_map *map);
@@ -82,6 +84,12 @@ int set_map(t_game *game, char *keyword);
 int init_map(char *line, t_game *game, char *keyword);
 
 void send_position(int row, int col);
+
+void as_map(t_map *src, t_map *trg);
+int cpy_map(t_map *src, t_map *trg);
+int make_map(t_game *game, t_map *src, t_map *trg);
+
+void set_val_map(t_game *game, t_map *map, int to_find);
 
 /*
 int row_p(t_map *map, int pos);
@@ -102,10 +110,6 @@ int set_val(t_map *map, int pos, char val);
 void pre_set_val(t_map *map);
 int is_around(t_map *map, int pos, char to_find);
 void set_val_map(t_map *map, int trg_ply);
-
-void as_map(t_map *src, t_map *trg);
-int cpy_map(t_map *src, t_map *trg);
-int make_map(t_map *src, t_map *trg);
 
 int reset_around(t_map *map, int pos);
 void reset_val_map(t_map *map, int init_val);

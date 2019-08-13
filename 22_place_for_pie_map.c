@@ -3,10 +3,15 @@
 void as_map(t_map *src, t_map *trg)
 {
     int idx;
+    int idxc;
 
     idx = -1;
     while (++idx < src->row)
-        ft_strcpy(trg->map[idx], src->map[idx]);
+    {
+        idxc = -1;
+        while (++idxc < src->col)
+            trg->map[idx][idxc] = src->map[idx][idxc];
+    }
 }
 
 int cpy_map(t_map *src, t_map *trg)
@@ -16,9 +21,8 @@ int cpy_map(t_map *src, t_map *trg)
 
     trg->row = src->row;
     trg->col = src->col;
-    trg->player = src->player;
 
-    trg->map = (char **)malloc((trg->row) * sizeof(char **));
+    trg->map = (int **)malloc((trg->row) * sizeof(int **));
     if (!trg->map)
 		return (1);
     
@@ -26,7 +30,7 @@ int cpy_map(t_map *src, t_map *trg)
     idx = -1;
     while (++idx < trg->row)
     {
-        if((trg->map[idx] = ft_strnew(trg->col + SHIFT_M)) == NULL)
+        if((trg->map[idx] = (int *)malloc((trg->col) * sizeof(int *))) == NULL)
         {
             malloc_failed = 1;
             break;
@@ -42,14 +46,20 @@ int cpy_map(t_map *src, t_map *trg)
     return (0);
 }
 
-int make_map(t_map *src, t_map *trg)
+int make_map(t_game *game, t_map *src, t_map *trg)
 {
     if (cpy_map(src, trg))
         return (1);
     as_map(src, trg);
+    if (game->show_make_debug)
+    {
+        debug_value_map_color(trg);
+        debug_print("^^^^^^^^ END COPY ^^^^^^^^", 1, 0);
+    }
     return (0);
 }
 
+/*
 void place_pie(int pos, t_map *pie, t_map *adv)
 {
     char to_place;
@@ -71,3 +81,4 @@ void place_pie(int pos, t_map *pie, t_map *adv)
         }
     }
 }
+*/

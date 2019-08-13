@@ -25,7 +25,7 @@ int set_map_job(t_game *game, char *keyword)
     while (++idx < trg->row)
     {
         get_next_line(0, &line);
-        trg->map[idx] = (int *)malloc((trg->row) * sizeof(int *));
+        trg->map[idx] = (int *)malloc((trg->col) * sizeof(int *));
         if(!trg->map[idx])
             return (-1);
         idxc = -1;

@@ -14,6 +14,8 @@ int main(void)
     game.adv = &adv;
     game.pie = &pie;
     game.show_read_debug = 1;
+    game.show_make_debug = 1;
+    game.show_set_wave_debug = 1;
     game.show_find_debug = 0;
     game.show_value_map = 0;
     game.show_send = 0;
@@ -27,13 +29,13 @@ int main(void)
 	{
         if (init_map(line, &game, PIE_KW)) // -1 bad malloc
         {
+            make_map(&game, game.org, game.map);
+            make_map(&game, game.org, game.adv);
+            set_val_map(&game, &map, 0);
             /*
-            make_map(&org, &map);
-            make_map(&org, &tmp);
-            set_val_map(&map, player);
             if (SHOW_VALUE_MAP)
                 debug_value_map_color(&map);
-            score = find_place_adv(&org, &map, &pie, &tmp);
+            score = find_place_adv(&org, &map, &pie, &adv);
             if(SHOW_SEND)
                 send_debug_adv(&map, &score);
             send_position(&map, score.pos);
