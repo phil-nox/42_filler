@@ -69,5 +69,5 @@ void set_val_map(t_game *game, t_map *map, int to_find)
             debug_value_map_color(map);
     }
     if (game->show_set_wave_debug)
-        debug_print("|||||||| END SET ||||||||", 1, 0);
+        debug_print("|||||||| END WAVE SET ||||||||", 1, 0);
 }

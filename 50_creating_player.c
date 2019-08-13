@@ -9,20 +9,23 @@ int main(void)
     t_map map;
     t_map adv;
     t_map pie;
+    game.pnt[0] = -1;
+    game.pnt[1] = -1;
     game.org = &org;
     game.map = &map;
     game.adv = &adv;
     game.pie = &pie;
     game.show_read_debug = 1;
-    game.show_make_debug = 1;
-    game.show_set_wave_debug = 1;
+    game.show_make_debug = 0;
+    game.show_set_wave_debug = 0;
+    game.show_set_debug = 1;
+    game.show_place = 1;
     game.show_find_debug = 0;
     game.show_value_map = 0;
-    game.show_send = 0;
+    game.show_send = 1;
     game.show_value_map_adv = 0;
     t_score score;
 
-    //gcc -Wall -Wextra -Werror 50_creating_player.c obj/*.o -L./libft/build -lft -I./ -I./libft -o ./build/boa.filler
     (void)score;
 
     while (get_next_line(0, &line) == 1)
@@ -30,17 +33,34 @@ int main(void)
         if (init_map(line, &game, PIE_KW)) // -1 bad malloc
         {
             make_map(&game, game.org, game.map);
+            set_val_map(&game, game.map, 0);
             make_map(&game, game.org, game.adv);
-            set_val_map(&game, &map, 0);
+            
+            if (game.show_set_debug) 
+            {
+                ft_putstrfile("\n");
+                debug_value_map_color(game.map);
+                ft_putstrfile("|||||||| END SET ||||||||\n");
+            }
+
+            find_place(&game);
             /*
-            if (SHOW_VALUE_MAP)
-                debug_value_map_color(&map);
             score = find_place_adv(&org, &map, &pie, &adv);
             if(SHOW_SEND)
                 send_debug_adv(&map, &score);
             send_position(&map, score.pos);
             */
-            //send_position(0, 0);
+
+            //
+            // FREE ALL before send
+            //
+            if (game.show_send)
+            {
+                ft_putstrfile("📩 SENDED: => ");
+                send_position(game.pnt[0], game.pnt[1], 1);
+                ft_putstrfile("\n");
+            }
+            send_position(game.pnt[0], game.pnt[1], 0);
             continue;
         }
 

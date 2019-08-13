@@ -1,23 +1,27 @@
 #include "filler.h"
-/*
-int is_enemy(int player, char trg)
+
+void place_pie(t_game *game, int row, int col)
 {
-    if (player == 1 && trg == 'z') 
-        return (1);
-    if (player == 2 && trg == 'y') 
-        return (1);  
-    return (0);
+    int r;
+    int c;
+
+    r = -1;
+    c = -1;
+    as_map(game->map, game->adv);
+    while (++r < game->pie->row)
+    {
+        c = -1;
+        while(++c < game->pie->col)
+        {
+            if (game->pie->map[r][c] == -1)
+                continue;
+            set_val(game->adv, row + r, col + c, -3);
+        }
+    }
 }
 
-void is_ally_inc(int player, char trg, int *count)
-{
-    if (player == 1 && trg == 'y') 
-        (*count)++;
-    if (player == 2 && trg == 'z') 
-        (*count)++;  
-}
 
-int is_a_place(int player, t_map *map, t_map *pie, int pos)
+int is_a_place(t_game *game, int row, int col)
 {
     int r;
     int c;
@@ -27,19 +31,20 @@ int is_a_place(int player, t_map *map, t_map *pie, int pos)
     r = -1;
     c = -1;
     count = 0;
-    while (++r < pie->row)
+    while (++r < game->pie->row)
     {
         c = -1;
-        while(++c < pie->col)
+        while(++c < game->pie->col)
         {
-            if (pie->map[r][c] == '.')
+            if (game->pie->map[r][c] == -1)
                 continue;
-            if (not_in_borders(map, pos, r, c))
+            if (!in_borders(game->map, row + r, col + c))
                 return (-1);
-            tmp = map->map[row_p(map, pos) + r][col_p(map, pos) + c];
-            if (is_enemy(player, tmp))
+            tmp = game->map->map[row + r][col + c];
+            if (tmp == 0)
                 return (-2);
-            is_ally_inc(player, tmp, &count);
+            if (tmp == -2)
+                count += 1;
             if (count > 1)
                 return (-3);
         }
@@ -49,35 +54,39 @@ int is_a_place(int player, t_map *map, t_map *pie, int pos)
     return (1);
 }
 
-int find_place(int player, t_map *map, t_map *pie)
+int find_place(t_game *game)
 {
-    int pos;
-    int res;
-    int out;
-    int score;
-    int tmp_score;
+    int row;
+    int col;
+    int plc;
+    t_map *map;
+    t_map *pie;
+     
+    map = game->map;
+    pie = game->pie;
 
-    out = -1;
-    pos = -1;
-    score = MAX_INT;
-    while (++pos / map->col < map->row)
+    row = - pie->row;
+    while(++row < map->row)
     {
-        tmp_score = MAX_INT;
-        res = is_a_place(player, map, pie, pos);
-        if (res == 1)
+        col = - pie->col;
+        while(++col < map->row)
         {
-            tmp_score = calc_score(map, pie, pos);
-            if (tmp_score < score)
+            plc = is_a_place(game, row, col);
+            if (plc == 1)
             {
-                score = tmp_score;
-                out = pos;
+                place_pie(game, row, col);
+                if (game->show_place)
+                {
+                    debug_value_map_color(game->adv);
+                    ft_putstrfile("\n");
+                }
+                game->pnt[0] = row;
+                game->pnt[1] = col;
             }
         }
-        if (SHOW_FIND_DEBUG)
-            find_debug(map, pos, res, tmp_score);
+
     }
-    if (SHOW_FIND_DEBUG)
-        debug_print(">>>>>>>>", 1, 0);
-    return (out);
+    if (game->show_place)
+        ft_putstrfile("........ END PLACE ........\n");
+    return (0);
 }
-*/

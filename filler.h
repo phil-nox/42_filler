@@ -55,6 +55,8 @@ typedef	struct		s_game
 	char			show_read_debug;
 	char			show_make_debug;
 	char			show_set_wave_debug;
+	char			show_set_debug;
+	char			show_place;
 	char			show_find_debug;
 	char 			show_value_map;
 	char			show_send;
@@ -63,6 +65,7 @@ typedef	struct		s_game
 	t_map			*map;
 	t_map			*adv;
 	t_map			*pie;
+	int				pnt[2];
 	int 			player;
 }					t_game;
 
@@ -74,23 +77,28 @@ void debug_num(int num, int next_line);
 void debug_value_map(t_map *map);
 void debug_value_map_color(t_map *map);
 void debug_value_map_color_adv(t_map *map, char *str);
-//void find_debug(t_map *map, int pos, int res, int tmp_score);
-//void send_debug(t_map *map, int pos, int tmp_score);
-//void score_debug(t_map *map, int pos, t_score *score);
-//void send_debug_adv(t_map *map, t_score *score);
 
 int set_player_adv(char *line, t_game *game);
 int set_map(t_game *game, char *keyword);
 int init_map(char *line, t_game *game, char *keyword);
 
-void send_position(int row, int col);
+void send_position(int row, int col, int where);
 
 void as_map(t_map *src, t_map *trg);
 int cpy_map(t_map *src, t_map *trg);
 int make_map(t_game *game, t_map *src, t_map *trg);
 
+int in_borders(t_map *map, int row, int col);
+int set_val(t_map *map, int row, int col, int val);
 void set_val_map(t_game *game, t_map *map, int to_find);
 
+int find_place(t_game *game);
+
+
+//void find_debug(t_map *map, int pos, int res, int tmp_score);
+//void send_debug(t_map *map, int pos, int tmp_score);
+//void score_debug(t_map *map, int pos, t_score *score);
+//void send_debug_adv(t_map *map, t_score *score);
 /*
 int row_p(t_map *map, int pos);
 int col_p(t_map *map, int pos);

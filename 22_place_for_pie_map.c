@@ -58,27 +58,3 @@ int make_map(t_game *game, t_map *src, t_map *trg)
     }
     return (0);
 }
-
-/*
-void place_pie(int pos, t_map *pie, t_map *adv)
-{
-    char to_place;
-    int r;
-    int c;
-
-    //to_place = (adv->player == 1) ? 'y' : 'z';
-    to_place = 'w';
-    r = -1;
-    c = -1;
-    while (++r < pie->row)
-    {
-        c = -1;
-        while(++c < pie->col)
-        {
-            if (pie->map[r][c] == '.')
-                continue;
-            set_val(adv, pos + c + r * (adv->col),to_place);
-        }
-    }
-}
-*/
