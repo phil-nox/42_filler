@@ -1,5 +1,6 @@
 #include "filler.h"
 
+/*
 char get_val(t_map *map, int pos)
 {
     return (map->map[row_p(map, pos)][col_p(map, pos)]);
@@ -26,3 +27,4 @@ void pre_set_val(t_map *map)
             map->map[row_p(map, pos)][col_p(map, pos)] = 'z';   
     }
 }
+*/

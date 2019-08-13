@@ -1,5 +1,6 @@
 #include "filler.h"
 
+/*
 int row_p(t_map *map, int pos)
 {
     return (pos / map->col);
@@ -23,3 +24,4 @@ int not_in_borders(t_map *map, int pos, int t_r, int t_c)
         return (1);
     return (0);
 }
+*/

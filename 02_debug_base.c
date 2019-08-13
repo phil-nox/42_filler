@@ -1,5 +1,6 @@
 #include "filler.h"
 
+/*
 void debug_value_map(t_map *map)
 {
 	int idx;
@@ -10,7 +11,6 @@ void debug_value_map(t_map *map)
 	 debug_print("\n", 1, 0);
 }
 
-/*
 void find_debug(t_map *map, int pos, int res, int tmp_score)
 {
 	if (SHOW_FIND_DEBUG != 1 && res != 1)

@@ -1,5 +1,6 @@
 #include "filler.h"
 
+/*
 t_score find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv)
 {
     int pos;
@@ -51,3 +52,4 @@ t_score find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv)
     }
     return (score);
 }
+*/

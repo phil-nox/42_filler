@@ -58,7 +58,7 @@ void debug_value_map_color(t_map *map)
 		col = -1;
 		while (++col < map->col)
 			map_print(map->map[row][col]);
-		ft_pututf8("\n");
+		ft_putstrfile("\n");
 	}
-	ft_pututf8("\n");
+	ft_putstrfile("\n");
 }

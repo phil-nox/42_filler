@@ -1,5 +1,6 @@
 #include "filler.h"
 
+/*
 int calc_score(t_map *map, t_map *pie, int pos)
 {
     int score;
@@ -99,3 +100,4 @@ t_score get_score(int pos, t_map *map, t_map *pie, t_map *adv)
     }
     return (out);
 }
+*/

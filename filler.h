@@ -70,13 +70,12 @@ typedef	struct		s_game
 }					t_game;
 
 int get_fdd();
-int ft_pututf8(char const *s);
 int ft_putstrfile(char const *s);
 void debug_print(char *str, int next_line, int to_free);
 void debug_num(int num, int next_line);
-void debug_value_map(t_map *map);
+//void debug_value_map(t_map *map);
 void debug_value_map_color(t_map *map);
-void debug_value_map_color_adv(t_map *map, char *str);
+//void debug_value_map_color_adv(t_map *map, char *str);
 
 int set_player_adv(char *line, t_game *game);
 int set_map(t_game *game, char *keyword);
