@@ -1,15 +1,17 @@
 #include "filler.h"
 
-int map_print(char input)
+int map_print(int input)
 {
-	if (input == 'w')
+	if (input == -4)
+		return ft_pututf8("🚨");
+	if (input == -3)
 		return ft_pututf8("🎯");
-	if (input == 'y')
+	if (input == -2)
 		return ft_pututf8("🦑");
-	if (input == 'z')
-		return ft_pututf8("🐢");
-	if (input == '.')
+	if (input == -1)
 		return ft_pututf8("🔹");
+	if (input == 0)
+		return ft_pututf8("🐢");
 	if (input == 48)
 		return ft_pututf8("⬛️");
 	if (input == 49)
@@ -49,41 +51,16 @@ int map_print(char input)
 
 void debug_value_map_color(t_map *map)
 {
-	int idx;
-	int pos;
+	int row;
+	int col;
 
-	idx = -1;
-	while (++idx < map->row)
+	row = -1;
+	while (++row < map->row)
 	{
-		pos = -1;
-		while (map->map[idx][++pos])
-		{
-			if (pos < 4)
-				continue;
-			map_print(map->map[idx][pos]);
-		}
+		col = -1;
+		while (++col < map->col)
+			map_print(map->map[row][col]);
 		ft_pututf8("\n");
 	}
-	debug_print("\n", 1, 0);
-}
-
-void debug_value_map_color_adv(t_map *map, char *str)
-{
-	int idx;
-	int pos;
-
-	idx = -1;
-	while (++idx < map->row)
-	{
-		pos = -1;
-		debug_print(str, 0, 0);
-		while (map->map[idx][++pos])
-		{
-			if (pos < 4)
-				continue;
-			map_print(map->map[idx][pos]);
-		}
-		ft_pututf8("\n");
-	}
-	debug_print("\n", 1, 0);
+	ft_pututf8("\n");
 }

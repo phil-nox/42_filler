@@ -1,5 +1,5 @@
 #include "filler.h"
-
+/*
 int is_enemy(int player, char trg)
 {
     if (player == 1 && trg == 'z') 
@@ -80,3 +80,4 @@ int find_place(int player, t_map *map, t_map *pie)
         debug_print(">>>>>>>>", 1, 0);
     return (out);
 }
+*/

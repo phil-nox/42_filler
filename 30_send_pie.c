@@ -1,17 +1,17 @@
 #include "filler.h"
 
-void send_position(t_map *map, int pos)
+void send_position(int row, int col)
 {
     char *line;
 
-    line = ft_itoa(row_p(map, pos));
+    line = ft_itoa(row);
     write(1, line, ft_strlen(line));
     free(line);
 
     line = " ";
     write(1, line, ft_strlen(line));
     
-    line = ft_itoa(col_p(map, pos) - SHIFT_M);
+    line = ft_itoa(col);
     write(1, line, ft_strlen(line));
     free(line);
 

@@ -16,6 +16,10 @@
 # 	find . -maxdepth 1 -name '*.c' | sed "s/\.\///" | sed "s/\.c/\.o/" | tr '\n' ' '
 #
 
+NAME=boa.filler
+
+PATH_H =./
+
 CC=gcc
 
 FLAGS= -Wall -Wextra -Werror
@@ -30,9 +34,11 @@ PATH_S=./obj/
 
 SRC= 	00_debug_wfile.o 01_debug_utf8.o 02_debug_base.o \
 		03_debug_color.o 04_debug_score.o 10_read_map.o \
-		20_place_for_pie_base.o 21_place_for_pie_find.o \
+		30_send_pie.o
+		
+OTHER=	20_place_for_pie_base.o 21_place_for_pie_find.o \
 		22_place_for_pie_map.o 23_place_for_pie_score.o \
-		24_place_for_pie_find_adv.o 30_send_pie.o \
+		24_place_for_pie_find_adv.o \
 		40_val_for_map_base.o 41_val_for_map_set.o \
 		42_val_for_map_reset.o 90_old.o
 
@@ -44,7 +50,7 @@ $(NAME): $(PATH_SRC)
 all: $(NAME)
 
 play: re
-	./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map00
+	./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map00 -t 1
 
 play_h: re
 	./resources/filler_vm -p2 ./resources/players//abanlin.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map02

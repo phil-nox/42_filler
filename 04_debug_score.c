@@ -1,5 +1,6 @@
 #include "filler.h"
 
+/*
 void score_debug(t_map *map, int pos, t_score *score)
 {
 	debug_print("pos= ", 0, 0);
@@ -23,3 +24,4 @@ void send_debug_adv(t_map *map, t_score *score)
 	debug_print(" => SEND <= ", 0, 0);
 	score_debug(map, score->pos, score);
 }
+*/

@@ -32,3 +32,8 @@ void debug_print(char *str, int next_line, int to_free)
 	if (to_free)
 		free(str);
 }
+
+void debug_num(int num, int next_line)
+{
+	debug_print(ft_itoa(num), next_line, 1);
+}
