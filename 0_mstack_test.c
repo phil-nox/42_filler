@@ -1,0 +1,128 @@
+#include "libft.h"
+
+t_list **get_mstack();
+int	free_mstack(void *to_free);
+void free_all_mstack();
+int add_mstack(void *trg);
+
+//  gcc -Wall -Wextra -Werror 0_mstack.c  0_mstack_test.c -I./libft -L./libft/build -lft -o mstack -g
+//  ./mstack
+//  valgrind --leak-check=full ./mstack
+
+#include <stdio.h>
+
+void f(t_list *elem)
+{
+    printf("%s\n", elem->content);
+}
+
+int main()
+{
+    char *line;
+    char *line2;
+    char *line3;
+
+    (void)line;
+    (void)line2;
+
+
+    line = ft_strnew(1);
+    add_mstack(line);
+    line2 = ft_strnew(1);
+    add_mstack(line2);
+    line3 = ft_strnew(1);
+    add_mstack(line3);
+
+    line[0] = 'a';
+    line2[0] = 'b';
+    line3[0] = 'c';
+
+    printf("%s -> %s -> %s\n", line, line2, line3);
+    ft_lstiter(*get_mstack(), &f);
+
+    free_mstack(line2);
+
+    printf("%s -> %s\n", line, line3);
+    ft_lstiter(*get_mstack(), &f);
+
+    free_mstack(line3);
+
+    printf("%s ->\n", line);
+    ft_lstiter(*get_mstack(), &f);
+
+    free_all_mstack();
+}
+
+
+/*
+// CLEAN WITHOUT MALLOC
+==40643== Memcheck, a memory error detector
+==40643== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==40643== Using Valgrind-3.14.0 and LibVEX; rerun with -h for copyright info
+==40643== Command: ./mstack
+==40643== 
+==40643== 
+==40643== HEAP SUMMARY:
+==40643==     in use at exit: 18,028 bytes in 159 blocks
+==40643==   total heap usage: 175 allocs, 16 frees, 24,172 bytes allocated
+==40643== 
+==40643== 72 bytes in 3 blocks are possibly lost in loss record 26 of 42
+==40643==    at 0x100099C8A: calloc (in /Users/wgorold/.brew/Cellar/valgrind/3.14.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==40643==    by 0x1005B3846: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==40643==    by 0x1005C6FE8: objc_object::sidetable_retainCount() (in /usr/lib/libobjc.A.dylib)
+==40643==    by 0x10000803B: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==40643==    by 0x100008255: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==40643==    by 0x10020100A: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==40643==    by 0x1005B3074: _objc_init (in /usr/lib/libobjc.A.dylib)
+==40643==    by 0x10019468D: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==40643==    by 0x10019463A: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==40643==    by 0x1000A89D5: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==40643==    by 0x100018A1A: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==40643==    by 0x100018C1D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==40643== 
+==40643== LEAK SUMMARY:
+==40643==    definitely lost: 0 bytes in 0 blocks
+==40643==    indirectly lost: 0 bytes in 0 blocks
+==40643==      possibly lost: 72 bytes in 3 blocks
+==40643==    still reachable: 200 bytes in 6 blocks
+==40643==         suppressed: 17,756 bytes in 150 blocks
+==40643== Reachable blocks (those to which a pointer was found) are not shown.
+==40643== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==40643== 
+==40643== For counts of detected and suppressed errors, rerun with: -v
+==40643== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 12 from 12)
+*/
+
+/*
+// WITH MSTACK
+==44582== 
+==44582== HEAP SUMMARY:
+==44582==     in use at exit: 22,124 bytes in 160 blocks
+==44582==   total heap usage: 182 allocs, 22 frees, 28,346 bytes allocated
+==44582== 
+==44582== 72 bytes in 3 blocks are possibly lost in loss record 26 of 43
+==44582==    at 0x100099C8A: calloc (in /Users/wgorold/.brew/Cellar/valgrind/3.14.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==44582==    by 0x1005B3846: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==44582==    by 0x1005C6FE8: objc_object::sidetable_retainCount() (in /usr/lib/libobjc.A.dylib)
+==44582==    by 0x10000803B: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==44582==    by 0x100008255: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==44582==    by 0x10020100A: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==44582==    by 0x1005B3074: _objc_init (in /usr/lib/libobjc.A.dylib)
+==44582==    by 0x10019468D: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==44582==    by 0x10019463A: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==44582==    by 0x1000A89D5: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==44582==    by 0x100018A1A: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==44582==    by 0x100018C1D: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==44582== 
+==44582== LEAK SUMMARY:
+==44582==    definitely lost: 0 bytes in 0 blocks
+==44582==    indirectly lost: 0 bytes in 0 blocks
+==44582==      possibly lost: 72 bytes in 3 blocks
+==44582==    still reachable: 200 bytes in 6 blocks
+==44582==         suppressed: 21,852 bytes in 151 blocks
+==44582== Reachable blocks (those to which a pointer was found) are not shown.
+==44582== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==44582== 
+==44582== For counts of detected and suppressed errors, rerun with: -v
+==44582== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 12 from 12)
+*/
