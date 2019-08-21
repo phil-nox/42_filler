@@ -85,7 +85,6 @@ int init_map(char *line, t_game *game, char *keyword);
 void send_position(int row, int col, int where);
 
 void as_map(t_map *src, t_map *trg);
-int cpy_map(t_map *src, t_map *trg);
 int make_map(t_game *game, t_map *src, t_map *trg);
 
 int in_borders(t_map *map, int row, int col);

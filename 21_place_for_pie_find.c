@@ -59,12 +59,14 @@ int find_place(t_game *game)
     int row;
     int col;
     int plc;
+    int count;
     t_map *map;
     t_map *pie;
      
     map = game->map;
     pie = game->pie;
 
+    count = 0;
     row = - pie->row;
     while(++row < map->row)
     {
@@ -74,6 +76,7 @@ int find_place(t_game *game)
             plc = is_a_place(game, row, col);
             if (plc == 1)
             {
+                count++;
                 place_pie(game, row, col);
                 if (game->show_place)
                 {
@@ -90,5 +93,5 @@ int find_place(t_game *game)
     }
     if (game->show_place)
         ft_putstrfile("........ END PLACE ........\n");
-    return (0);
+    return (count);
 }

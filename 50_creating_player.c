@@ -30,11 +30,15 @@ int main(void)
     game.show_value_map_adv = 0;
     t_score score;
 
+    int found_places;
+    int error;
+
+    error = 0;
     (void)score;
 
     while (get_next_line(0, &line) == 1 && add_mstack(line) == 0)
 	{
-        if (init_map(line, &game, PIE_KW)) // -1 bad malloc
+        if ((error = init_map(line, &game, PIE_KW))) // -1 bad malloc
         {
             make_map(&game, game.org, game.map);
             set_val_map(&game, game.map, 0);
@@ -47,7 +51,7 @@ int main(void)
                 ft_putstrfile("|||||||| END SET ||||||||\n");
             }
 
-            find_place(&game);
+            found_places = find_place(&game);
             /*
             score = find_place_adv(&org, &map, &pie, &adv);
             if(SHOW_SEND)
@@ -55,9 +59,6 @@ int main(void)
             send_position(&map, score.pos);
             */
 
-            //
-            // FREE ALL before send
-            //
             if (game.show_send)
             {
                 ft_putstrfile("📩 SENDED: => ");
@@ -65,14 +66,30 @@ int main(void)
                 ft_putstrfile("\n");
             }
             send_position(game.pnt[0], game.pnt[1], 0);
+
+            if (found_places == 0)
+            {
+                free_all_mstack();
+                return (0);
+            }
             continue;
         }
+        if (error == -1)
+        {
+            free_all_mstack();
+            return (1);
+        }
 
-        if (init_map(line, &game, MAP_KW)) // -1 bad malloc
+        if ((error = init_map(line, &game, MAP_KW))) // -1 bad malloc
             continue;
+        if (error == -1)
+        {
+            free_all_mstack();
+            return (1);
+        }
 
         set_player_adv(line, &game);
-		free(line);
+		free_mstack(line);
 	}
 
     debug_print(NULL, 0, -1);

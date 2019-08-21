@@ -133,10 +133,17 @@ int init_map(char *line, t_game *game, char *keyword)
 
     trg = (keyword == MAP_KW) ? game->org : game->pie;
     trg->row = ft_atoi(line + ft_strlen(keyword));
-    num = ft_itoa(trg->row);
+    num = ft_itoa(trg->row); //TO_DO function return number of char in int
     if(add_mstack(num))
             return (-1);
     trg->col = ft_atoi(line + ft_strlen(keyword) + ft_strlen(num));
+    
+    if(trg->map != NULL && (game->pie->row > game->org->row || game->pie->col > game->org->col))
+    {
+        debug_print("⚠️⚠️⚠️⚠️ pie > org ⚠️⚠️⚠️⚠️", 1, 0);
+        debug_print(line, 1, 0);
+    }
+
     free_mstack(num);
     free_mstack(line);
     
