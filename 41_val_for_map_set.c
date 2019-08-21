@@ -45,6 +45,16 @@ int set_around(t_map *map, int pnt[2], int to_set)
         out += set_val(map, row + 1, col, to_set);
     if (in_borders(map, row - 1, col) && get_val(map, row - 1, col) == -1)
         out += set_val(map, row - 1, col, to_set);
+
+    
+    if (in_borders(map, row + 1, col + 1) && get_val(map, row + 1, col + 1) == -1)
+        out += set_val(map, row + 1, col + 1, to_set);
+    if (in_borders(map, row + 1, col - 1) && get_val(map, row + 1, col - 1) == -1)
+        out += set_val(map, row + 1, col - 1, to_set);
+    if (in_borders(map, row - 1, col + 1) && get_val(map, row - 1, col + 1) == -1)
+        out += set_val(map, row - 1, col + 1, to_set);
+    if (in_borders(map, row - 1, col - 1) && get_val(map, row - 1, col - 1) == -1)
+        out += set_val(map, row - 1, col - 1, to_set);
     return (out);
 }
 
