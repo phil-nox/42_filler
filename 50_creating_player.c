@@ -11,6 +11,10 @@ int main(void)
     t_map pie;
     game.pnt[0] = -1;
     game.pnt[1] = -1;
+    org.map = NULL;
+    map.map = NULL;
+    adv.map = NULL;
+    pie.map = NULL;
     game.org = &org;
     game.map = &map;
     game.adv = &adv;
@@ -28,7 +32,7 @@ int main(void)
 
     (void)score;
 
-    while (get_next_line(0, &line) == 1)
+    while (get_next_line(0, &line) == 1 && add_mstack(line) == 0)
 	{
         if (init_map(line, &game, PIE_KW)) // -1 bad malloc
         {

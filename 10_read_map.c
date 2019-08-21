@@ -25,9 +25,9 @@ int set_map_job(t_game *game, char *keyword)
     while (++idx < trg->row)
     {
         get_next_line(0, &line);
-        trg->map[idx] = (int *)malloc((trg->col) * sizeof(int *));
-        if(!trg->map[idx])
+        if(add_mstack(line))
             return (-1);
+
         idxc = -1;
         while (++idxc < trg->col)
         {
@@ -43,7 +43,56 @@ int set_map_job(t_game *game, char *keyword)
             else
                 trg->map[idx][idxc] = -4; //error
         }
-        free(line);
+        free_mstack(line);
+    }
+    return (0);
+}
+
+
+void init_null(t_game *game)
+{
+    int idx; 
+
+    idx = -1;
+    while (++idx < game->org->row)
+    {
+        game->org->map[idx] = NULL;
+        game->pie->map[idx] = NULL;
+    }
+}
+
+int one_time_game_malloc(t_game *game)
+{
+    int idx;
+
+    game->org->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->org->map))
+            return (1);
+    game->map->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->org->map))
+            return (1);
+    game->adv->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->org->map))
+            return (1);
+    game->pie->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->pie->map))
+            return (1);
+    
+    idx = -1;
+    while (++idx < game->org->row)
+    {
+        game->org->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+        if(add_mstack(game->org->map[idx]))
+            return (1);
+        game->map->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+        if(add_mstack(game->org->map[idx]))
+            return (1);
+        game->adv->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+        if(add_mstack(game->org->map[idx]))
+            return (1);
+        game->pie->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+        if(add_mstack(game->pie->map[idx]))
+            return (1);
     }
     return (0);
 }
@@ -58,12 +107,14 @@ int set_map(t_game *game, char *keyword)
 
     if (keyword == MAP_KW)
     {
+        if (trg->map == NULL)
+            if(one_time_game_malloc(game))
+                return (-1);
         get_next_line(0, &line);
-        free(line);
+        if(add_mstack(line))
+            return (-1);
+        free_mstack(line);
     }
-    trg->map = (int **)malloc((trg->row) * sizeof(int **));
-    if (!trg->map)
-        return (-1);
     set_map_job (game, keyword);
     return (1);
 }
@@ -72,6 +123,7 @@ int init_map(char *line, t_game *game, char *keyword)
 {
     t_map *trg;
     int out;
+    char *num;
 
     if (!ft_strstr(line, keyword))
         return (0);
@@ -81,11 +133,16 @@ int init_map(char *line, t_game *game, char *keyword)
 
     trg = (keyword == MAP_KW) ? game->org : game->pie;
     trg->row = ft_atoi(line + ft_strlen(keyword));
-    trg->col = ft_atoi(line + ft_strlen(keyword) + ft_strlen(ft_itoa(trg->row)));
-    free(line);
+    num = ft_itoa(trg->row);
+    if(add_mstack(num))
+            return (-1);
+    trg->col = ft_atoi(line + ft_strlen(keyword) + ft_strlen(num));
+    free_mstack(num);
+    free_mstack(line);
+    
 
     out = set_map(game, keyword);
-    if (game->show_read_debug)
+    if (out != -1 && game->show_read_debug)
     {
         debug_value_map_color(trg);
         if (keyword == PIE_KW)

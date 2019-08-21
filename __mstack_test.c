@@ -1,11 +1,12 @@
 #include "libft.h"
+#include "__mstack.h"
 
 t_list **get_mstack();
 int	free_mstack(void *to_free);
 void free_all_mstack();
 int add_mstack(void *trg);
 
-//  gcc -Wall -Wextra -Werror 0_mstack.c  0_mstack_test.c -I./libft -L./libft/build -lft -o mstack -g
+//  gcc -Wall -Wextra -Werror __mstack.c  __mstack_test.c -I./libft -L./libft/build -lft -o mstack -g
 //  ./mstack
 //  valgrind --leak-check=full ./mstack
 
@@ -13,7 +14,8 @@ int add_mstack(void *trg);
 
 void f(t_list *elem)
 {
-    printf("%s\n", elem->content);
+    ft_putstr(elem->content);
+    ft_putstr("\n");
 }
 
 int main()
@@ -25,7 +27,6 @@ int main()
     (void)line;
     (void)line2;
 
-
     line = ft_strnew(1);
     add_mstack(line);
     line2 = ft_strnew(1);
@@ -33,21 +34,24 @@ int main()
     line3 = ft_strnew(1);
     add_mstack(line3);
 
+    
+
     line[0] = 'a';
     line2[0] = 'b';
-    line3[0] = 'c';
+    line3[0] = 'c'; 
 
-    printf("%s -> %s -> %s\n", line, line2, line3);
+    //printf makes malloc without free
+    //printf("%s -> %s -> %s\n", line, line2, line3);
     ft_lstiter(*get_mstack(), &f);
 
     free_mstack(line2);
 
-    printf("%s -> %s\n", line, line3);
+    //printf("%s -> %s\n", line, line3);
     ft_lstiter(*get_mstack(), &f);
 
     free_mstack(line3);
 
-    printf("%s ->\n", line);
+    //printf("%s ->\n", line);
     ft_lstiter(*get_mstack(), &f);
 
     free_all_mstack();
