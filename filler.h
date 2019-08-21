@@ -62,6 +62,7 @@ typedef	struct		s_game
 	char 			show_value_map;
 	char			show_send;
 	char			show_value_map_adv;
+	char			show_reset_wave_debug;
 	t_map			*org;
 	t_map			*map;
 	t_map			*adv;
@@ -93,6 +94,11 @@ void set_val_map(t_game *game, t_map *map, int to_find);
 
 int find_place(t_game *game);
 
+int get_val(t_map *map, int row, int col);
+int get_val_pnt(t_map *map, int pnt[2]);
+void reset_pie(t_game *game, int row, int col);
+void reset_val_map(t_game *game, int row, int col);
+int reset_around(t_game *game, int row, int col, int to_set);
 
 //void find_debug(t_map *map, int pos, int res, int tmp_score);
 //void send_debug(t_map *map, int pos, int tmp_score);

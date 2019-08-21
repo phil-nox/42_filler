@@ -2,6 +2,8 @@
 
 int map_print(int input)
 {
+	if (input <= -5)
+		return ft_putstrfile("⚛️");
 	if (input == -4)
 		return ft_putstrfile("🚨");
 	if (input == -3)

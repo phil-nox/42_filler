@@ -28,6 +28,7 @@ int main(void)
     game.show_value_map = 0;
     game.show_send = 1;
     game.show_value_map_adv = 0;
+    game.show_reset_wave_debug = 1;
     t_score score;
 
     int found_places;

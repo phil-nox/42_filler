@@ -25,10 +25,6 @@ int set_val(t_map *map, int row, int col, int val)
 
 int set_around(t_map *map, int pnt[2], int to_set)
 {
-    //Учесть диалональ
-    //🔹🔹🎯
-    //🎯🎯🔹
-
     int out;
     int row;
     int col;
@@ -57,6 +53,7 @@ int set_around(t_map *map, int pnt[2], int to_set)
         out += set_val(map, row - 1, col - 1, to_set);
     return (out);
 }
+
 
 void set_val_map(t_game *game, t_map *map, int to_find)
 {

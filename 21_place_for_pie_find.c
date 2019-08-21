@@ -83,6 +83,8 @@ int find_place(t_game *game)
                     debug_value_map_color(game->adv);
                     ft_putstrfile("\n");
                 }
+                reset_val_map(game, row, col);
+
                 // just last 
                 // make a adv with new algoritm 
                 game->pnt[0] = row;
