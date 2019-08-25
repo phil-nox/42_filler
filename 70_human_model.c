@@ -84,15 +84,51 @@ int map_incoming (t_game *game, char *line)
     return (0);
 }
 
+
+int cmd_apply(t_game *game, int fd_map, char input)
+{
+    if (input == 's')
+    {
+        game->pnt[0] += 1;
+        send_map_to_view(game, fd_map);
+        return (0);
+    }
+    if (input == 'w')
+    {
+        game->pnt[0] -= 1;
+        send_map_to_view(game, fd_map);
+        return (0);
+    }
+    if (input == 'd')
+    {
+        game->pnt[1] += 1;
+        send_map_to_view(game, fd_map);
+        return (0);
+    }
+    if (input == 'a')
+    {
+        game->pnt[1] -= 1;
+        send_map_to_view(game, fd_map);
+        return (0);
+    }
+    if (input == 'e')
+    {
+        send_position(game->pnt[0], game->pnt[1], 0);
+        return (1);
+    }
+    return (0);
+}
+
 int main(void)
 {
-    // gcc -Wall -Wextra -Werror human_model_game.c obj/*.o -L./libft/build -lft -I./ -I./libft  -o human_model_game.filler
-    // gcc -Wall -Wextra -Werror human_view_control_game.c -o human_view_control_game.filler
-    // ./human_model_game.filler 
-    // ./human_view_control_game.filler #(new terminal, some folder)
-    // echo '1 2' > mypipe.cmd #FIFO_CMD #(new terminal, some folder)
+    // make re && gcc -Wall -Wextra -Werror 70_human_model.c obj/*.o -L./libft/build -lft -I./ -I./libft  -o 70_human_model.filler
+    // gcc -Wall -Wextra -Werror 71_human_view.c -o 71_human_view.filler
+    // gcc -Wall -Wextra -Werror 72_human_controller.c -o 72_human_controller.filler
+    // ./70_human_model.filler 
+    // ./71_human_view.filler #(new terminal, some folder)
+    // ./72_human_controller.filler #(new terminal, some folder)
 
-    // ./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./human_model_game.filler -f ./resources/maps/map00 -t 99
+    // ./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./70_human_model.filler  -f ./resources/maps/map00 -t 99
 
     // START --- GAME
     char *line_gnl;
@@ -138,7 +174,6 @@ int main(void)
     if (load_model(&fd_cmd, &fd_map, 0))
         return (1);
 
-    //while ((pos = read(fd_cmd, line, BUF_SIZE)) || ((line_incomeing = get_next_line(0, &line_gnl)) == 1 && add_mstack(line_gnl) == 0))
     while (((line_incomeing = get_next_line(0, &line_gnl)) == 1 && add_mstack(line_gnl) == 0))
     {
         if (line_incomeing == 1)
@@ -149,19 +184,14 @@ int main(void)
             return (1);
         }
         if (decision == 1)
-            send_map_to_view(&game, fd_map);
-        pos = 0;
-        line[pos] = '\0';
-        /*
-        //write(1, line, ftt_strlen(line));
-        if (line[0] != '>')
-            write(fd_map, line, ftt_strlen(line));
-        if (line[0] == 'x')
         {
-            write(fd_map, line, ftt_strlen(line));
-            break;
+            send_map_to_view(&game, fd_map);
+            while ((pos = read(fd_cmd, line, BUF_SIZE)))
+            {
+                if (cmd_apply(&game, fd_map, line[0]))
+                    break;
+            }
         }
-        */
     }
     close(fd_cmd);
     close(fd_map);
