@@ -100,6 +100,8 @@ void reset_pie(t_game *game, int row, int col);
 void reset_val_map(t_game *game, int row, int col);
 int reset_around(t_game *game, int row, int col, int to_set);
 
+void send_map_to_view(t_game *game, int fd_map);
+
 //void find_debug(t_map *map, int pos, int res, int tmp_score);
 //void send_debug(t_map *map, int pos, int tmp_score);
 //void score_debug(t_map *map, int pos, t_score *score);

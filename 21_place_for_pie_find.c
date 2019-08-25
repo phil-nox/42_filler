@@ -83,6 +83,7 @@ int find_place(t_game *game)
                     debug_value_map_color(game->adv);
                     ft_putstrfile("\n");
                 }
+                // this one
                 reset_val_map(game, row, col);
 
                 // just last 
