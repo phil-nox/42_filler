@@ -128,7 +128,7 @@ int main(void)
     // ./71_human_view.filler #(new terminal, some folder)
     // ./72_human_controller.filler #(new terminal, some folder)
 
-    // ./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./70_human_model.filler  -f ./resources/maps/map00 -t 99
+    // ./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./70_human_model.filler  -f ./resources/maps/map00 -t 99 -s 7219
 
     // START --- GAME
     char *line_gnl;
@@ -185,6 +185,8 @@ int main(void)
         }
         if (decision == 1)
         {
+            game.pnt[0] = 0;
+            game.pnt[1] = 0;
             send_map_to_view(&game, fd_map);
             while ((pos = read(fd_cmd, line, BUF_SIZE)))
             {
