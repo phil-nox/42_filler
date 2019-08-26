@@ -89,24 +89,32 @@ int cmd_apply(t_game *game, int fd_map, char input)
 {
     if (input == 's')
     {
+        if (is_a_place(game, game->pnt[0] + 1, game->pnt[1]) == -1)
+            return (0);
         game->pnt[0] += 1;
         send_map_to_view(game, fd_map);
         return (0);
     }
     if (input == 'w')
     {
+        if (is_a_place(game, game->pnt[0] - 1, game->pnt[1]) == -1)
+            return (0);
         game->pnt[0] -= 1;
         send_map_to_view(game, fd_map);
         return (0);
     }
     if (input == 'd')
     {
+        if (is_a_place(game, game->pnt[0], game->pnt[1] + 1) == -1)
+            return (0);
         game->pnt[1] += 1;
         send_map_to_view(game, fd_map);
         return (0);
     }
     if (input == 'a')
     {
+        if (is_a_place(game, game->pnt[0], game->pnt[1] - 1) == -1)
+            return (0);
         game->pnt[1] -= 1;
         send_map_to_view(game, fd_map);
         return (0);

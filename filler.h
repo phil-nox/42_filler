@@ -88,7 +88,7 @@ void send_position(int row, int col, int where);
 void as_map(t_map *src, t_map *trg);
 int make_map(t_game *game, t_map *src, t_map *trg);
 
-int in_borders(t_map *map, int row, int col);
+int in_borders(t_game *game, int row, int col);
 int set_val(t_map *map, int row, int col, int val);
 void set_val_map(t_game *game, t_map *map, int to_find);
 

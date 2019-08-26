@@ -8,23 +8,23 @@ int reset_this(t_game *game, int row, int col, int to_set)
     if (cur < 1)
         return (0);
 
-    if (in_borders(game->adv, row, col + 1) && get_val(game->adv, row, col + 1) == cur - 1)
+    if (in_borders(game, row, col + 1) && get_val(game->adv, row, col + 1) == cur - 1)
         return (0);
-    if (in_borders(game->adv, row, col - 1) && get_val(game->adv, row, col - 1) == cur - 1)
+    if (in_borders(game, row, col - 1) && get_val(game->adv, row, col - 1) == cur - 1)
         return (0);
-    if (in_borders(game->adv, row + 1, col) && get_val(game->adv, row + 1, col) == cur - 1)
+    if (in_borders(game, row + 1, col) && get_val(game->adv, row + 1, col) == cur - 1)
         return (0);
-    if (in_borders(game->adv, row - 1, col) && get_val(game->adv, row - 1, col) == cur - 1)
+    if (in_borders(game, row - 1, col) && get_val(game->adv, row - 1, col) == cur - 1)
         return (0);
 
     
-    if (in_borders(game->adv, row + 1, col + 1) && get_val(game->adv, row + 1, col + 1) == cur - 1)
+    if (in_borders(game, row + 1, col + 1) && get_val(game->adv, row + 1, col + 1) == cur - 1)
         return (0);
-    if (in_borders(game->adv, row + 1, col - 1) && get_val(game->adv, row + 1, col - 1) == cur - 1)
+    if (in_borders(game, row + 1, col - 1) && get_val(game->adv, row + 1, col - 1) == cur - 1)
         return (0);
-    if (in_borders(game->adv, row - 1, col + 1) && get_val(game->adv, row - 1, col + 1) == cur - 1)
+    if (in_borders(game, row - 1, col + 1) && get_val(game->adv, row - 1, col + 1) == cur - 1)
         return (0);
-    if (in_borders(game->adv, row - 1, col - 1) && get_val(game->adv, row - 1, col - 1) == cur - 1)
+    if (in_borders(game, row - 1, col - 1) && get_val(game->adv, row - 1, col - 1) == cur - 1)
         return (0);
 
     set_val(game->adv, row, col, to_set);
@@ -36,22 +36,22 @@ int reset_around(t_game *game, int row, int col, int to_set)
     int out;
 
     out = 0;
-    if (in_borders(game->adv, row, col + 1) && get_val(game->adv, row, col + 1) > 0)
+    if (in_borders(game, row, col + 1) && get_val(game->adv, row, col + 1) > 0)
         out += reset_this(game, row, col + 1, to_set);
-    if (in_borders(game->adv, row, col - 1) && get_val(game->adv, row, col - 1) > 0)
+    if (in_borders(game, row, col - 1) && get_val(game->adv, row, col - 1) > 0)
         out += reset_this(game, row, col - 1, to_set);
-    if (in_borders(game->adv, row + 1, col) && get_val(game->adv, row + 1, col) > 0)
+    if (in_borders(game, row + 1, col) && get_val(game->adv, row + 1, col) > 0)
         out += reset_this(game, row + 1, col, to_set);
-    if (in_borders(game->adv, row - 1, col) && get_val(game->adv, row - 1, col) > 0)
+    if (in_borders(game, row - 1, col) && get_val(game->adv, row - 1, col) > 0)
         out += reset_this(game, row - 1, col, to_set);
 
-    if (in_borders(game->adv, row + 1, col + 1) && get_val(game->adv, row + 1, col + 1) > 0)
+    if (in_borders(game, row + 1, col + 1) && get_val(game->adv, row + 1, col + 1) > 0)
         out += reset_this(game, row + 1, col + 1, to_set);
-    if (in_borders(game->adv, row + 1, col - 1) && get_val(game->adv, row + 1, col - 1) > 0)
+    if (in_borders(game, row + 1, col - 1) && get_val(game->adv, row + 1, col - 1) > 0)
         out += reset_this(game, row + 1, col - 1, to_set);
-    if (in_borders(game->adv, row - 1, col + 1) && get_val(game->adv, row - 1, col + 1) > 0)
+    if (in_borders(game, row - 1, col + 1) && get_val(game->adv, row - 1, col + 1) > 0)
         out += reset_this(game, row - 1, col + 1, to_set);
-    if (in_borders(game->adv, row - 1, col - 1) && get_val(game->adv, row - 1, col - 1) > 0)
+    if (in_borders(game, row - 1, col - 1) && get_val(game->adv, row - 1, col - 1) > 0)
         out += reset_this(game, row - 1, col - 1, to_set);
     return (out);
 }

@@ -27,6 +27,8 @@ int is_a_place(t_game *game, int row, int col)
     int c;
     char tmp;
     int count;
+    int row_game;
+    int col_game;
 
     r = -1;
     c = -1;
@@ -38,9 +40,19 @@ int is_a_place(t_game *game, int row, int col)
         {
             if (game->pie->map[r][c] == -1)
                 continue;
-            if (!in_borders(game->map, row + r, col + c))
+            if (!in_borders(game, row + r, col + c))
                 return (-1);
-            tmp = game->map->map[row + r][col + c];
+            if (row + r < 0)
+                row_game = game->map->row + (row + r);
+            else
+                row_game = (row + r);
+            
+            if (col + c < 0)
+                col_game = game->map->col + (col + c);
+            else
+                col_game = (col + c);
+
+            tmp = game->map->map[row_game][col_game];
             if (tmp == 0)
                 return (-2);
             if (tmp == -2)
