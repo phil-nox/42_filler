@@ -3,7 +3,7 @@
 int map_print(int input)
 {
 	if (input <= -5)
-		return ft_putstrfile("⚛️");
+		return ft_putstrfile("⬛️");
 	if (input == -4)
 		return ft_putstrfile("🚨");
 	if (input == -3)
@@ -48,7 +48,7 @@ int map_print(int input)
 	if (input == 15)
 		return ft_putstrfile("⚛️");
 		*/
-	return ft_putstrfile("⬛️");
+	return ft_putstrfile("☑️");
 }
 
 void debug_value_map_color(t_map *map)

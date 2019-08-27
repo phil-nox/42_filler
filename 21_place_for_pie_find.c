@@ -72,6 +72,7 @@ int find_place(t_game *game)
     int col;
     int plc;
     int count;
+    int min_border_val;
     t_map *map;
     t_map *pie;
      
@@ -96,7 +97,17 @@ int find_place(t_game *game)
                     ft_putstrfile("\n");
                 }
                 // this one
-                reset_val_map(game, row, col);
+                min_border_val = reset_val_map(game, row, col);
+                set_val_map(game, game->adv, min_border_val); //just full, can use min found value
+                if (game->show_set_debug) 
+                {
+                    debug_num(min_border_val, 1);
+                    ft_putstrfile("\n");
+                    debug_value_map_color(game->adv);
+                    ft_putstrfile("|||||||| END after reSET ||||||||\n");
+                }
+                diff_val_map(game, min_border_val);
+
 
                 // just last 
                 // make a adv with new algoritm 

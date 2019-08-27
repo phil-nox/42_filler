@@ -12,7 +12,9 @@ int get_val_pnt(t_map *map, int pnt[2])
 
 int in_borders(t_game *game, int row, int col)
 {
-    if (row <= - game->pie->row || col <= - game->pie->col || row >= game->map->row || col >= game->map->col)
+    // Uncomment this line and human model will start work with a bug of the borders, but bot will start doing Segfault
+    //if (row <= - game->pie->row || col <= - game->pie->col || row >= game->map->row || col >= game->map->col)
+    if (row < 0 || col < 0 || row >= game->map->row || col >= game->map->col)
         return (0);
     return (1);
 }
@@ -23,12 +25,12 @@ int set_val(t_map *map, int row, int col, int val)
     int col_game;
 
     if (row < 0)
-        row_game = map->row + (row % map->row);
+        row_game = map->row + row;
     else
         row_game = row % map->row;
     
     if (col < 0)
-        col_game = map->col + (col % map->col);
+        col_game = map->col + col;
     else
         col_game = col % map->col;
     
