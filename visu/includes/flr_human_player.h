@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 23:08:48 by laleta            #+#    #+#             */
-/*   Updated: 2019/08/26 04:11:03 by laleta           ###   ########.fr       */
+/*   Updated: 2019/08/27 20:21:00 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@
 # define CMD_LEN		1
 
 extern	int32_t			g_fdmap;
-extern	int32_t			g_fdcmd;
+//extern	int32_t			g_fdcmd;
 
 #endif
