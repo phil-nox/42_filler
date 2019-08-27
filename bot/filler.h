@@ -28,6 +28,7 @@
 #include "libft.h"
 #include "get_next_line.h"
 #include "__mstack.h"
+#include "human.h"
 
 typedef	struct		s_pnt
 {
@@ -72,6 +73,18 @@ typedef	struct		s_game
 	int 			player;
 }					t_game;
 
+typedef	struct		s_game_pack
+{
+	t_game			game;
+	t_map			org;
+	t_map			map;
+	t_map			adv;
+	t_map			pie;
+	char			*gnl;
+	char			cmd_l[BUF_SIZE];
+	int				decision;
+}					t_game_pack;
+
 int get_fdd();
 int ft_putstrfile(char const *s);
 void debug_print(char *str, int next_line, int to_free);
@@ -81,8 +94,8 @@ void debug_value_map_color(t_map *map);
 //void debug_value_map_color_adv(t_map *map, char *str);
 
 int set_player_adv(char *line, t_game *game);
-int set_map(t_game *game, char *keyword);
-int init_map(char *line, t_game *game, char *keyword);
+int set_map(t_game *game, char *keyword, int fd_in);
+int init_map(char *line, t_game *game, char *keyword, int fd_in);
 
 void send_position(int row, int col, int where);
 
@@ -102,8 +115,12 @@ int reset_val_map(t_game *game, int row, int col);
 //int reset_around(t_game *game, int row, int col, int to_set);
 void diff_val_map(t_game *game, int min_border_val);
 
-void send_map_to_view(t_game *game, int fd_map);
+void send_map_to_view(t_game *game, t_map *show, int fd_map, int with_pie);
 int is_a_place(t_game *game, int row, int col);
+
+int map_incoming (t_game *game, char *line, int fd);
+int cmd_apply(t_game *game, int fd_map, char input);
+void game_pack_init(t_game_pack *game_p);
 
 //void find_debug(t_map *map, int pos, int res, int tmp_score);
 //void send_debug(t_map *map, int pos, int tmp_score);

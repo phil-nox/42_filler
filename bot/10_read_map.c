@@ -11,7 +11,7 @@ int set_player_adv(char *line, t_game *game)
        return (0);
 }
 
-int set_map_job(t_game *game, char *keyword)
+int set_map_job(t_game *game, char *keyword, int fd_in)
 {
     int idx;
     int idxc;
@@ -24,7 +24,7 @@ int set_map_job(t_game *game, char *keyword)
     idx = -1;
     while (++idx < trg->row)
     {
-        get_next_line(0, &line);
+        get_next_line(fd_in, &line);
         if(add_mstack(line))
             return (-1);
 
@@ -98,7 +98,7 @@ int one_time_game_malloc(t_game *game)
 }
 
 
-int set_map(t_game *game, char *keyword)
+int set_map(t_game *game, char *keyword, int fd_in)
 {
     char *line;
     t_map *trg;
@@ -110,16 +110,16 @@ int set_map(t_game *game, char *keyword)
         if (trg->map == NULL)
             if(one_time_game_malloc(game))
                 return (-1);
-        get_next_line(0, &line);
+        get_next_line(fd_in, &line);
         if(add_mstack(line))
             return (-1);
         free_mstack(line);
     }
-    set_map_job (game, keyword);
+    set_map_job (game, keyword, fd_in);
     return (1);
 }
 
-int init_map(char *line, t_game *game, char *keyword)
+int init_map(char *line, t_game *game, char *keyword, int fd_in)
 {
     t_map *trg;
     int out;
@@ -148,7 +148,7 @@ int init_map(char *line, t_game *game, char *keyword)
     free_mstack(line);
     
 
-    out = set_map(game, keyword);
+    out = set_map(game, keyword, fd_in);
     if (out != -1 && game->show_read_debug)
     {
         debug_value_map_color(trg);
