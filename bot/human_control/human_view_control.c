@@ -1,6 +1,6 @@
 #include "human.h"
 
-size_t	ftt_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t	idx;
 
@@ -51,7 +51,7 @@ int main(void)
     while ((pos = read(fd_map, line, BUF_SIZE)))
     {
         line[pos] = '\0';
-        write(1, line, ftt_strlen(line));
+        write(1, line, ft_strlen(line));
         if (line[0] == 'x')
         {
             write(fd_cmd, ">x\n", 4);

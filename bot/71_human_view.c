@@ -1,14 +1,5 @@
 #include "human.h"
-
-size_t	ftt_strlen(const char *s)
-{
-	size_t	idx;
-
-	idx = 0;
-	while (s[idx])
-		idx++;
-	return (idx);
-}
+#include "filler.h"
 
 int load_view(int *fd_adp, int *fd_map)
 {   
@@ -30,17 +21,13 @@ int load_view(int *fd_adp, int *fd_map)
         return (1);
     }
     write(1, "open_map:\tdone\n", 16);
-
     write(1, "open:\tdone\n", 12);
-
     write(1, "start! wait fd_map&fd_adp\n", 27);
     return (0);
 }
 
 int main(void)
 {
-    // read human_model.c
-
     int fd_adp;
     int fd_map;
     int pos;
@@ -49,34 +36,16 @@ int main(void)
 
     if (load_view(&fd_adp, &fd_map))
         return (1);
-    
-    //while ((pos = read(fd_adp, line, BUF_SIZE)))
     while ((pos = read(fd_map, line, BUF_SIZE)))
     {
         line[pos] = '\0';
-        write(1, line, ftt_strlen(line));
-        /*
-        while ((pos = read(fd_adp, line, BUF_SIZE)))
-        {
-            line[pos] = '\0';
-            write(1, line, ftt_strlen(line));
-        }
-        */
+        write(1, line, ft_strlen(line));
     }
-
     while ((pos = read(fd_adp, line, BUF_SIZE)))
     {
         line[pos] = '\0';
-        write(1, line, ftt_strlen(line));
-        /*
-        while ((pos = read(fd_adp, line, BUF_SIZE)))
-        {
-            line[pos] = '\0';
-            write(1, line, ftt_strlen(line));
-        }
-        */
+        write(1, line, ft_strlen(line));
     }
-
     close(fd_adp);
     close(fd_map);
     return (0);

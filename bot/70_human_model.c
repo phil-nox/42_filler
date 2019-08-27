@@ -1,133 +1,19 @@
 #include "human.h"
 #include "filler.h"
 
-size_t	ftt_strlen(const char *s)
+int load_model(int *fd_cmd, int *fd_map)
 {
-	size_t	idx;
-
-	idx = 0;
-	while (s[idx])
-		idx++;
-	return (idx);
-}
-
-int load_model(int *fd_cmd, int *fd_map, int debug)
-{
-    /*
-    unlink(FIFO_MAP);
-    unlink(FIFO_CMD);
-    unlink(FIFO_ADP);
-    unlink(FIFO_VM);
-    if (debug)
-        write(1, "unlink:\tdone\n", 14);
-
-    
-    if (mkfifo(FIFO_MAP, 0777) != 0 || mkfifo(FIFO_CMD, 0777) != 0 || mkfifo(FIFO_ADP, 0777) != 0 || mkfifo(FIFO_VM, 0777) != 0)
-    {
-        //perror("mkfifo() error"); //#include <stdio.h>
-        if (debug)
-            if (debug)write(1, "Failed with mkfifo()", 21);
-        return (1);
-    }
-    if (debug)
-        write(1, "mkfifo:\tdone\n", 14);
-        */
-
     *fd_map = open(FIFO_MAP, O_WRONLY);
     if (*fd_map < 1)
     {
-        if (debug)
-            write(1, "Failed with open() FIFO_MAP\n", 29);
+        write(1, "Failed with open() FIFO_MAP\n", 29);
         return (1);
     }
 
     *fd_cmd = open(FIFO_CMD, O_RDONLY);
     if (*fd_cmd < 1 )
     {
-        if (debug)
-            write(1, "Failed with open() FIFO_CMD\n", 29);
-        return (1);
-    }
-    if (debug)
-        write(1, "open_cmd:\tdone\n", 16);
-
-    if (debug)
-    {
-        write(1, "open_map:\tdone\n", 16);
-        write(1, "open:\tdone\n", 12);
-        write(1, "start! wait fd_cmd\n", 20);
-    }
-    return (0);
-}
-
-int map_incoming (t_game *game, char *line, int fd_vm)
-{
-    int error;
-
-    error = 0;
-
-    if ((error = init_map(line, game, PIE_KW, fd_vm))) // -1 bad malloc
-    {
-        make_map(game, game->org, game->map);
-        return (1);
-    }
-    if (error == -1)
-    {
-        free_all_mstack();
-        return (-1);
-    }
-
-    if ((error = init_map(line, game, MAP_KW, fd_vm))) // -1 bad malloc
-        return (0);
-    if (error == -1)
-    {
-        free_all_mstack();
-        return (-1);
-    }
-
-    set_player_adv(line, game);
-	free_mstack(line);
-    return (0);
-}
-
-
-int cmd_apply(t_game *game, int fd_map, char input)
-{
-    if (input == 's')
-    {
-        if (is_a_place(game, game->pnt[0] + 1, game->pnt[1]) == -1)
-            return (0);
-        game->pnt[0] += 1;
-        send_map_to_view(game, game->adv, fd_map, 1);
-        return (0);
-    }
-    if (input == 'w')
-    {
-        if (is_a_place(game, game->pnt[0] - 1, game->pnt[1]) == -1)
-            return (0);
-        game->pnt[0] -= 1;
-        send_map_to_view(game, game->adv, fd_map, 1);
-        return (0);
-    }
-    if (input == 'd')
-    {
-        if (is_a_place(game, game->pnt[0], game->pnt[1] + 1) == -1)
-            return (0);
-        game->pnt[1] += 1;
-        send_map_to_view(game, game->adv, fd_map, 1);
-        return (0);
-    }
-    if (input == 'a')
-    {
-        if (is_a_place(game, game->pnt[0], game->pnt[1] - 1) == -1)
-            return (0);
-        game->pnt[1] -= 1;
-        send_map_to_view(game, game->adv, fd_map, 1);
-        return (0);
-    }
-    if (input == 'e')
-    {
-        send_position(game->pnt[0], game->pnt[1], 0);
+        write(1, "Failed with open() FIFO_CMD\n", 29);
         return (1);
     }
     return (0);
@@ -135,85 +21,35 @@ int cmd_apply(t_game *game, int fd_map, char input)
 
 int main(void)
 {
-    // make re && gcc -Wall -Wextra -Werror 70_human_model.c obj/*.o -L./libft/build -lft -I./ -I./libft  -o 70_human_model.filler
-    // gcc -Wall -Wextra -Werror 71_human_view.c -o 71_human_view.filler
-    // gcc -Wall -Wextra -Werror 72_human_controller.c -o 72_human_controller.filler
-    // ./70_human_model.filler 
-    // ./71_human_view.filler #(new terminal, some folder)
-    // ./72_human_controller.filler #(new terminal, some folder)
-
-    // ./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./70_human_model.filler  -f ./resources/maps/map00 -t 99 -s 7219
-
-    // START --- GAME
-    char *line_gnl;
-
-    t_game game;
-    t_map org;
-    t_map map;
-    t_map adv;
-    t_map pie;
-    game.pnt[0] = 0;
-    game.pnt[1] = 0;
-    org.map = NULL;
-    map.map = NULL;
-    adv.map = NULL;
-    pie.map = NULL;
-    game.org = &org;
-    game.map = &map;
-    game.adv = &adv;
-    game.pie = &pie;
-    game.show_read_debug = 1;
-    game.show_make_debug = 0;
-    game.show_set_wave_debug = 0;
-    game.show_set_debug = 0;
-    game.show_place = 0;
-    game.show_find_debug = 0;
-    game.show_value_map = 0;
-    game.show_send = 0;
-    game.show_value_map_adv = 0;
-    game.show_reset_wave_debug = 0;
-
-    // END --- GAME
-
+    t_game_pack game_pack;
     int fd_cmd;
     int fd_map;
-    int pos;
-    int line_incomeing;
-    char line[BUF_SIZE];
-    line[0] = '\0';
-    (void)pos;
 
-    int decision;
-
-    if (load_model(&fd_cmd, &fd_map, 0))
+    game_pack_init(&game_pack);
+    if (load_model(&fd_cmd, &fd_map))
         return (1);
 
-    while (((line_incomeing = get_next_line(0, &line_gnl)) == 1 && add_mstack(line_gnl) == 0))
+    while (get_next_line(0, &game_pack.gnl) == 1 && add_mstack(game_pack.gnl) == 0)
     {
-        if (line_incomeing == 1)
-            decision = map_incoming(&game, line_gnl, 0);
-        if (decision == -1)
+        game_pack.decision = map_incoming(&game_pack.game, game_pack.gnl, 0);
+        if (game_pack.decision == -1)
         {
             free_all_mstack();
             return (1);
         }
-        if (decision == 1)
+        if (game_pack.decision == 1)
         {
-            game.pnt[0] = 0;
-            game.pnt[1] = 0;
-            send_map_to_view(&game, game.adv, fd_map, 1);
-            while ((pos = read(fd_cmd, line, BUF_SIZE)))
+            game_pack.game.pnt[0] = 0;
+            game_pack.game.pnt[1] = 0;
+            send_map_to_view(&game_pack.game, game_pack.game.adv, fd_map, 1);
+            while (read(fd_cmd, game_pack.cmd_l, BUF_SIZE))
             {
-                if (cmd_apply(&game, fd_map, line[0]))
+                if (cmd_apply(&game_pack.game, fd_map, game_pack.cmd_l[0]))
                     break;
             }
         }
     }
     close(fd_cmd);
     close(fd_map);
-    unlink(FIFO_MAP);
-    unlink(FIFO_CMD);
-    unlink(FIFO_ADP);
-    unlink(FIFO_VM);
     return (0);
 }

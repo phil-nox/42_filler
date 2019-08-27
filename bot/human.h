@@ -22,4 +22,5 @@
 #define FIFO_ADP "mypipe.adp"
 #define FIFO_VM "mypipe.vm"
 #define BUF_SIZE 1024
+
 #endif

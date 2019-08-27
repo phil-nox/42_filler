@@ -61,18 +61,16 @@ play_h: re
 
 
 human: re
-	gcc -Wall -Wextra -Werror 70_human_model.c obj/*.o -L./libft/build -lft -I./ -I./libft  -o 70_human_model.filler
-	gcc -Wall -Wextra -Werror 71_human_view.c -o 71_human_view.filler
+	gcc -Wall -Wextra -Werror 70_human_model.c obj/*.o -L./libft/build -lft -I./ -I./libft -o 70_human_model.filler
+	gcc -Wall -Wextra -Werror 71_human_view.c -o 71_human_view.filler obj/*.o -L./libft/build -lft -I./ -I./libft
 	gcc -Wall -Wextra -Werror 72_human_controller.c -o 72_human_controller.filler
 	gcc -Wall -Wextra -Werror 74_human_adapter.c -o 74_human_adapter.filler obj/*.o -L./libft/build -lft -I./ -I./libft
 	@echo " "
 	@echo "RUN >>>>"
-	@echo "rm mypipe.*; mkfifo mypipe.map && mkfifo mypipe.cmd && mkfifo mypipe.adp && mkfifo mypipe.vm"
-	@echo "./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./70_human_model.filler  -f ./resources/maps/map00 -t 99 -s 7219 1>mypipe.vm"
-	@echo "./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./70_human_model.filler  -f ./resources/maps/map00 -t 99 -s 7219"
+	@echo "rm mypipe.*; mkfifo mypipe.map && mkfifo mypipe.cmd && mkfifo mypipe.adp"
+	@echo "./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./70_human_model.filler  -f ./resources/maps/map00 -t 99 | ./74_human_adapter.filler"
 	@echo "./71_human_view.filler"
 	@echo "./72_human_controller.filler"
-	@echo "./74_human_adapter.filler"
 	@echo "<<<<"
 
 $(PATH_S)73_human_send.o: 73_human_send.c
