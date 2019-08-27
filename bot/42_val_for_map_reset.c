@@ -124,7 +124,7 @@ int reset_val_map(t_game *game, int row, int col)
     return (min_border_val);
 }
 
-void diff_val_map(t_game *game, int min_border_val)
+void diff_val_map(t_game *game)
 {
     int row;
     int col;
@@ -142,7 +142,7 @@ void diff_val_map(t_game *game, int min_border_val)
             if (val_map < 1 || val_adv < 1)
                 continue;
             
-            if (val_map <= min_border_val || val_map == val_adv)
+            if (val_map == val_adv)
             {
                 set_val(game->adv, row, col, -5);
                 continue;

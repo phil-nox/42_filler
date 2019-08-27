@@ -54,7 +54,7 @@ all: $(NAME)
 play: re
 	rm -rf test_debug
 	touch test_debug
-	./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map00 -t 1
+	./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map00 -s 3207
 
 play_h: re
 	./resources/filler_vm -p2 ./resources/players//abanlin.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map02

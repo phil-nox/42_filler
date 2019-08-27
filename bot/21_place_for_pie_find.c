@@ -98,15 +98,17 @@ int find_place(t_game *game)
                 }
                 // this one
                 min_border_val = reset_val_map(game, row, col);
-                set_val_map(game, game->adv, min_border_val); //just full, can use min found value
+                min_border_val = glob_min_val_around(game, game->adv);
+                debug_num(min_border_val, 1);
+                if (min_border_val > -1)
+                    set_val_map(game, game->adv, min_border_val);
                 if (game->show_set_debug) 
                 {
-                    debug_num(min_border_val, 1);
                     ft_putstrfile("\n");
                     debug_value_map_color(game->adv);
-                    ft_putstrfile("|||||||| END after reSET ||||||||\n");
+                    ft_putstrfile("|||||||| END SET ||||||||\n");
                 }
-                diff_val_map(game, min_border_val);
+                diff_val_map(game);
 
 
                 // just last 

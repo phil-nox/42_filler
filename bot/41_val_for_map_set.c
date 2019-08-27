@@ -99,3 +99,61 @@ void set_val_map(t_game *game, t_map *map, int to_find)
     if (game->show_set_wave_debug)
         debug_print("|||||||| END WAVE SET ||||||||", 1, 0);
 }
+
+int min_val_around(t_game *game, t_map *map, int pnt[2])
+{
+    int tmp;
+    int min_val;
+    int row;
+    int col;
+
+    row = pnt[0];
+    col = pnt[1];
+    min_val = 2147483647;
+
+    if (in_borders(game, row, col + 1) && (tmp = get_val(map, row, col + 1)) > -1) //"."
+        min_val = (tmp < min_val) ? tmp : min_val;
+    if (in_borders(game, row, col - 1) && (tmp = get_val(map, row, col - 1)) > -1)
+        min_val = (tmp < min_val) ? tmp : min_val;
+    if (in_borders(game, row + 1, col) && (tmp = get_val(map, row + 1, col)) > -1)
+        min_val = (tmp < min_val) ? tmp : min_val;
+    if (in_borders(game, row - 1, col) && (tmp = get_val(map, row - 1, col)) > -1)
+        min_val = (tmp < min_val) ? tmp : min_val;
+
+    if (in_borders(game, row + 1, col + 1) && (tmp = get_val(map, row + 1, col + 1)) > -1)
+        min_val = (tmp < min_val) ? tmp : min_val;
+    if (in_borders(game, row + 1, col - 1) && (tmp = get_val(map, row + 1, col - 1)) > -1)
+        min_val = (tmp < min_val) ? tmp : min_val;
+    if (in_borders(game, row - 1, col + 1) && (tmp = get_val(map, row - 1, col + 1)) > -1)
+        min_val = (tmp < min_val) ? tmp : min_val;
+    if (in_borders(game, row - 1, col - 1) && (tmp = get_val(map, row - 1, col - 1)) > -1)
+        min_val = (tmp < min_val) ? tmp : min_val;
+    if (min_val < 2147483647)
+        return (min_val);
+    return (-1);
+}
+
+int glob_min_val_around(t_game *game, t_map *map)
+{
+    int pnt[2];
+    int min;
+    int tmp;
+
+    min = 2147483647;
+    pnt[0] = -1;
+    while (++pnt[0] < map->row)
+    {
+        pnt[1] = -1;
+        while (++pnt[1] < map->col)
+        {
+            tmp = get_val_pnt(map, pnt);
+            if (tmp != -1)
+                continue;
+            tmp = min_val_around(game, map, pnt);
+            if (tmp > -1)
+                min = (tmp < min) ? tmp : min;
+        }
+    }
+    return ((min < 2147483647) ? min : -1);
+    
+}
