@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 19:41:31 by laleta            #+#    #+#             */
-/*   Updated: 2019/08/26 04:15:24 by laleta           ###   ########.fr       */
+/*   Updated: 2019/08/27 23:54:55 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,39 @@ static inline int8_t	ft_data_valid(int32_t argc, char **argv, t_sfml *sfml,
 
 int32_t					main(int32_t argc, char **argv)
 {
-	t_sfml	sfml;
-    sfEvent	event;
-	int32_t i;
+	t_sfml		sfml;
+    sfEvent		event;
+	sfEvent		event_cmd;
+	sfThreads	*thread_cmd;
+	sfwindow	*window_cmd;
+	sfVideoMode	mode;
+	int32_t		i;
 
 	if (!ft_data_valid(argc, argv, &sfml, &i))
 		return (1);
+
+mode.width = 100;
+mode.height = 100;
+mode.bitsPerPixel = 32;
+window_cmd = sfRenderWindow_create(mode, "title", sfClose, NULL);
+thread_cmd = sfThread_creat();
+sfThread_launch(&ft_handle_cmd(), &window_cmd);
+
     while (sfRenderWindow_isOpen(sfml.window))
     {
 //		if ((g_state & FLR_FIN) && !sfml.stop)
 //			ft_fin(&sfml);
-		while (!i && sfRenderWindow_waitEvent(sfml.window, &event))	//&& !i
-		{
-			if (ft_event_handle(&sfml, &event))
-				break;
-		}
-		while (sfRenderWindow_pollEvent(sfml.window, &event))	//not block
-			ft_event_handle(&sfml, &event);
+//		while (!i && sfRenderWindow_waitEvent(sfml.window, &event))	//&& !i
+//		{
+//			if (ft_event_handle(&sfml, &event))
+//				break;
+//		}
+//		while (sfRenderWindow_pollEvent(sfml.window, &event, &window_cmd))
+//			ft_event_handle(&sfml, &event);
+		
+		if(!sfRenderwindow_isOpen(window_cmd))
+			sfRenderWindow_close(sfml.window);
+
 		sfRenderWindow_clear(sfml.window, sfBlack);
 		ft_draw_shape(&sfml);
 		ft_set_rndr_cur(sfml.sprite_rndr, &sfml);
@@ -121,7 +137,9 @@ int32_t					main(int32_t argc, char **argv)
         sfRenderWindow_display(sfml.window);
 		ft_update_rndr_cur(sfml.sprite_rndr, &sfml);
     }
-	close(g_fdcmd);
+//	close(g_fdcmd);
+sfThread_terminate(thread_cmd);
+sfThread_destroy(thread_cmd);
 	ft_destroy_sfml(&sfml);
     return (0);
 }
