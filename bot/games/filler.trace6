@@ -1,0 +1,6 @@
+seed = 303
+../build/boa.filler won
+Score:
+0AGAINST171
+../resources/filler_vm -p2 ../build/boa.filler -p1 ../resources/players/champely.filler -f ../resources/maps/map00 -q -s 303
+../resources/filler_vm -p2 ../build/boa_debug.filler -p1 ../resources/players/champely.filler -f ../resources/maps/map00 -s 303

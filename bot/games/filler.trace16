@@ -1,0 +1,6 @@
+seed = 5972
+../build/boa.filler won
+Score:
+72AGAINST165
+../resources/filler_vm -p2 ../build/boa.filler -p1 ../resources/players/carli.filler -f ../resources/maps/map01 -q -s 5972
+../resources/filler_vm -p2 ../build/boa_debug.filler -p1 ../resources/players/carli.filler -f ../resources/maps/map01 -s 5972

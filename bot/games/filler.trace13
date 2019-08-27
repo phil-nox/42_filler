@@ -1,0 +1,6 @@
+seed = 4421
+../resources/players/abanlin.filler won
+Score:
+0AGAINST312
+../resources/filler_vm -p1 ../build/boa.filler -p2 ../resources/players/abanlin.filler -f ../resources/maps/map01 -q -s 4421
+../resources/filler_vm -p1 ../build/boa_debug.filler -p2 ../resources/players/abanlin.filler -f ../resources/maps/map01 -s 4421

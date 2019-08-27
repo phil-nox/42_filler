@@ -1,0 +1,8 @@
+seed = 4487
+../build/boa.filler won
+Score:
+24AGAINST338
+e:
+1AGAINST136
+../resources/filler_vm -p2 ../build/boa.filler -p1 ../resources/players/abanlin.filler -f ../resources/maps/map01 -q -s 4487
+../resources/filler_vm -p2 ../build/boa_debug.filler -p1 ../resources/players/abanlin.filler -f ../resources/maps/map01 -s 4487

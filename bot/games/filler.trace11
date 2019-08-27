@@ -1,0 +1,6 @@
+seed = 4735
+../build/boa.filler won
+Score:
+133AGAINST31
+../resources/filler_vm -p1 ../build/boa.filler -p2 ../resources/players/superjeannot.filler -f ../resources/maps/map00 -q -s 4735
+../resources/filler_vm -p1 ../build/boa_debug.filler -p2 ../resources/players/superjeannot.filler -f ../resources/maps/map00 -s 4735
