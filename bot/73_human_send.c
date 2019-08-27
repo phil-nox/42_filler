@@ -51,6 +51,7 @@ void send_map_to_view(t_game *game, t_map *show, int fd_map, int with_pie)
 		place_pie_for_view(game, valid_place);
 	}
 	row = -1;
+	send_to_fd("++\n", fd_map);
 	while (++row < show->row)
 	{
 		col = -1;
@@ -58,7 +59,6 @@ void send_map_to_view(t_game *game, t_map *show, int fd_map, int with_pie)
 			map_human(show->map[row][col], fd_map);
 		send_to_fd("\n", fd_map);
 	}
-	send_to_fd("\n", fd_map);
 }
 
 int map_incoming (t_game *game, char *line, int fd)
