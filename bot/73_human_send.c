@@ -38,21 +38,23 @@ void place_pie_for_view(t_game *game, int val)
     }
 }
 
-void send_map_to_view(t_game *game, int fd_map)
+void send_map_to_view(t_game *game, t_map *show, int fd_map, int with_pie)
 {
 	int row;
 	int col;
 	int valid_place;
 
-	valid_place = (is_a_place(game, game->pnt[0], game->pnt[1]) == 1) ? 1 : -3;
-	place_pie_for_view(game, valid_place);
-
+	if (with_pie)
+	{
+		valid_place = (is_a_place(game, game->pnt[0], game->pnt[1]) == 1) ? 1 : -3;
+		place_pie_for_view(game, valid_place);
+	}
 	row = -1;
-	while (++row < game->org->row)
+	while (++row < show->row)
 	{
 		col = -1;
-		while (++col < game->org->col)
-			map_human(game->adv->map[row][col], fd_map);
+		while (++col < show->col)
+			map_human(show->map[row][col], fd_map);
 		send_to_fd("\n", fd_map);
 	}
 	send_to_fd("\n", fd_map);

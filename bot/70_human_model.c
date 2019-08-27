@@ -13,12 +13,16 @@ size_t	ftt_strlen(const char *s)
 
 int load_model(int *fd_cmd, int *fd_map, int debug)
 {
+    /*
     unlink(FIFO_MAP);
     unlink(FIFO_CMD);
+    unlink(FIFO_ADP);
+    unlink(FIFO_VM);
     if (debug)
         write(1, "unlink:\tdone\n", 14);
 
-    if (mkfifo(FIFO_MAP, 0777) != 0 || mkfifo(FIFO_CMD, 0777) != 0)
+    
+    if (mkfifo(FIFO_MAP, 0777) != 0 || mkfifo(FIFO_CMD, 0777) != 0 || mkfifo(FIFO_ADP, 0777) != 0 || mkfifo(FIFO_VM, 0777) != 0)
     {
         //perror("mkfifo() error"); //#include <stdio.h>
         if (debug)
@@ -27,6 +31,15 @@ int load_model(int *fd_cmd, int *fd_map, int debug)
     }
     if (debug)
         write(1, "mkfifo:\tdone\n", 14);
+        */
+
+    *fd_map = open(FIFO_MAP, O_WRONLY);
+    if (*fd_map < 1)
+    {
+        if (debug)
+            write(1, "Failed with open() FIFO_MAP\n", 29);
+        return (1);
+    }
 
     *fd_cmd = open(FIFO_CMD, O_RDONLY);
     if (*fd_cmd < 1 )
@@ -38,13 +51,6 @@ int load_model(int *fd_cmd, int *fd_map, int debug)
     if (debug)
         write(1, "open_cmd:\tdone\n", 16);
 
-    *fd_map = open(FIFO_MAP, O_WRONLY);
-    if (*fd_map < 1)
-    {
-        if (debug)
-            write(1, "Failed with open() FIFO_MAP\n", 29);
-        return (1);
-    }
     if (debug)
     {
         write(1, "open_map:\tdone\n", 16);
@@ -54,13 +60,13 @@ int load_model(int *fd_cmd, int *fd_map, int debug)
     return (0);
 }
 
-int map_incoming (t_game *game, char *line)
+int map_incoming (t_game *game, char *line, int fd_vm)
 {
     int error;
 
     error = 0;
 
-    if ((error = init_map(line, game, PIE_KW))) // -1 bad malloc
+    if ((error = init_map(line, game, PIE_KW, fd_vm))) // -1 bad malloc
     {
         make_map(game, game->org, game->map);
         return (1);
@@ -71,7 +77,7 @@ int map_incoming (t_game *game, char *line)
         return (-1);
     }
 
-    if ((error = init_map(line, game, MAP_KW))) // -1 bad malloc
+    if ((error = init_map(line, game, MAP_KW, fd_vm))) // -1 bad malloc
         return (0);
     if (error == -1)
     {
@@ -92,7 +98,7 @@ int cmd_apply(t_game *game, int fd_map, char input)
         if (is_a_place(game, game->pnt[0] + 1, game->pnt[1]) == -1)
             return (0);
         game->pnt[0] += 1;
-        send_map_to_view(game, fd_map);
+        send_map_to_view(game, game->adv, fd_map, 1);
         return (0);
     }
     if (input == 'w')
@@ -100,7 +106,7 @@ int cmd_apply(t_game *game, int fd_map, char input)
         if (is_a_place(game, game->pnt[0] - 1, game->pnt[1]) == -1)
             return (0);
         game->pnt[0] -= 1;
-        send_map_to_view(game, fd_map);
+        send_map_to_view(game, game->adv, fd_map, 1);
         return (0);
     }
     if (input == 'd')
@@ -108,7 +114,7 @@ int cmd_apply(t_game *game, int fd_map, char input)
         if (is_a_place(game, game->pnt[0], game->pnt[1] + 1) == -1)
             return (0);
         game->pnt[1] += 1;
-        send_map_to_view(game, fd_map);
+        send_map_to_view(game, game->adv, fd_map, 1);
         return (0);
     }
     if (input == 'a')
@@ -116,7 +122,7 @@ int cmd_apply(t_game *game, int fd_map, char input)
         if (is_a_place(game, game->pnt[0], game->pnt[1] - 1) == -1)
             return (0);
         game->pnt[1] -= 1;
-        send_map_to_view(game, fd_map);
+        send_map_to_view(game, game->adv, fd_map, 1);
         return (0);
     }
     if (input == 'e')
@@ -185,7 +191,7 @@ int main(void)
     while (((line_incomeing = get_next_line(0, &line_gnl)) == 1 && add_mstack(line_gnl) == 0))
     {
         if (line_incomeing == 1)
-            decision = map_incoming(&game, line_gnl);
+            decision = map_incoming(&game, line_gnl, 0);
         if (decision == -1)
         {
             free_all_mstack();
@@ -195,7 +201,7 @@ int main(void)
         {
             game.pnt[0] = 0;
             game.pnt[1] = 0;
-            send_map_to_view(&game, fd_map);
+            send_map_to_view(&game, game.adv, fd_map, 1);
             while ((pos = read(fd_cmd, line, BUF_SIZE)))
             {
                 if (cmd_apply(&game, fd_map, line[0]))
@@ -207,5 +213,7 @@ int main(void)
     close(fd_map);
     unlink(FIFO_MAP);
     unlink(FIFO_CMD);
+    unlink(FIFO_ADP);
+    unlink(FIFO_VM);
     return (0);
 }

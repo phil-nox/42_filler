@@ -40,7 +40,7 @@ int main(void)
 
     while (get_next_line(0, &line) == 1 && add_mstack(line) == 0)
 	{
-        if ((error = init_map(line, &game, PIE_KW))) // -1 bad malloc
+        if ((error = init_map(line, &game, PIE_KW, 0))) // -1 bad malloc
         {
             make_map(&game, game.org, game.map);
             set_val_map(&game, game.map, 0);
@@ -82,7 +82,7 @@ int main(void)
             return (1);
         }
 
-        if ((error = init_map(line, &game, MAP_KW))) // -1 bad malloc
+        if ((error = init_map(line, &game, MAP_KW, 0))) // -1 bad malloc
             continue;
         if (error == -1)
         {
