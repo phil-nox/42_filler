@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 19:43:07 by laleta            #+#    #+#             */
-/*   Updated: 2019/08/26 02:31:04 by laleta           ###   ########.fr       */
+/*   Updated: 2019/08/28 05:22:29 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void			ft_draw_shape(t_sfml *sfml)
 	ft_draw_header(sfml);
 	if ((g_state & (FLR_FIN | FLR_PAUS)) || (-1 == read(g_fdmap, &c, 0)))
 		return ;
+	if (-1 == read(g_fdmap, &c, 0))
+		g_fdmap = g_fdadp;
 	sfSleep(sfMilliseconds(sfml->speed));
 	while ((ret = get_next_line(g_fdmap, &s)) && (*s != '+' || *(s + 1) != '+'))
 	{

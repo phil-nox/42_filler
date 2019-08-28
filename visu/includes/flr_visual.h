@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 00:02:03 by laleta            #+#    #+#             */
-/*   Updated: 2019/08/26 02:04:56 by laleta           ###   ########.fr       */
+/*   Updated: 2019/08/28 03:41:28 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,9 @@ void					ft_draw_header(t_sfml *sfml);
 void					ft_destroy_sfml(t_sfml *sfml);
 int32_t					ft_get_nbr(char **s);
 int8_t					ft_check_loadfile(int32_t argc, char **argv);
-int8_t					ft_event_handle(t_sfml *sfml, sfEvent *event);
+void					ft_event_handle(t_sfml *sfml, sfEvent *event);
 void					ft_get_size(int32_t *width, int32_t *height);
 void					ft_sfml_null(t_sfml *sfml);
+void					ft_handle_cmd(void *sfml);
 
 #endif

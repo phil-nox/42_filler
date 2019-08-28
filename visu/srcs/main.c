@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 19:41:31 by laleta            #+#    #+#             */
-/*   Updated: 2019/08/27 23:54:55 by laleta           ###   ########.fr       */
+/*   Updated: 2019/08/28 05:43:17 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 uint8_t		g_state = 0;
 int32_t		g_fdmap = -1;
 int32_t		g_fdcmd = -1;
+int32_t		g_fdadp = -1;
 
 void					ft_fin(t_sfml *sfml)
 {
@@ -69,13 +70,13 @@ static inline void		ft_update_rndr_cur(sfSprite *sprite_rndr, t_sfml *sfml)
 	sfRenderTexture_drawSprite(sfml->render_cur, sprite_rndr, NULL);
 }
 
-static inline int8_t	ft_data_valid(int32_t argc, char **argv, t_sfml *sfml,
-																	int32_t *i)
+static inline int8_t	ft_data_valid(int32_t argc, char **argv, t_sfml *sfml)
 {
 	if (!(ft_check_loadfile(argc, argv)))
 		return (0);
 	if (((g_fdcmd = open(FIFO_CMD, O_WRONLY)) == -1) ||
-		((g_fdmap = open(FIFO_MAP, O_RDONLY)) == -1))
+		((g_fdmap = open(FIFO_MAP, O_RDONLY)) == -1) ||
+		((g_fdadp = open(FIFO_ADP, O_RDONLY)) == -1))
 	{
 		ft_printf(F_RED "fifo error: %s\n" NONE, strerror(errno));
 		return (0);
@@ -87,59 +88,52 @@ static inline int8_t	ft_data_valid(int32_t argc, char **argv, t_sfml *sfml,
 		ft_destroy_sfml(sfml);
 		return (0);
 	}
-	*i = 0;
 	return (1);
 }
 
-int32_t					main(int32_t argc, char **argv)
+void				ft_render(void *ssfml)
 {
-	t_sfml		sfml;
-    sfEvent		event;
-	sfEvent		event_cmd;
-	sfThreads	*thread_cmd;
-	sfwindow	*window_cmd;
-	sfVideoMode	mode;
-	int32_t		i;
+	t_sfml			*sfml;
+	int32_t			i;
 
-	if (!ft_data_valid(argc, argv, &sfml, &i))
-		return (1);
-
-mode.width = 100;
-mode.height = 100;
-mode.bitsPerPixel = 32;
-window_cmd = sfRenderWindow_create(mode, "title", sfClose, NULL);
-thread_cmd = sfThread_creat();
-sfThread_launch(&ft_handle_cmd(), &window_cmd);
-
-    while (sfRenderWindow_isOpen(sfml.window))
+	i = 0;
+	sfml = ssfml;
+	sfRenderWindow_setActive(sfml->window, 1);
+    while (sfRenderWindow_isOpen(sfml->window))
     {
-//		if ((g_state & FLR_FIN) && !sfml.stop)
-//			ft_fin(&sfml);
-//		while (!i && sfRenderWindow_waitEvent(sfml.window, &event))	//&& !i
-//		{
-//			if (ft_event_handle(&sfml, &event))
-//				break;
-//		}
-//		while (sfRenderWindow_pollEvent(sfml.window, &event, &window_cmd))
-//			ft_event_handle(&sfml, &event);
-		
-		if(!sfRenderwindow_isOpen(window_cmd))
-			sfRenderWindow_close(sfml.window);
-
-		sfRenderWindow_clear(sfml.window, sfBlack);
-		ft_draw_shape(&sfml);
-		ft_set_rndr_cur(sfml.sprite_rndr, &sfml);
+		sfRenderWindow_clear(sfml->window, sfBlack);
+		ft_draw_shape(sfml);
+		ft_set_rndr_cur(sfml->sprite_rndr, sfml);
 		if ((g_state & (FLR_PAUS | FLR_FIN)) == FLR_PAUS && (++i & 8))
-			sfRenderWindow_drawText(sfml.window, sfml.footer->text_aux, NULL);
-		sfRenderWindow_drawText(sfml.window, sfml.title->text, NULL);
-		sfRenderWindow_drawText(sfml.window, sfml.footer->text, NULL);
-		sfRenderWindow_drawSprite(sfml.window, sfml.sprite_rndr, NULL);
-        sfRenderWindow_display(sfml.window);
-		ft_update_rndr_cur(sfml.sprite_rndr, &sfml);
+			sfRenderWindow_drawText(sfml->window, sfml->footer->text_aux, NULL);
+		sfRenderWindow_drawText(sfml->window, sfml->title->text, NULL);
+		sfRenderWindow_drawText(sfml->window, sfml->footer->text, NULL);
+		sfRenderWindow_drawSprite(sfml->window, sfml->sprite_rndr, NULL);
+        sfRenderWindow_display(sfml->window);
+		ft_update_rndr_cur(sfml->sprite_rndr, sfml);
     }
-//	close(g_fdcmd);
-sfThread_terminate(thread_cmd);
-sfThread_destroy(thread_cmd);
+}
+
+int32_t				main(int32_t argc, char **argv)
+{
+	sfEvent			event;
+	t_sfml			sfml;
+	sfThread		*thread_rndr;
+
+	if (!ft_data_valid(argc, argv, &sfml))
+		return (1);
+	sfRenderWindow_setActive(sfml.window, 0);
+	thread_rndr = sfThread_create(&ft_render, &sfml);
+	sfThread_launch(thread_rndr);
+	while (sfRenderWindow_isOpen(sfml.window))
+	{
+		while (sfRenderWindow_waitEvent(sfml.window, &event))
+			ft_event_handle(&sfml, &event);
+	}
 	ft_destroy_sfml(&sfml);
-    return (0);
+	sfThread_terminate(thread_rndr);
+	sfThread_destroy(thread_rndr);
+	close(g_fdcmd);
+	close(g_fdmap);
+	return (0);
 }

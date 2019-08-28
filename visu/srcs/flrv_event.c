@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 22:25:29 by laleta            #+#    #+#             */
-/*   Updated: 2019/08/28 00:07:52 by laleta           ###   ########.fr       */
+/*   Updated: 2019/08/28 03:55:49 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void		ft_event_handle_cmd(sfEvent *event)
 		write(g_fdcmd, CMD_DOWN, CMD_LEN);
 	if (event->type == sfEvtKeyPressed && event->key.code == sfKeySpace)
 		write(g_fdcmd, CMD_SET, CMD_LEN);
+	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyQ)
+		write(g_fdcmd, CMD_AUTO, CMD_LEN);
 }	
 
 void		ft_event_handle(t_sfml *sfml, sfEvent *event)
@@ -38,30 +40,9 @@ void		ft_event_handle(t_sfml *sfml, sfEvent *event)
 		g_state & FLR_MUSI ? sfMusic_play(sfml->music) :
 													sfMusic_stop(sfml->music);
 	}
-	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyComma)
-		sfml->speed += 100;
-	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyPeriod)
-		sfml->speed -= 100;
 	if (event->type == sfEvtClosed ||
 		(event->type == sfEvtKeyPressed && event->key.code == sfKeyEscape))
 		sfRenderWindow_close(sfml->window);
 	if (!(g_state & FLR_LOSE))
 		ft_event_handle_cmd(event);
-}
-
-int32_t				ft_handle_cmd(sfThread *thread)
-{
-//  sfEvent			event;
-//	sfRenderWindow	*window;
-//	sfVideoMode		mode;
-
-//	mode.width = 100;
-//	mode.height = 100;
-//	mode.bitsPerPixel = 32;	
-//	window = sfRenderWindow_create (mode, "title", sfClose,	NULL);
-	window = 
-	while (sfRenderWindow_waitEvent(window, &event))
-		ft_event_handle(&event);
-	close(g_fdcmd);
-    return (0);
 }

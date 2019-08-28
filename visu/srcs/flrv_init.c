@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 20:07:20 by laleta            #+#    #+#             */
-/*   Updated: 2019/08/27 20:25:25 by laleta           ###   ########.fr       */
+/*   Updated: 2019/08/28 05:29:11 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int8_t	ft_init_sfml(t_sfml *sfml)
 		!(sfml->sprite_rndr = sfSprite_create()))
 		return (0);
 	sfml->stop = 0;
-	sfml->speed = 300;		
+	sfml->speed = 0;		
 	ft_init_sfml_pos(sfml);
 	return (1);
 }
