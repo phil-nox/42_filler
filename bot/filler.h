@@ -69,12 +69,15 @@ typedef	struct		s_game
 	char			show_reset_wave_debug;
 	char			show_diff_debug;
 	char			show_score_debug;
+	char			decision_debug;
 	t_map			*org;
 	t_map			*map;
 	t_map			*adv;
 	t_map			*pie;
+	t_score			best_score;
 	int				pnt[2];
 	int 			player;
+	int				enemy_score;
 }					t_game;
 
 typedef	struct		s_game_pack
@@ -108,7 +111,7 @@ int make_map(t_game *game, t_map *src, t_map *trg);
 
 int in_borders(t_game *game, int row, int col);
 int set_val(t_map *map, int row, int col, int val);
-void set_val_map(t_game *game, t_map *map, int to_find);
+int set_val_map(t_game *game, t_map *map, int to_find);
 
 int find_place(t_game *game);
 
@@ -118,7 +121,7 @@ int get_val_pnt(t_map *map, int pnt[2]);
 void reset_val_map(t_game *game, int row, int col);
 //int reset_around(t_game *game, int row, int col, int to_set);
 int glob_min_val_around(t_game *game, t_map *map);
-void diff_val_map(t_game *game, int min_border_val, t_score *score);
+void diff_val_map(t_game *game, int min_border_val, t_score *score, char show);
 
 void send_map_to_view(t_game *game, t_map *show, int fd_map, int with_pie);
 int is_a_place(t_game *game, int row, int col);
@@ -126,6 +129,13 @@ int is_a_place(t_game *game, int row, int col);
 int map_incoming (t_game *game, char *line, int fd);
 int cmd_apply(t_game *game, int fd_map, char input);
 void game_pack_init(t_game_pack *game_p);
+void shadow_calc(t_game *game);
+
+
+int map_incoming_bot(char *gnl, t_game *game);
+void game_pack_init_bot(t_game_pack *game_p);
+int find_first_place(t_game *game);
+
 
 //void find_debug(t_map *map, int pos, int res, int tmp_score);
 //void send_debug(t_map *map, int pos, int tmp_score);

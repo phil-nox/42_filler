@@ -1,6 +1,0 @@
-seed = 9823
-../build/boa.filler won
-Score:
-0AGAINST342
-../resources/filler_vm -p2 ../build/boa.filler -p1 ../resources/players/champely.filler -f ../resources/maps/map01 -q -s 9823
-../resources/filler_vm -p2 ../build/boa_debug.filler -p1 ../resources/players/champely.filler -f ../resources/maps/map01 -s 9823

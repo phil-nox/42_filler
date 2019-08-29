@@ -1,6 +1,0 @@
-seed = 4115
-../resources/players/carli.filler won
-Score:
-92AGAINST75
-../resources/filler_vm -p2 ../build/boa.filler -p1 ../resources/players/carli.filler -f ../resources/maps/map00 -q -s 4115
-../resources/filler_vm -p2 ../build/boa_debug.filler -p1 ../resources/players/carli.filler -f ../resources/maps/map00 -s 4115

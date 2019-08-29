@@ -16,7 +16,9 @@
 # 	find . -maxdepth 1 -name '*.c' | sed "s/\.\///" | sed "s/\.c/\.o/" | tr '\n' ' '
 #
 
-NAME=boa.filler
+ST_NAME=squid
+END_NAME=.filler
+NAME=$(ST_NAME)$(END_NAME)
 
 PATH_H =./
 
@@ -36,7 +38,8 @@ SRC= 	00_debug_wfile.o 01_debug_utf8.o \
 		03_debug_color.o 10_read_map.o \
 		30_send_pie.o 22_place_for_pie_map.o \
 		41_val_for_map_set.o 21_place_for_pie_find.o \
-		__mstack.o 42_val_for_map_reset.o 73_human_send.o
+		__mstack.o 42_val_for_map_reset.o 73_human_send.o \
+		50_game.o
 		
 OTHER=	20_place_for_pie_base.o 21_place_for_pie_find.o \
 		23_place_for_pie_score.o 02_debug_base.o\
@@ -47,7 +50,8 @@ OTHER=	20_place_for_pie_base.o 21_place_for_pie_find.o \
 PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
 
 $(NAME): $(PATH_SRC)
-	$(CC) $(FLAGS) 50_creating_player.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(NAME)
+	$(CC) $(FLAGS) 60_run.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(NAME)
+	$(CC) $(FLAGS) 61_run_debug.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(ST_NAME)_debug$(END_NAME)
 
 all: $(NAME)
 
@@ -73,6 +77,8 @@ human: re
 	@echo "./72_human_controller.filler"
 	@echo "<<<<"
 
+$(PATH_S)50_game.o: 50_game.c
+	$(CC) $(CFLAGS) 50_game.c $(FLAG_PATH_OBJ)
 $(PATH_S)73_human_send.o: 73_human_send.c
 	$(CC) $(CFLAGS) 73_human_send.c $(FLAG_PATH_OBJ)
 $(PATH_S)__mstack.o: __mstack.c

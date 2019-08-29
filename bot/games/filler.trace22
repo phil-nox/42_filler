@@ -1,6 +1,0 @@
-seed = 33
-../build/boa.filler won
-Score:
-1AGAINST297
-../resources/filler_vm -p2 ../build/boa.filler -p1 ../resources/players/hcao.filler -f ../resources/maps/map01 -q -s 33
-../resources/filler_vm -p2 ../build/boa_debug.filler -p1 ../resources/players/hcao.filler -f ../resources/maps/map01 -s 33

@@ -72,7 +72,7 @@ int is_a_place(t_game *game, int row, int col)
     return (1);
 }
 
-void calc_decision(t_game *game, t_score *score)
+void calc_decision(t_game *game, t_score *score, char show)
 {
     int max_edge;
     int all;
@@ -88,10 +88,11 @@ void calc_decision(t_game *game, t_score *score)
     score->df_score = ((score->diff_average * 1000 * 2) / (max_edge + 1)) * (score->diff_num * 10 / all);
 
     score->fn_score = (score->df_score > score->un_score) ? score->df_score : score->un_score;
+    score->fn_score = (score->fn_score < 100) ? 0 : score->fn_score;
     
-    if (game->show_score_debug)
+    if (game->show_score_debug || show)
     {
-        debug_print("\nplace_score= ", 0, 0); debug_num(score->place_score, 0);
+        debug_print("place_score= ", 0, 0); debug_num(score->place_score, 0);
         debug_print("\nun_score= ", 0, 0); debug_num(score->un_score, 0);
         debug_print("\ndf_score= ", 0, 0); debug_num(score->df_score, 0);
         debug_print("\nfn_score= ", 0, 0); debug_num(score->fn_score, 0);
@@ -113,7 +114,23 @@ int change_decision(t_score *curr_sc, t_score *aspi_sc)
         return (0);
     if (curr_sc->fn_score == aspi_sc->fn_score && curr_sc->place_score < aspi_sc->place_score)
         return (0);
+    // minor case
     return (1);
+}
+
+void shadow_calc(t_game *game)
+{
+    int min_border_val;
+    t_score tmp;
+    
+    if (is_a_place(game, game->pnt[0], game->pnt[1]) != 1)
+        return ;
+    place_pie(game, game->pnt[0], game->pnt[1]);
+    reset_val_map(game, game->pnt[0], game->pnt[1]);
+    while ((min_border_val = glob_min_val_around(game, game->adv)) != -1)
+        set_val_map(game, game->adv, min_border_val);
+    calc_decision(game, &(game->best_score), 1);
+    diff_val_map(game, min_border_val, &tmp, 1);
 }
 
 int find_place(t_game *game)
@@ -126,9 +143,8 @@ int find_place(t_game *game)
     t_map *map;
     t_map *pie;
     t_score score;
-    t_score best_score;
 
-    best_score.place_score = -1;
+    game->best_score.place_score = -1;
 
     map = game->map;
     pie = game->pie;
@@ -138,7 +154,7 @@ int find_place(t_game *game)
     while(++row < map->row)
     {
         col = - pie->col;
-        while(++col < map->row)
+        while(++col < map->col)
         {
             plc = is_a_place(game, row, col);
             if (plc == 1)
@@ -151,8 +167,7 @@ int find_place(t_game *game)
                     ft_putstrfile("\n");
                 }
                 reset_val_map(game, row, col);
-                min_border_val = glob_min_val_around(game, game->adv);
-                if (min_border_val > -1) // ok
+                while ((min_border_val = glob_min_val_around(game, game->adv)) != -1)
                     set_val_map(game, game->adv, min_border_val);
                 if (game->show_reset_wave_debug)
                 {
@@ -160,12 +175,12 @@ int find_place(t_game *game)
                     debug_value_map_color(game->adv);
                     ft_putstrfile("|||||||| END SET after reSET ||||||||\n");
                 }
-                diff_val_map(game, min_border_val, &score);
-                calc_decision(game, &score);
+                diff_val_map(game, min_border_val, &score, 0);
+                calc_decision(game, &score, 0);
 
-                if (best_score.place_score == -1 || change_decision(&best_score, &score))
+                if (game->best_score.place_score == -1 || change_decision(&(game->best_score), &score))
                 {
-                    best_score = score;
+                    game->best_score = score;
                     game->pnt[0] = row;
                     game->pnt[1] = col;
                 }
@@ -176,4 +191,26 @@ int find_place(t_game *game)
     if (game->show_place)
         ft_putstrfile("........ END PLACE ........\n");
     return (count);
+}
+
+int find_first_place(t_game *game)
+{
+    int row;
+    int col;
+
+    row = - game->pie->row;
+    while(++row < game->map->row)
+    {
+        col = - game->pie->col;
+        while(++col < game->map->col)
+        {
+            if (is_a_place(game, row, col) == 1)
+            {
+                game->pnt[0] = row;
+                game->pnt[1] = col;
+                return (1);
+            }
+        }
+    }
+    return (0);
 }

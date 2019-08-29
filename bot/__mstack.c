@@ -40,20 +40,28 @@ int	free_mstack(void *to_free)
 	return (free_mstack_job(get_mstack(), to_free));
 }
 
+void	free_all_mstack_job(t_list *mstack)
+{
+	t_list *to_del;
+
+	if (!mstack)
+		return ;
+	to_del = mstack;
+	mstack = (mstack)->next;
+	if (to_del->content)
+		free(to_del->content);
+	free(to_del);
+	free_all_mstack_job(mstack);
+}
+
 void	free_all_mstack(void)
 {
 	t_list **mstack;
-	t_list *to_del;
 
 	mstack = get_mstack();
 	if (!mstack || !*mstack)
 		return ;
-	to_del = *mstack;
-	*mstack = (*mstack)->next;
-	if (to_del->content)
-		free(to_del->content);
-	free(to_del);
-	free_all_mstack();
+	free_all_mstack_job(*mstack);
 }
 
 int	add_mstack(void *to_add)

@@ -4,8 +4,8 @@
 cd games
 
 PATH_R="../resources"
-YOUR_PLY="../build/boa.filler"
-DEBUG_PLY="../build/boa_debug.filler"
+YOUR_PLY="../build/squid.filler"
+DEBUG_PLY="../build/squid_debug.filler"
 
 IDX=0
 CMD_BASE=$PATH_R/filler_vm

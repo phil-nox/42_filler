@@ -16,8 +16,6 @@ int reset_this(t_game *game, int row, int col, int to_set)
         return (-1);
     if (in_borders(game, row - 1, col) && get_val(game->adv, row - 1, col) == cur - 1)
         return (-1);
-
-    
     if (in_borders(game, row + 1, col + 1) && get_val(game->adv, row + 1, col + 1) == cur - 1)
         return (-1);
     if (in_borders(game, row + 1, col - 1) && get_val(game->adv, row + 1, col - 1) == cur - 1)
@@ -26,7 +24,6 @@ int reset_this(t_game *game, int row, int col, int to_set)
         return (-1);
     if (in_borders(game, row - 1, col - 1) && get_val(game->adv, row - 1, col - 1) == cur - 1)
         return (-1);
-
     set_val(game->adv, row, col, to_set);
     return (cur);
 }
@@ -111,7 +108,7 @@ void reset_val_map(t_game *game, int row, int col)
         debug_print("-------- END WAVE reSET --------", 1, 0);
 }
 
-void diff_val_map(t_game *game, int min_border_val, t_score *score)
+void diff_val_map(t_game *game, int min_border_val, t_score *score, char show)
 {
     int row;
     int col;
@@ -151,9 +148,10 @@ void diff_val_map(t_game *game, int min_border_val, t_score *score)
             score->diff_sum += val_adv - val_map;
         }
     }
-    if (game->show_diff_debug)
+    if (game->show_diff_debug || show)
     {
         debug_value_map_color(game->adv);
-        debug_print("@@@@@@@@ END DIFF @@@@@@@@", 1, 0);
+        if (!show)
+            debug_print("@@@@@@@@ END DIFF @@@@@@@@", 1, 0);
     }
 }

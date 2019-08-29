@@ -69,7 +69,7 @@ int map_incoming (t_game *game, char *line, int fd)
 
     if ((error = init_map(line, game, PIE_KW, fd))) // -1 bad malloc
     {
-        make_map(game, game->org, game->map);
+        as_map(game->org, game->map);
         return (1);
     }
     if (error == -1)

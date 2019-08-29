@@ -1,6 +1,0 @@
-seed = 2089
-../build/boa.filler won
-Score:
-225AGAINST86
-../resources/filler_vm -p1 ../build/boa.filler -p2 ../resources/players/carli.filler -f ../resources/maps/map01 -q -s 2089
-../resources/filler_vm -p1 ../build/boa_debug.filler -p2 ../resources/players/carli.filler -f ../resources/maps/map01 -s 2089

@@ -72,14 +72,17 @@ int set_around(t_game *game, t_map *map, int pnt[2], int to_set)
 }
 
 
-void set_val_map(t_game *game, t_map *map, int to_find)
+int set_val_map(t_game *game, t_map *map, int to_find)
 {
     int pnt[2];
     int stop;
+    int how_far;
     
     stop = 1;
+    how_far = 0;
     while (stop != 0)
     {
+        how_far += 1;
         stop = 0;
         pnt[0] = -1;
         while (++pnt[0] < map->row)
@@ -98,6 +101,13 @@ void set_val_map(t_game *game, t_map *map, int to_find)
     }
     if (game->show_set_wave_debug)
         debug_print("|||||||| END WAVE SET ||||||||", 1, 0);
+    if (game->show_set_debug) 
+    {
+        ft_putstrfile("\n");
+        debug_value_map_color(map);
+        ft_putstrfile("|||||||| END SET ||||||||\n");
+    }
+    return (how_far);
 }
 
 int min_val_around(t_game *game, t_map *map, int pnt[2])

@@ -25,8 +25,15 @@ OR
 ### STEP 4
 ### real test
 ./make.sh
-./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./build/boa_debug.filler -f ./resources/maps/map00
+./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./build/boa.filler -f ./resources/maps/map00
 
 ./test_run_games.sh
 cd games
 run_something_fromfile
+
+
+### STEP 4
+### real test
+./make_test.sh
+check
+../resources/filler_vm -p1 ../build/squid_debug.filler -p2 ../resources/players/grati.filler -f ../resources/maps/map00 -s 3036
