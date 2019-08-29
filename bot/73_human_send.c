@@ -149,7 +149,6 @@ void game_pack_init(t_game_pack *game_p)
     game_p->game.show_make_debug = 0;
     game_p->game.show_set_wave_debug = 0;
     game_p->game.show_set_debug = 0;
-    game_p->game.show_place = 0;
     game_p->game.show_find_debug = 0;
     game_p->game.show_value_map = 0;
     game_p->game.show_send = 0;

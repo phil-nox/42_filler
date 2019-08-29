@@ -19,25 +19,23 @@ int main(void)
     game.map = &map;
     game.adv = &adv;
     game.pie = &pie;
-    game.show_read_debug = 1;
+    game.show_read_debug = 0;
     game.show_make_debug = 0;
+    game.show_place = 0;
     game.show_set_wave_debug = 0;
-    game.show_set_debug = 1;
-    game.show_place = 1;
+    game.show_set_debug = 0;
     game.show_find_debug = 0;
     game.show_value_map = 0;
-    game.show_send = 1;
     game.show_value_map_adv = 0;
-    game.show_reset_wave_debug = 1;
+    game.show_reset_wave_debug = 0;
     game.show_diff_debug = 1;
-    game.show_set_by_min_wave_debug = 1;
-    t_score score;
+    game.show_score_debug = 1;
+    game.show_send = 1;
 
     int found_places;
     int error;
 
     error = 0;
-    (void)score;
 
     while (get_next_line(0, &line) == 1 && add_mstack(line) == 0)
 	{
@@ -55,12 +53,6 @@ int main(void)
             }
 
             found_places = find_place(&game);
-            /*
-            score = find_place_adv(&org, &map, &pie, &adv);
-            if(SHOW_SEND)
-                send_debug_adv(&map, &score);
-            send_position(&map, score.pos);
-            */
 
             if (game.show_send)
             {

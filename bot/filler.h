@@ -45,11 +45,14 @@ typedef	struct		s_map
 
 typedef	struct		s_score
 {
-	int			    enemy_dist;
-	int 			diff_map;
-	int		       	isolated;
-	int 			decision;
-	int				pos;
+	int			    place_score;
+	int		       	unreachable;
+	int 			diff_average;
+	int 			diff_num;
+	int				diff_sum;
+	int				un_score;
+	int				df_score;
+	int				fn_score;
 }					t_score;
 
 typedef	struct		s_game
@@ -65,7 +68,7 @@ typedef	struct		s_game
 	char			show_value_map_adv;
 	char			show_reset_wave_debug;
 	char			show_diff_debug;
-	char			show_set_by_min_wave_debug;
+	char			show_score_debug;
 	t_map			*org;
 	t_map			*map;
 	t_map			*adv;
@@ -112,10 +115,10 @@ int find_place(t_game *game);
 int get_val(t_map *map, int row, int col);
 int get_val_pnt(t_map *map, int pnt[2]);
 //void reset_pie(t_game *game, int row, int col);
-int reset_val_map(t_game *game, int row, int col);
+void reset_val_map(t_game *game, int row, int col);
 //int reset_around(t_game *game, int row, int col, int to_set);
 int glob_min_val_around(t_game *game, t_map *map);
-void diff_val_map(t_game *game);
+void diff_val_map(t_game *game, int min_border_val, t_score *score);
 
 void send_map_to_view(t_game *game, t_map *show, int fd_map, int with_pie);
 int is_a_place(t_game *game, int row, int col);
