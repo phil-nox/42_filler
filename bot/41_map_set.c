@@ -83,11 +83,6 @@ int set_val_map(t_game *game, t_map *map, int to_find)
             pnt[1] = -1;
             while (++pnt[1] < map->col)
             {
-                if (to_find == -3 && get_val_pnt(map, pnt) == -2)
-                {
-                    stop += set_around(game, map, pnt, to_set);
-                    continue;
-                }
                 if (get_val_pnt(map, pnt) != to_find) // 0
                     continue;
                 stop += set_around(game, map, pnt, to_set);

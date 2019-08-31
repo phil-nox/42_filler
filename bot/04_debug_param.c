@@ -26,3 +26,9 @@ void debug_diff(t_map *map)
 	debug_value_map_color(map, "");
     debug_print("@@@@@@@@ END DIFF @@@@@@@@", 1, 0);
 }
+
+void debug_att(t_map *map)
+{
+	debug_value_map_color(map, "");
+    debug_print("^^^^^^^^ END ATT ^^^^^^^^", 1, 0);
+}

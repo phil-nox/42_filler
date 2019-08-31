@@ -61,10 +61,13 @@ typedef	struct		s_game
 	char			show_diff_debug;
 	char			show_score_debug;
 	char			decision_debug;
+	char			show_att_debug;
 	t_map			*org;
 	t_map			*map;
 	t_map			*adv;
 	t_map			*pie;
+	t_map			*att;
+	t_map			*fld;
 	t_score			best_score;
 	int				pnt[2];
 	int 			player;
@@ -78,6 +81,8 @@ typedef	struct		s_game_pack
 	t_map			map;
 	t_map			adv;
 	t_map			pie;
+	t_map			att;
+	t_map			fld;
 	char			*gnl;
 	char			cmd_l[BUF_SIZE];
 	int				decision;
@@ -94,6 +99,7 @@ void debug_set(t_map *map);
 void debug_place(t_map *map);
 void debug_reset(t_map *map);
 void debug_diff(t_map *map);
+void debug_att(t_map *map);
 
 int set_player_adv(char *line, t_game *game);
 int set_map(t_game *game, char *keyword, int fd_in);
@@ -134,32 +140,10 @@ int find_first_place(t_game *game, t_map *map);
 
 void calc_decision(t_game *game, t_score *score, char show);
 int change_decision(t_score *curr_sc, t_score *aspi_sc);
-//void find_debug(t_map *map, int pos, int res, int tmp_score);
-//void send_debug(t_map *map, int pos, int tmp_score);
-//void score_debug(t_map *map, int pos, t_score *score);
-//void send_debug_adv(t_map *map, t_score *score);
-/*
-int row_p(t_map *map, int pos);
-int col_p(t_map *map, int pos);
-int col_pg(t_map *map, int pos);
-int not_in_borders(t_map *map, int pos, int t_r, int t_c);
-int is_a_place(int player, t_map *map, t_map *pie, int pos);
-int find_place(int player, t_map *map, t_map *pie);
-void place_pie(int pos, t_map *pie, t_map *adv);
-t_score find_place_adv(t_map *org, t_map *map, t_map *pie, t_map *adv);
-int calc_score(t_map *map, t_map *pie, int pos);
-t_score get_score(int pos, t_map *map, t_map *pie, t_map *adv);
 
+int set_val_map_force(t_game *game, t_map *map, int to_find);
+void diff_for_field(t_map *fld, t_map *att);
+void field_and_shadow(t_map *fld, t_map *adv);
 
-
-char get_val(t_map *map, int pos);
-int set_val(t_map *map, int pos, char val);
-void pre_set_val(t_map *map);
-int is_around(t_map *map, int pos, char to_find);
-void set_val_map(t_map *map, int trg_ply);
-
-int reset_around(t_map *map, int pos);
-void reset_val_map(t_map *map, int init_val);
-*/
 
 #endif
