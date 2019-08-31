@@ -88,7 +88,7 @@ void diff_for_field(t_map *fld, t_map *att)
             if (tmp_att != tmp_fld)
                 set_val(fld, row, col, tmp_att - tmp_fld);
             else
-                set_val(fld, row, col, -5);
+                set_val(fld, row, col, -8);
         }
     }
 }

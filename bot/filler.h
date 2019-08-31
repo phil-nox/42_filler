@@ -68,6 +68,8 @@ typedef	struct		s_game
 	t_map			*pie;
 	t_map			*att;
 	t_map			*fld;
+	t_map			*zon;
+	t_map			*fre;
 	t_score			best_score;
 	int				pnt[2];
 	int 			player;
@@ -83,6 +85,8 @@ typedef	struct		s_game_pack
 	t_map			pie;
 	t_map			att;
 	t_map			fld;
+	t_map			zon;
+	t_map			fre;
 	char			*gnl;
 	char			cmd_l[BUF_SIZE];
 	int				decision;
@@ -144,6 +148,8 @@ int change_decision(t_score *curr_sc, t_score *aspi_sc);
 int set_val_map_force(t_game *game, t_map *map, int to_find);
 void diff_for_field(t_map *fld, t_map *att);
 void field_and_shadow(t_map *fld, t_map *adv);
+void zones(t_map *fre, t_map *att, t_map *map);
+void zone_diff(t_map *fre, t_map *zon);
 
 
 #endif

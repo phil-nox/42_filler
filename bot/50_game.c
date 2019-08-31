@@ -10,6 +10,8 @@ void game_pack_init_bot(t_game_pack *game_p)
     game_p->pie.map = NULL;
     game_p->att.map = NULL;
     game_p->fld.map = NULL;
+    game_p->zon.map = NULL;
+    game_p->fre.map = NULL;
     game_p->game.enemy_score = 0;
     game_p->game.org = &(game_p->org);
     game_p->game.map = &(game_p->map);
@@ -17,6 +19,8 @@ void game_pack_init_bot(t_game_pack *game_p)
     game_p->game.pie = &(game_p->pie);
     game_p->game.att = &(game_p->att);
     game_p->game.fld = &(game_p->fld);
+    game_p->game.zon = &(game_p->zon);
+    game_p->game.fre = &(game_p->fre);
     game_p->game.show_read_debug = 0;
     game_p->game.show_place = 0;
     game_p->game.show_set_wave_debug = 0;

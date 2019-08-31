@@ -70,6 +70,12 @@ int one_time_game_malloc(t_game *game)
     game->fld->map = (int **)malloc((game->org->row) * sizeof(int **));
         if(add_mstack(game->fld->map))
             return (1);
+    game->fre->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->fre->map))
+            return (1);
+    game->zon->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->zon->map))
+            return (1);
     
     idx = -1;
     while (++idx < game->org->row)
@@ -91,6 +97,12 @@ int one_time_game_malloc(t_game *game)
             return (1);
         game->fld->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
         if(add_mstack(game->fld->map[idx]))
+            return (1);
+        game->fre->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+        if(add_mstack(game->fre->map[idx]))
+            return (1);
+        game->zon->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+        if(add_mstack(game->zon->map[idx]))
             return (1);
     }
     return (0);

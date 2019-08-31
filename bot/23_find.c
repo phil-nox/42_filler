@@ -19,10 +19,15 @@ void shadow_math(t_game *game, t_score *score, int row, int col)
     as_map(game->att, game->fld);
     place_pie(game, game->fld, row, col);
     set_val_map_force(game, game->fld, -3);
+    /*
     diff_for_field(game->fld, game->att);
     field_and_shadow(game->fld, game->adv);
     if (game->show_att_debug)
         debug_att(game->fld);
+        */
+    zones(game->fre, game->fld, game->map);
+    zone_diff(game->fre, game->zon);
+    debug_value_map_color(game->fre, "");
 }
 
 
@@ -46,6 +51,11 @@ int find_place(t_game *game)
     set_val_map(game, game->att, -2);
     if (game->show_att_debug)
         debug_att(game->att);
+
+    as_map(game->org, game->zon);
+    as_map(game->org, game->fre);
+    zones(game->zon, game->att, game->map);
+    debug_value_map_color(game->zon, "");
 
     row = - game->pie->row;
     while(++row < game->map->row)

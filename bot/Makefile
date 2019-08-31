@@ -39,7 +39,7 @@ SRC= 	00_debug_wfile.o 01_debug_utf8.o \
 		20_map_copy.o 21_place_for_pie.o \
 		22_score.o 23_find.o 30_send_pie.o \
 		41_map_set.o  42_map_reset.o  50_game.o \
-		43_map_force_set.o \
+		43_map_force_set.o 44_map_zone.o \
 		__mstack.o 73_human_send.o \
 		
 		
@@ -101,6 +101,8 @@ $(PATH_S)42_map_reset.o: 42_map_reset.c
 	$(CC) $(CFLAGS) 42_map_reset.c $(FLAG_PATH_OBJ)
 $(PATH_S)43_map_force_set.o: 43_map_force_set.c
 	$(CC) $(CFLAGS) 43_map_force_set.c $(FLAG_PATH_OBJ)
+$(PATH_S)44_map_zone.o: 44_map_zone.c
+	$(CC) $(CFLAGS) 44_map_zone.c $(FLAG_PATH_OBJ)
 $(PATH_S)50_game.o: 50_game.c
 	$(CC) $(CFLAGS) 50_game.c $(FLAG_PATH_OBJ)
 

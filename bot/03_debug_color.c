@@ -2,8 +2,14 @@
 
 int map_print(int input)
 {
-	if (input <= -5)
+	if (input <= -8)
 		return ft_putstrfile("⬛️");
+	if (input == -7)
+		return ft_putstrfile("🈴");
+	if (input == -6)
+		return ft_putstrfile("⚛️");
+	if (input == -5)
+		return ft_putstrfile("🈯️");
 	if (input == -4)
 		return ft_putstrfile("🚨");
 	if (input == -3)

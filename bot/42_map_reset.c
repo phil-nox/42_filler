@@ -69,7 +69,7 @@ void reset_pie(t_game *game, int row, int col)
         {
             if (game->pie->map[r][c] == -1)
                 continue;
-            reset_around(game, row + r,  col + c, -5);
+            reset_around(game, row + r,  col + c, -8);
         }
     }
 }
@@ -84,7 +84,7 @@ void reset_val_map(t_game *game, int row, int col)
     if (game->show_reset_wave_debug)
         debug_value_map_color(game->adv, "");
     stop = 1;
-    val = -6;
+    val = -9;
     while (stop != 0)
     {
         stop = 0;
@@ -139,7 +139,7 @@ void diff_val_map(t_game *game, int min_border_val, t_score *score, char show)
             
             if (val_adv <= min_border_val || val_map == val_adv)
             {
-                set_val(game->adv, row, col, -5);
+                set_val(game->adv, row, col, -8);
                 continue;
             }
             
