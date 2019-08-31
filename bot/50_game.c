@@ -14,17 +14,12 @@ void game_pack_init_bot(t_game_pack *game_p)
     game_p->game.adv = &(game_p->adv);
     game_p->game.pie = &(game_p->pie);
     game_p->game.show_read_debug = 0;
-    game_p->game.show_make_debug = 0;
     game_p->game.show_place = 0;
     game_p->game.show_set_wave_debug = 0;
     game_p->game.show_set_debug = 0;
-    game_p->game.show_find_debug = 0;
-    game_p->game.show_value_map = 0;
-    game_p->game.show_value_map_adv = 0;
     game_p->game.show_send = 0;
     game_p->game.show_diff_debug = 0;
     game_p->game.show_score_debug = 0;
-    game_p->game.show_send = 0;
     game_p->game.decision_debug = 0;
     game_p->game.show_reset_wave_debug = 0;
 	game_p->cmd_l[0] = '\0';
@@ -62,15 +57,12 @@ int map_incoming_bot(char *gnl, t_game *game)
             tmp_enemy_score = enemy_score(game->org);
             if (game->enemy_score != tmp_enemy_score)
             {   
-                as_map(game->org, game->map);
                 game->enemy_score = tmp_enemy_score;
-                set_val_map(game, game->map, 0);
-                as_map(game->org, game->adv);
                 found_places = find_place(game);
             }
             else
             {
-                found_places = find_first_place(game);
+                found_places = find_first_place(game, game->org);
             }
             
 
@@ -82,7 +74,7 @@ int map_incoming_bot(char *gnl, t_game *game)
 
             if (game->show_send || game->decision_debug)
             {
-                ft_putstrfile("📩 SENDED: => ");
+                ft_putstrfile("\t\t\t📩 SENDED: => ");
                 send_position(game->pnt[0], game->pnt[1], 1);
                 if (game->decision_debug)
                     shadow_calc(game);

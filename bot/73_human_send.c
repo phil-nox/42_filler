@@ -47,7 +47,7 @@ void send_map_to_view(t_game *game, t_map *show, int fd_map, int with_pie)
 
 	if (with_pie)
 	{
-		valid_place = (is_a_place(game, game->pnt[0], game->pnt[1]) == 1) ? 1 : -3;
+		valid_place = (is_a_place(game, game->map, game->pnt[0], game->pnt[1]) == 1) ? 1 : -3;
 		place_pie_for_view(game, valid_place);
 	}
 	row = -1;
@@ -95,7 +95,7 @@ int cmd_apply(t_game *game, int fd_map, char input)
 {
     if (input == 's')
     {
-        if (is_a_place(game, game->pnt[0] + 1, game->pnt[1]) == -1)
+        if (is_a_place(game, game->map, game->pnt[0] + 1, game->pnt[1]) == -1)
             return (0);
         game->pnt[0] += 1;
         send_map_to_view(game, game->adv, fd_map, 1);
@@ -103,7 +103,7 @@ int cmd_apply(t_game *game, int fd_map, char input)
     }
     if (input == 'w')
     {
-        if (is_a_place(game, game->pnt[0] - 1, game->pnt[1]) == -1)
+        if (is_a_place(game, game->map, game->pnt[0] - 1, game->pnt[1]) == -1)
             return (0);
         game->pnt[0] -= 1;
         send_map_to_view(game, game->adv, fd_map, 1);
@@ -111,7 +111,7 @@ int cmd_apply(t_game *game, int fd_map, char input)
     }
     if (input == 'd')
     {
-        if (is_a_place(game, game->pnt[0], game->pnt[1] + 1) == -1)
+        if (is_a_place(game, game->map, game->pnt[0], game->pnt[1] + 1) == -1)
             return (0);
         game->pnt[1] += 1;
         send_map_to_view(game, game->adv, fd_map, 1);
@@ -119,7 +119,7 @@ int cmd_apply(t_game *game, int fd_map, char input)
     }
     if (input == 'a')
     {
-        if (is_a_place(game, game->pnt[0], game->pnt[1] - 1) == -1)
+        if (is_a_place(game, game->map, game->pnt[0], game->pnt[1] - 1) == -1)
             return (0);
         game->pnt[1] -= 1;
         send_map_to_view(game, game->adv, fd_map, 1);
@@ -146,13 +146,9 @@ void game_pack_init(t_game_pack *game_p)
     game_p->game.adv = &(game_p->adv);
     game_p->game.pie = &(game_p->pie);
     game_p->game.show_read_debug = 0;
-    game_p->game.show_make_debug = 0;
     game_p->game.show_set_wave_debug = 0;
     game_p->game.show_set_debug = 0;
-    game_p->game.show_find_debug = 0;
-    game_p->game.show_value_map = 0;
     game_p->game.show_send = 0;
-    game_p->game.show_value_map_adv = 0;
     game_p->game.show_reset_wave_debug = 0;
 	game_p->cmd_l[0] = '\0';
 }

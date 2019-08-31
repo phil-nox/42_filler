@@ -18,11 +18,6 @@
 # define SHIFT_M 4
 # define MAX_INT 2147483647
 
-# define SHOW_FIND_DEBUG 0
-# define SHOW_VALUE_MAP 0
-# define SHOW_SEND 0
-# define SHOW_VALUE_MAP_ADV 0
-
 #include <unistd.h>
 #include <fcntl.h>
 #include "libft.h"
@@ -58,14 +53,10 @@ typedef	struct		s_score
 typedef	struct		s_game
 {
 	char			show_read_debug;
-	char			show_make_debug;
 	char			show_set_wave_debug;
 	char			show_set_debug;
 	char			show_place;
-	char			show_find_debug;
-	char 			show_value_map;
 	char			show_send;
-	char			show_value_map_adv;
 	char			show_reset_wave_debug;
 	char			show_diff_debug;
 	char			show_score_debug;
@@ -97,8 +88,12 @@ int ft_putstrfile(char const *s);
 void debug_print(char *str, int next_line, int to_free);
 void debug_num(int num, int next_line);
 //void debug_value_map(t_map *map);
-void debug_value_map_color(t_map *map);
+void debug_value_map_color(t_map *map, char *tab);
 //void debug_value_map_color_adv(t_map *map, char *str);
+void debug_set(t_map *map);
+void debug_place(t_map *map);
+void debug_reset(t_map *map);
+void debug_diff(t_map *map);
 
 int set_player_adv(char *line, t_game *game);
 int set_map(t_game *game, char *keyword, int fd_in);
@@ -124,7 +119,8 @@ int glob_min_val_around(t_game *game, t_map *map);
 void diff_val_map(t_game *game, int min_border_val, t_score *score, char show);
 
 void send_map_to_view(t_game *game, t_map *show, int fd_map, int with_pie);
-int is_a_place(t_game *game, int row, int col);
+int is_a_place(t_game *game, t_map *map, int row, int col);
+int place_pie(t_game *game, t_map *map, int row, int col);
 
 int map_incoming (t_game *game, char *line, int fd);
 int cmd_apply(t_game *game, int fd_map, char input);
@@ -134,9 +130,10 @@ void shadow_calc(t_game *game);
 
 int map_incoming_bot(char *gnl, t_game *game);
 void game_pack_init_bot(t_game_pack *game_p);
-int find_first_place(t_game *game);
+int find_first_place(t_game *game, t_map *map);
 
-
+void calc_decision(t_game *game, t_score *score, char show);
+int change_decision(t_score *curr_sc, t_score *aspi_sc);
 //void find_debug(t_map *map, int pos, int res, int tmp_score);
 //void send_debug(t_map *map, int pos, int tmp_score);
 //void score_debug(t_map *map, int pos, t_score *score);

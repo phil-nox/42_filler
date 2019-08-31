@@ -48,19 +48,6 @@ int set_map_job(t_game *game, char *keyword, int fd_in)
     return (0);
 }
 
-
-void init_null(t_game *game)
-{
-    int idx; 
-
-    idx = -1;
-    while (++idx < game->org->row)
-    {
-        game->org->map[idx] = NULL;
-        game->pie->map[idx] = NULL;
-    }
-}
-
 int one_time_game_malloc(t_game *game)
 {
     int idx;
@@ -151,7 +138,7 @@ int init_map(char *line, t_game *game, char *keyword, int fd_in)
     out = set_map(game, keyword, fd_in);
     if (out != -1 && game->show_read_debug)
     {
-        debug_value_map_color(trg);
+        debug_value_map_color(trg, "");
         if (keyword == PIE_KW)
             debug_print("<<<<<<<< END INPUT <<<<<<<<", 1, 0);
     }

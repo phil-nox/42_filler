@@ -51,7 +51,7 @@ int map_print(int input)
 	return ft_putstrfile("☑️");
 }
 
-void debug_value_map_color(t_map *map)
+void debug_value_map_color(t_map *map, char *tab)
 {
 	int row;
 	int col;
@@ -60,6 +60,7 @@ void debug_value_map_color(t_map *map)
 	while (++row < map->row)
 	{
 		col = -1;
+		ft_putstrfile(tab);
 		while (++col < map->col)
 			map_print(map->map[row][col]);
 		ft_putstrfile("\n");

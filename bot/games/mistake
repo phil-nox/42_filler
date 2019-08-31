@@ -1,1 +1,3 @@
 ../resources/filler_vm -p1 ../build/squid_debug.filler -p2 ../resources/players/grati.filler -f ../resources/maps/map00 -s 3036
+
+../resources/filler_vm -p2 ../build/squid_debug.filler -p1 ../resources/players/carli.filler -f ../resources/maps/map00 -s 4048
