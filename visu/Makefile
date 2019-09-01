@@ -6,56 +6,31 @@
 #    By: laleta <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/07 19:28:58 by laleta            #+#    #+#              #
-#    Updated: 2019/08/21 20:23:57 by laleta           ###   ########.fr        #
+#    Updated: 2019/09/01 05:39:31 by laleta           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = filler_visu_human
-FLAGS = -Wall -Wextra -Werror
-SOURCE = main.c flrv_init.c flrv_init_player.c flrv_destroy.c flrv_util.c\
-			flrv_draw_shape.c flrv_draw_header.c flrv_event.c flrv_set_shape.c
-HEADER = flr_visual.h flr_loadfile.h flr_human_player.h
+NAME = filler_visual
 
-INCLUDES = -Iincludes -I$(LIBFT_DIR)includes $(CSFML_INCLUDE)
-
-LIBFT = $(LIBFT_DIR)libft.a
-LIBFT_DIR = libft/
-CSFML_DIR = CSFML/
-CSFML_INCLUDE = -I$(CSFML_DIR)include/SFML -I$(CSFML_DIR)include
-
-LIB = -lft -lcsfml-graphics -lcsfml-window -lcsfml-audio -lcsfml-system
-LIB_DIR = -L$(LIBFT_DIR) -L$(CSFML_DIR)lib
-RPATH = -rpath,$(CSFML_DIR)lib/,-rpath,$(CSFML_DIR)Frameworks/
-
-VPATH = srcs includes CSFML/lib CSFML/include/SFML
-
-OBJECT = $(SOURCE:.c=.o)
+DIR_VISU_VM = flr_visu_vm/
+DIR_VISU_HUMAN = flr_visu_human/
 
 .PHONY : all clean fclean re
 
 all : $(NAME)
 
-$(NAME) : $(LIBFT) $(OBJECT)
-	@echo "\033[1;3;34m"
-	gcc $(FLAGS) $(OBJECT) -o $@ $(INCLUDES) $(LIB_DIR) -Wl,$(RPATH) $(LIB)
-	@echo "\033[23;32m--[ "$(NAME) ]-- successfully compiled"\033[0m"
-
-$(LIBFT) :
-	@echo "\033[33;3m"
-	@make -C $(LIBFT_DIR)
-	@echo "\033[0m"
-
-%.o : %.c $(HEADER)
-	@echo "\033[36;3m"
-	gcc $(FLAGS) $(INCLUDES) -c $< -o $@
-	@echo "\033[0m"
+$(NAME) :
+	make -C $(DIR_VISU_VM)
+	make -C $(DIR_VISU_HUMAN)
 
 clean :
-	@make -C $(LIBFT_DIR) clean
-	@rm -f $(OBJECT)
+	@make -C $(DIR_VISU_VM) clean
+	@make -C $(DIR_VISU_HUMAN) clean
 
 fclean : clean
-	@make -C $(LIBFT_DIR) fclean
-	@rm -f $(NAME)
+	@make -C $(DIR_VISU_VM) fclean
+	@make -C $(DIR_VISU_HUMAN) fclean
 
 re : fclean all
+
+re human : fclean human
