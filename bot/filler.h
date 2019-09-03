@@ -70,6 +70,7 @@ typedef	struct		s_game
 	t_map			*fld;
 	t_map			*zon;
 	t_map			*fre;
+	t_map			*fields[9];
 	t_score			best_score;
 	int				pnt[2];
 	int 			player;
@@ -104,6 +105,8 @@ void debug_place(t_map *map);
 void debug_reset(t_map *map);
 void debug_diff(t_map *map);
 void debug_att(t_map *map);
+void debug_metric (t_game *game, char *begin);
+int map_print(int input);
 
 int set_player_adv(char *line, t_game *game);
 int set_map(t_game *game, char *keyword, int fd_in);

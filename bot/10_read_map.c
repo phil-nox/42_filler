@@ -48,7 +48,7 @@ int set_map_job(t_game *game, char *keyword, int fd_in)
     return (0);
 }
 
-int one_time_game_malloc(t_game *game)
+int one_time_game_malloc_old(t_game *game)
 {
     int idx;
 
@@ -108,6 +108,31 @@ int one_time_game_malloc(t_game *game)
     return (0);
 }
 
+int one_time_game_malloc(t_game *game)
+{
+    int idx;
+    int id_map;
+
+    id_map = -1;
+    while (game->fields[++id_map])
+    {
+        game->fields[id_map]->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->fields[id_map]->map))
+            return (1);
+    }
+    idx = -1;
+    while (++idx < game->org->row)
+    {
+        id_map = -1;
+        while (game->fields[++id_map])
+        {
+            game->fields[id_map]->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+            if(add_mstack(game->fields[id_map]->map[idx]))
+                return (1);
+        }
+    }
+    return (0);
+}
 
 int set_map(t_game *game, char *keyword, int fd_in)
 {

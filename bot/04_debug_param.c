@@ -32,3 +32,28 @@ void debug_att(t_map *map)
 	debug_value_map_color(map, "");
     debug_print("^^^^^^^^ END ATT ^^^^^^^^", 1, 0);
 }
+
+void debug_metric (t_game *game, char *begin)
+{
+	int row;
+	int col;
+
+	row = -1;
+	while (++row < game->org->row)
+	{
+		ft_putstrfile(begin);
+		col = -1;
+		while (++col < game->org->col)
+			map_print(game->adv->map[row][col]);
+		ft_putstrfile(" ");
+		col = -1;
+		while (++col < game->org->col)
+			map_print(game->fre->map[row][col]);
+		ft_putstrfile(" ");
+		col = -1;
+		while (++col < game->org->col)
+			map_print(game->fld->map[row][col]);
+		ft_putstrfile("\n");
+	}
+	ft_putstrfile("\n");
+}

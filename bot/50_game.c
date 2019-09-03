@@ -21,6 +21,15 @@ void game_pack_init_bot(t_game_pack *game_p)
     game_p->game.fld = &(game_p->fld);
     game_p->game.zon = &(game_p->zon);
     game_p->game.fre = &(game_p->fre);
+    game_p->game.fields[0] = &(game_p->org);
+    game_p->game.fields[1] = &(game_p->map);
+    game_p->game.fields[2] = &(game_p->adv);
+    game_p->game.fields[3] = &(game_p->pie);
+    game_p->game.fields[4] = &(game_p->att);
+    game_p->game.fields[5] = &(game_p->fld);
+    game_p->game.fields[6] = &(game_p->zon);
+    game_p->game.fields[7] = &(game_p->fre);
+    game_p->game.fields[8] = NULL;
     game_p->game.show_read_debug = 0;
     game_p->game.show_place = 0;
     game_p->game.show_set_wave_debug = 0;
