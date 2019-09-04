@@ -25,7 +25,7 @@ int main(void)
     int fd_cmd;
     int fd_map;
 
-    game_pack_init(&game_pack);
+    game_pack_init_bot(&game_pack);
     if (load_model(&fd_cmd, &fd_map))
         return (1);
 
