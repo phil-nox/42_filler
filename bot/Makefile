@@ -76,6 +76,10 @@ human: re
 	@echo "<<<<"
 	cp 70_human_model.filler ../visu/
 	cp 74_human_adapter.filler ../visu/
+	@echo "RUN >>>>"
+	@echo "rm mypipe.*; mkfifo mypipe.map && mkfifo mypipe.cmd && mkfifo mypipe.adp"
+	@echo "./filler_vm -p2 ./players/carli.filler -p1 ./70_human_model.filler  -f ./maps/map01 -t 99 | ./74_human_adapter.filler | ./filler_visu_human"
+	@echo "<<<<"
 
 $(PATH_S)00_debug_wfile.o: 00_debug_wfile.c
 	$(CC) $(CFLAGS) 00_debug_wfile.c $(FLAG_PATH_OBJ)
