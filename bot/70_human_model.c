@@ -24,13 +24,24 @@ int main(void)
     t_game_pack game_pack;
     int fd_cmd;
     int fd_map;
+    char set_view_done;
 
+    set_view_done = 0;
     game_pack_init_bot(&game_pack);
     if (load_model(&fd_cmd, &fd_map))
         return (1);
 
     while (get_next_line(0, &game_pack.gnl) == 1 && add_mstack(game_pack.gnl) == 0)
     {
+        if (ft_strstr(game_pack.gnl, "$$$"))
+            send_to_fd_ln(game_pack.gnl, fd_map);
+
+        if (set_view_done == 0 && ft_strstr(game_pack.gnl, "Plateau"))
+        {
+            send_to_fd_ln(game_pack.gnl, fd_map);
+            set_view_done = 1;
+        }
+        
         game_pack.decision = map_incoming(&game_pack.game, game_pack.gnl, 0);
         if (game_pack.decision == -1)
         {

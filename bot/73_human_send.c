@@ -6,6 +6,12 @@ int send_to_fd(char *line, int fd_map)
 	return (write(fd_map, line, ft_strlen(line)));
 }
 
+int send_to_fd_ln(char *line, int fd_map)
+{
+	write(fd_map, line, ft_strlen(line));
+    return write(fd_map, "\n", 1);
+}
+
 int map_human(int input, int fd_map)
 {
 	if (input == -3)

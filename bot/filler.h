@@ -135,6 +135,8 @@ void send_map_to_view(t_game *game, t_map *show, int fd_map, int with_pie);
 int is_a_place(t_game *game, t_map *map, int row, int col);
 int place_pie(t_game *game, t_map *map, int row, int col);
 
+int send_to_fd(char *line, int fd_map);
+int send_to_fd_ln(char *line, int fd_map);
 int map_incoming (t_game *game, char *line, int fd);
 int cmd_apply(t_game *game, int fd_map, char input);
 void game_pack_init(t_game_pack *game_p);
