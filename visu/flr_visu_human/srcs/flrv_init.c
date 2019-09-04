@@ -6,11 +6,12 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 20:07:20 by laleta            #+#    #+#             */
-/*   Updated: 2019/08/31 22:37:16 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/05 00:36:38 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "flr_visual.h"
+#include "filler_window.h"
 
 static t_text	*ft_init_footer(t_sfml *sfml)
 {
@@ -62,6 +63,8 @@ static t_text	*ft_init_title(t_sfml *sfml)
 
 static void		ft_init_sfml_aux(t_sfml *sfml)
 {
+	sfVector2i	pos;
+
 	sfml->pos_sc.x = MARGIN;
 	sfml->pos_sc.y = 480;
 	sfml->scale_sc.x = sfml->scale;
@@ -77,6 +80,9 @@ static void		ft_init_sfml_aux(t_sfml *sfml)
 	sfml->map_pl = 0;
 	sfml->map_vm = -1;
 	sfml->fd = g_fdmap;
+	pos.x = WIN_POS_X;
+	pos.y = WIN_POS_Y;
+	sfRenderWindow_setPosition(sfml->window, pos);
 }
 
 static int8_t	ft_init_sfml(t_sfml *sfml)
@@ -85,8 +91,9 @@ static int8_t	ft_init_sfml(t_sfml *sfml)
 
 	ft_get_size(&sfml->width, &sfml->height);
 	sfml->cell_cnt = sfml->width * sfml->height;
-	sfml->scale = sfml->height * CELL_SZ > HEIGHT_MAX ?
-							(double)HEIGHT_MAX / (sfml->height * CELL_SZ) : 1;
+	sfml->scale = (double)WIN_HEIGHT / (sfml->height * CELL_SZ);
+//		sfml->height * CELL_SZ > HEIGHT_MAX ?
+//							(double)HEIGHT_MAX / (sfml->height * CELL_SZ) : 1;
 	sfml->height_sc = sfml->height * CELL_SZ * sfml->scale;
 	sfml->width_sc = sfml->width * CELL_SZ * sfml->scale;
 	mode.width = sfml->width_sc + 2 * MARGIN;

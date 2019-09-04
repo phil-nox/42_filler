@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 00:02:03 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/01 01:09:15 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/05 00:24:31 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include <errno.h>
 # include <sys/stat.h>
 
-# define HEIGHT_MAX		2000
-# define WIDTH_MAX		2500
+//# define HEIGHT_MAX		2000
+//# define WIDTH_MAX		2500
 # define MARGIN			40
 # define CELL_SZ		30
 # define NAME_MAX		16
