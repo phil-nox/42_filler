@@ -16,7 +16,9 @@
 # 	find . -maxdepth 1 -name '*.c' | sed "s/\.\///" | sed "s/\.c/\.o/" | tr '\n' ' '
 #
 
-NAME=boa.filler
+ST_NAME=squid
+END_NAME=.filler
+NAME=$(ST_NAME)$(END_NAME)
 
 PATH_H =./
 
@@ -33,28 +35,28 @@ PATH_B=./build/
 PATH_S=./obj/
 
 SRC= 	00_debug_wfile.o 01_debug_utf8.o \
-		03_debug_color.o 10_read_map.o \
-		30_send_pie.o 22_place_for_pie_map.o \
-		41_val_for_map_set.o 21_place_for_pie_find.o \
-		__mstack.o 42_val_for_map_reset.o 73_human_send.o
+		03_debug_color.o 04_debug_param.o 10_read_map.o \
+		20_map_copy.o 21_place_for_pie.o \
+		22_score.o 23_find.o 30_send_pie.o \
+		41_map_set.o  42_map_reset.o  50_game.o \
+		43_map_force_set.o 44_map_zone.o \
+		__mstack.o 73_human_send.o \
 		
-OTHER=	20_place_for_pie_base.o 21_place_for_pie_find.o \
-		23_place_for_pie_score.o 02_debug_base.o\
-		24_place_for_pie_find_adv.o 04_debug_score.o \
-		40_val_for_map_base.o \
-		42_val_for_map_reset.o 90_old.o
+		
+OTHER=  90_old.o
 
 PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
 
 $(NAME): $(PATH_SRC)
-	$(CC) $(FLAGS) 50_creating_player.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(NAME)
+	$(CC) $(FLAGS) 60_run.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(NAME)
+	$(CC) $(FLAGS) 61_run_debug.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(ST_NAME)_debug$(END_NAME)
 
 all: $(NAME)
 
 play: re
 	rm -rf test_debug
 	touch test_debug
-	./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map00 -t 1
+	./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map00 -s 3207
 
 play_h: re
 	./resources/filler_vm -p2 ./resources/players//abanlin.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map02
@@ -72,43 +74,45 @@ human: re
 	@echo "./71_human_view.filler"
 	@echo "./72_human_controller.filler"
 	@echo "<<<<"
+	cp 70_human_model.filler ../visu/
+	cp 74_human_adapter.filler ../visu/
+
+$(PATH_S)00_debug_wfile.o: 00_debug_wfile.c
+	$(CC) $(CFLAGS) 00_debug_wfile.c $(FLAG_PATH_OBJ)
+$(PATH_S)01_debug_utf8.o: 01_debug_utf8.c
+	$(CC) $(CFLAGS) 01_debug_utf8.c $(FLAG_PATH_OBJ)
+$(PATH_S)03_debug_color.o: 03_debug_color.c
+	$(CC) $(CFLAGS) 03_debug_color.c $(FLAG_PATH_OBJ)
+$(PATH_S)04_debug_param.o: 04_debug_param.c
+	$(CC) $(CFLAGS) 04_debug_param.c $(FLAG_PATH_OBJ)
+$(PATH_S)10_read_map.o: 10_read_map.c
+	$(CC) $(CFLAGS) 10_read_map.c $(FLAG_PATH_OBJ)
+$(PATH_S)20_map_copy.o: 20_map_copy.c
+	$(CC) $(CFLAGS) 20_map_copy.c $(FLAG_PATH_OBJ)
+$(PATH_S)21_place_for_pie.o: 21_place_for_pie.c
+	$(CC) $(CFLAGS) 21_place_for_pie.c $(FLAG_PATH_OBJ)
+$(PATH_S)22_score.o: 22_score.c
+	$(CC) $(CFLAGS) 22_score.c $(FLAG_PATH_OBJ)
+$(PATH_S)23_find.o: 23_find.c
+	$(CC) $(CFLAGS) 23_find.c $(FLAG_PATH_OBJ)
+$(PATH_S)30_send_pie.o: 30_send_pie.c
+	$(CC) $(CFLAGS) 30_send_pie.c $(FLAG_PATH_OBJ)
+$(PATH_S)41_map_set.o: 41_map_set.c
+	$(CC) $(CFLAGS) 41_map_set.c $(FLAG_PATH_OBJ)
+$(PATH_S)42_map_reset.o: 42_map_reset.c
+	$(CC) $(CFLAGS) 42_map_reset.c $(FLAG_PATH_OBJ)
+$(PATH_S)43_map_force_set.o: 43_map_force_set.c
+	$(CC) $(CFLAGS) 43_map_force_set.c $(FLAG_PATH_OBJ)
+$(PATH_S)44_map_zone.o: 44_map_zone.c
+	$(CC) $(CFLAGS) 44_map_zone.c $(FLAG_PATH_OBJ)
+$(PATH_S)50_game.o: 50_game.c
+	$(CC) $(CFLAGS) 50_game.c $(FLAG_PATH_OBJ)
 
 $(PATH_S)73_human_send.o: 73_human_send.c
 	$(CC) $(CFLAGS) 73_human_send.c $(FLAG_PATH_OBJ)
 $(PATH_S)__mstack.o: __mstack.c
 	$(CC) $(CFLAGS) __mstack.c $(FLAG_PATH_OBJ)
-$(PATH_S)00_debug_wfile.o: 00_debug_wfile.c
-	$(CC) $(CFLAGS) 00_debug_wfile.c $(FLAG_PATH_OBJ)
-$(PATH_S)01_debug_utf8.o: 01_debug_utf8.c
-	$(CC) $(CFLAGS) 01_debug_utf8.c $(FLAG_PATH_OBJ)
-$(PATH_S)02_debug_base.o: 02_debug_base.c
-	$(CC) $(CFLAGS) 02_debug_base.c $(FLAG_PATH_OBJ)
-$(PATH_S)03_debug_color.o: 03_debug_color.c
-	$(CC) $(CFLAGS) 03_debug_color.c $(FLAG_PATH_OBJ)
-$(PATH_S)04_debug_score.o: 04_debug_score.c
-	$(CC) $(CFLAGS) 04_debug_score.c $(FLAG_PATH_OBJ)
-$(PATH_S)10_read_map.o: 10_read_map.c
-	$(CC) $(CFLAGS) 10_read_map.c $(FLAG_PATH_OBJ)
-$(PATH_S)20_place_for_pie_base.o: 20_place_for_pie_base.c
-	$(CC) $(CFLAGS) 20_place_for_pie_base.c $(FLAG_PATH_OBJ)
-$(PATH_S)21_place_for_pie_find.o: 21_place_for_pie_find.c
-	$(CC) $(CFLAGS) 21_place_for_pie_find.c $(FLAG_PATH_OBJ)
-$(PATH_S)22_place_for_pie_map.o: 22_place_for_pie_map.c
-	$(CC) $(CFLAGS) 22_place_for_pie_map.c $(FLAG_PATH_OBJ)
-$(PATH_S)23_place_for_pie_score.o: 23_place_for_pie_score.c
-	$(CC) $(CFLAGS) 23_place_for_pie_score.c $(FLAG_PATH_OBJ)
-$(PATH_S)24_place_for_pie_find_adv.o: 24_place_for_pie_find_adv.c
-	$(CC) $(CFLAGS) 24_place_for_pie_find_adv.c $(FLAG_PATH_OBJ)
-$(PATH_S)30_send_pie.o: 30_send_pie.c
-	$(CC) $(CFLAGS) 30_send_pie.c $(FLAG_PATH_OBJ)
-$(PATH_S)40_val_for_map_base.o: 40_val_for_map_base.c
-	$(CC) $(CFLAGS) 40_val_for_map_base.c $(FLAG_PATH_OBJ)
-$(PATH_S)41_val_for_map_set.o: 41_val_for_map_set.c
-	$(CC) $(CFLAGS) 41_val_for_map_set.c $(FLAG_PATH_OBJ)
-$(PATH_S)42_val_for_map_reset.o: 42_val_for_map_reset.c
-	$(CC) $(CFLAGS) 42_val_for_map_reset.c $(FLAG_PATH_OBJ)
-$(PATH_S)90_old.o: 90_old.c
-	$(CC) $(CFLAGS) 90_old.c $(FLAG_PATH_OBJ)
+
 
 clean:
 	rm -f $(PATH_SRC)

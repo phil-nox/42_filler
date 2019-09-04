@@ -1,6 +1,0 @@
-seed = 202
-../build/boa.filler won
-Score:
-322AGAINST0
-../resources/filler_vm -p1 ../build/boa.filler -p2 ../resources/players/champely.filler -f ../resources/maps/map01 -q -s 202
-../resources/filler_vm -p1 ../build/boa_debug.filler -p2 ../resources/players/champely.filler -f ../resources/maps/map01 -s 202

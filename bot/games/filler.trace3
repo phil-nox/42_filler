@@ -1,6 +1,0 @@
-seed = 4451
-../build/boa.filler won
-Score:
-64AGAINST39
-../resources/filler_vm -p1 ../build/boa.filler -p2 ../resources/players/carli.filler -f ../resources/maps/map00 -q -s 4451
-../resources/filler_vm -p1 ../build/boa_debug.filler -p2 ../resources/players/carli.filler -f ../resources/maps/map00 -s 4451

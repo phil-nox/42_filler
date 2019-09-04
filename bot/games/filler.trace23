@@ -1,6 +1,0 @@
-seed = 1882
-../resources/players/superjeannot.filler won
-Score:
-0AGAINST336
-../resources/filler_vm -p1 ../build/boa.filler -p2 ../resources/players/superjeannot.filler -f ../resources/maps/map01 -q -s 1882
-../resources/filler_vm -p1 ../build/boa_debug.filler -p2 ../resources/players/superjeannot.filler -f ../resources/maps/map01 -s 1882

@@ -1,6 +1,0 @@
-seed = 339
-../build/boa.filler won
-Score:
-56AGAINST110
-../resources/filler_vm -p2 ../build/boa.filler -p1 ../resources/players/superjeannot.filler -f ../resources/maps/map00 -q -s 339
-../resources/filler_vm -p2 ../build/boa_debug.filler -p1 ../resources/players/superjeannot.filler -f ../resources/maps/map00 -s 339

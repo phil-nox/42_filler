@@ -1,6 +1,0 @@
-seed = 6317
-../build/boa.filler won
-Score:
-85AGAINST250
-../resources/filler_vm -p2 ../build/boa.filler -p1 ../resources/players/superjeannot.filler -f ../resources/maps/map01 -q -s 6317
-../resources/filler_vm -p2 ../build/boa_debug.filler -p1 ../resources/players/superjeannot.filler -f ../resources/maps/map01 -s 6317

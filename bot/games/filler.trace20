@@ -1,6 +1,0 @@
-seed = 1480
-../build/boa.filler won
-Score:
-72AGAINST296
-../resources/filler_vm -p2 ../build/boa.filler -p1 ../resources/players/grati.filler -f ../resources/maps/map01 -q -s 1480
-../resources/filler_vm -p2 ../build/boa_debug.filler -p1 ../resources/players/grati.filler -f ../resources/maps/map01 -s 1480
