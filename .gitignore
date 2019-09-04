@@ -9,3 +9,7 @@ out
 test_out
 filler.trace
 read.filler
+*.o
+filler_visu_human
+filler_visu_vm
+libft.a
