@@ -6,7 +6,7 @@
 #    By: laleta <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/07 19:28:58 by laleta            #+#    #+#              #
-#    Updated: 2019/09/01 05:39:31 by laleta           ###   ########.fr        #
+#    Updated: 2019/09/04 21:20:39 by laleta           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,5 +32,3 @@ fclean : clean
 	@make -C $(DIR_VISU_HUMAN) fclean
 
 re : fclean all
-
-re human : fclean human
