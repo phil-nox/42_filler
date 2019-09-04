@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 19:41:31 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/04 21:23:39 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/05 00:47:45 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void					ft_render(void *ssfml)
 	i = 0;
 	sfml = ssfml;
 	sfRenderWindow_setActive(sfml->window, 1);
-	while (sfRenderWindow_isOpen(sfml->window))
+	while (!sfml->stop)
 	{
 		if ((g_state & FLR_FIN) && !sfml->stop)
 			ft_fin(sfml);
