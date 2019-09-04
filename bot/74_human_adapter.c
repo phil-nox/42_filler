@@ -19,7 +19,7 @@ int main(void)
     int fd_adp;
     int fd_vm;
 
-    game_pack_init(&game_pack);
+    game_pack_init_bot(&game_pack);
     if (load_adapter(&fd_adp, &fd_vm))
         return (1);
 
