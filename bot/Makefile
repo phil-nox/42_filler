@@ -74,6 +74,8 @@ human: re
 	@echo "./71_human_view.filler"
 	@echo "./72_human_controller.filler"
 	@echo "<<<<"
+	cp 70_human_model.filler ../visu/
+	cp 74_human_adapter.filler ../visu/
 
 $(PATH_S)00_debug_wfile.o: 00_debug_wfile.c
 	$(CC) $(CFLAGS) 00_debug_wfile.c $(FLAG_PATH_OBJ)
