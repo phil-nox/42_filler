@@ -11,7 +11,7 @@ int set_player_adv(char *line, t_game *game)
        return (0);
 }
 
-int set_map_job(t_game *game, char *keyword)
+int set_map_job(t_game *game, char *keyword, int fd_in)
 {
     int idx;
     int idxc;
@@ -24,7 +24,7 @@ int set_map_job(t_game *game, char *keyword)
     idx = -1;
     while (++idx < trg->row)
     {
-        get_next_line(0, &line);
+        get_next_line(fd_in, &line);
         if(add_mstack(line))
             return (-1);
 
@@ -48,20 +48,7 @@ int set_map_job(t_game *game, char *keyword)
     return (0);
 }
 
-
-void init_null(t_game *game)
-{
-    int idx; 
-
-    idx = -1;
-    while (++idx < game->org->row)
-    {
-        game->org->map[idx] = NULL;
-        game->pie->map[idx] = NULL;
-    }
-}
-
-int one_time_game_malloc(t_game *game)
+int one_time_game_malloc_old(t_game *game)
 {
     int idx;
 
@@ -76,6 +63,18 @@ int one_time_game_malloc(t_game *game)
             return (1);
     game->pie->map = (int **)malloc((game->org->row) * sizeof(int **));
         if(add_mstack(game->pie->map))
+            return (1);
+    game->att->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->att->map))
+            return (1);
+    game->fld->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->fld->map))
+            return (1);
+    game->fre->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->fre->map))
+            return (1);
+    game->zon->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->zon->map))
             return (1);
     
     idx = -1;
@@ -93,12 +92,49 @@ int one_time_game_malloc(t_game *game)
         game->pie->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
         if(add_mstack(game->pie->map[idx]))
             return (1);
+        game->att->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+        if(add_mstack(game->att->map[idx]))
+            return (1);
+        game->fld->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+        if(add_mstack(game->fld->map[idx]))
+            return (1);
+        game->fre->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+        if(add_mstack(game->fre->map[idx]))
+            return (1);
+        game->zon->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+        if(add_mstack(game->zon->map[idx]))
+            return (1);
     }
     return (0);
 }
 
+int one_time_game_malloc(t_game *game)
+{
+    int idx;
+    int id_map;
 
-int set_map(t_game *game, char *keyword)
+    id_map = -1;
+    while (game->fields[++id_map])
+    {
+        game->fields[id_map]->map = (int **)malloc((game->org->row) * sizeof(int **));
+        if(add_mstack(game->fields[id_map]->map))
+            return (1);
+    }
+    idx = -1;
+    while (++idx < game->org->row)
+    {
+        id_map = -1;
+        while (game->fields[++id_map])
+        {
+            game->fields[id_map]->map[idx] = (int *)malloc((game->org->col) * sizeof(int *));
+            if(add_mstack(game->fields[id_map]->map[idx]))
+                return (1);
+        }
+    }
+    return (0);
+}
+
+int set_map(t_game *game, char *keyword, int fd_in)
 {
     char *line;
     t_map *trg;
@@ -110,16 +146,16 @@ int set_map(t_game *game, char *keyword)
         if (trg->map == NULL)
             if(one_time_game_malloc(game))
                 return (-1);
-        get_next_line(0, &line);
+        get_next_line(fd_in, &line);
         if(add_mstack(line))
             return (-1);
         free_mstack(line);
     }
-    set_map_job (game, keyword);
+    set_map_job (game, keyword, fd_in);
     return (1);
 }
 
-int init_map(char *line, t_game *game, char *keyword)
+int init_map(char *line, t_game *game, char *keyword, int fd_in)
 {
     t_map *trg;
     int out;
@@ -148,10 +184,10 @@ int init_map(char *line, t_game *game, char *keyword)
     free_mstack(line);
     
 
-    out = set_map(game, keyword);
+    out = set_map(game, keyword, fd_in);
     if (out != -1 && game->show_read_debug)
     {
-        debug_value_map_color(trg);
+        debug_value_map_color(trg, "");
         if (keyword == PIE_KW)
             debug_print("<<<<<<<< END INPUT <<<<<<<<", 1, 0);
     }

@@ -1,21 +1,11 @@
 #include "human.h"
 #include <stdio.h>
 
-size_t	ftt_strlen(const char *s)
-{
-	size_t	idx;
-
-	idx = 0;
-	while (s[idx])
-		idx++;
-	return (idx);
-}
-
 int load_controller(int *fd_cmd)
 {
     *fd_cmd = open(FIFO_CMD, O_WRONLY);
     printf("fd_cmd=%d\n", *fd_cmd);
-    if (*fd_cmd < 1 )
+    if (*fd_cmd < 1)
     {
         write(1, "Failed with open() FIFO_CMD\n", 29);
         return (1);
@@ -27,8 +17,6 @@ int load_controller(int *fd_cmd)
 
 int main(void)
 {
-    // read human_model.c
-
     int fd_cmd;
     char to_send;
 

@@ -7,11 +7,6 @@ make -C./libft && gcc 1_read_map.c test_1_read_map.c -L./libft/build -lft -I./li
 touch test_out test_debug
 ./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./read.filler -f ./resources/maps/map00 -t 1
 
-### STEP 2
-### test is_place
-### Setting: SHOW_FIND_DEBUG
-./test_run.sh
-
 ### STEP 3
 ### run try
 make play
@@ -25,8 +20,15 @@ OR
 ### STEP 4
 ### real test
 ./make.sh
-./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./build/boa_debug.filler -f ./resources/maps/map00
+./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./build/boa.filler -f ./resources/maps/map00
 
 ./test_run_games.sh
 cd games
 run_something_fromfile
+
+
+### STEP 4
+### real test
+./make_test.sh
+check
+../resources/filler_vm -p1 ../build/squid_debug.filler -p2 ../resources/players/grati.filler -f ../resources/maps/map00 -s 3036
