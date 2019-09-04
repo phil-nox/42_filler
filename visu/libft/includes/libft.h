@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/03 16:01:33 by laleta            #+#    #+#             */
-/*   Updated: 2019/04/29 19:39:08 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/04 21:14:38 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include "get_next_line.h"
 
 # define ABS(x) (((x) < 0) ? (x) * -1 : (x))
-//# define BUFF_SIZE 4096
-//# define MAX_FILE_DESC 1024
 
 typedef struct		s_ldiv_t
 {

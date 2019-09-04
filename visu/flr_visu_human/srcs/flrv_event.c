@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 22:25:29 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/01 01:09:18 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/04 22:00:52 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void		ft_event_handle(t_sfml *sfml, sfEvent *event)
 													sfMusic_stop(sfml->music);
 	}
 	if (event->type == sfEvtClosed ||
-		(event->type == sfEvtKeyPressed && event->key.code == sfKeyEscape))
+		(event->type == sfEvtKeyPressed && event->key.code == sfKeyEscape) ||
+		(event->type == sfEvtKeyPressed && g_state & FLR_FIN))
 		sfRenderWindow_close(sfml->window);
 	if (!(g_state & FLR_LOSE))
 		ft_event_handle_cmd(sfml, event);
