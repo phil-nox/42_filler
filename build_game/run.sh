@@ -46,7 +46,6 @@ while true; do
     echo -e "  ⬅️  ⬇️  ➡️\n"
     echo -e "For select press 'space' or 'enter' \n\n"
     echo -e "For run game select bot 👇\n"
-    CUR=0
     choice
     BOT=${PLAYERS[$CUR]}
     echo -en "\n$BOT\n"

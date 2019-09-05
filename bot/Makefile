@@ -50,6 +50,10 @@ PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
 $(NAME): $(PATH_SRC)
 	$(CC) $(FLAGS) 60_run.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(NAME)
 	$(CC) $(FLAGS) 61_run_debug.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(ST_NAME)_debug$(END_NAME)
+	$(CC) $(FLAGS) 70_human_model.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)70_human_model$(END_NAME)
+	$(CC) $(FLAGS) 71_human_view.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)71_human_view$(END_NAME)
+	$(CC) $(FLAGS) 72_human_controller.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)72_human_controller$(END_NAME)
+	$(CC) $(FLAGS) 74_human_adapter.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)74_human_adapter$(END_NAME)
 
 all: $(NAME)
 
@@ -111,7 +115,6 @@ $(PATH_S)44_map_zone.o: 44_map_zone.c
 	$(CC) $(CFLAGS) 44_map_zone.c $(FLAG_PATH_OBJ)
 $(PATH_S)50_game.o: 50_game.c
 	$(CC) $(CFLAGS) 50_game.c $(FLAG_PATH_OBJ)
-
 $(PATH_S)73_human_send.o: 73_human_send.c
 	$(CC) $(CFLAGS) 73_human_send.c $(FLAG_PATH_OBJ)
 $(PATH_S)__mstack.o: __mstack.c
@@ -123,4 +126,8 @@ clean:
 
 fclean: clean
 	rm -f $(PATH_B)$(NAME)
+	rm -f $(PATH_B)70_human_model$(END_NAME)
+	rm -f $(PATH_B)71_human_view$(END_NAME)
+	rm -f $(PATH_B)72_human_controller$(END_NAME)
+	rm -f $(PATH_B)74_human_adapter$(END_NAME)
 re: fclean all

@@ -50,8 +50,11 @@ int main(void)
         }
         if (game_pack.decision == 1)
         {
-            game_pack.game.pnt[0] = 0;
-            game_pack.game.pnt[1] = 0;
+            if (is_a_place(&game_pack.game, game_pack.game.org, game_pack.game.pnt[0], game_pack.game.pnt[1]) == -1)
+            {
+                game_pack.game.pnt[0] = 0;
+                game_pack.game.pnt[1] = 0;
+            }
             send_map_to_view(&game_pack.game, game_pack.game.adv, fd_map, 1);
             while (read(fd_cmd, game_pack.cmd_l, BUF_SIZE))
             {

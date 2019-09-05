@@ -1,5 +1,5 @@
 bot:
-	make human -C ../bot
+	make -C ../bot
 
 visu:
 	make -C ../visu
@@ -11,8 +11,8 @@ PIPES= mypipe.map mypipe.cmd mypipe.adp
 
 move:
 	echo "ok"
-	cp ../bot/70_human_model.filler ./
-	cp ../bot/74_human_adapter.filler ./
+	cp ../bot/build/70_human_model.filler ./
+	cp ../bot/build/74_human_adapter.filler ./
 	cp ../visu/filler_visu_human ./
 	cp -r ../visu/resources ./
 	cp -r ../visu/CSFML ./
