@@ -6,7 +6,7 @@
 #    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/09/12 17:58:14 by wgorold          ###   ########.fr        #
+#    Updated: 2019/09/12 21:50:11 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,22 +41,21 @@ SRC= 	n00_debug_wfile.o n01_debug_utf8.o \
 		n20_map_copy.o n21_place_for_pie.o \
 		n22_score.o n23_find.o n30_send_pie.o \
 		n40_map_set_basic.o \
-		n41_map_set.o  42_map_reset.o  50_game.o \
-		43_map_force_set.o 44_map_zone.o \
-		__mstack.o 73_human_send.o \
-		
-		
-OTHER=  90_old.o
+		n41_map_set.o  n42_map_reset.o  n43_map_diff.o \
+		n44_map_force_set.o n46_map_zone.o n45_map_field.o \
+		n50_game_pack.o n51_game_find_send.o\
+		n74_human_send_basic.o n75_human_send.o \
+		n_mstack_0.o n_mstack_1.o
 
 PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
 
 $(NAME): $(PATH_SRC)
-	$(CC) $(FLAGS) 60_run.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(NAME)
-	$(CC) $(FLAGS) 61_run_debug.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(ST_NAME)_debug$(END_NAME)
-	$(CC) $(FLAGS) 70_human_model.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)70_human_model$(END_NAME)
-	$(CC) $(FLAGS) 71_human_view.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)71_human_view$(END_NAME)
-	$(CC) $(FLAGS) 72_human_controller.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)72_human_controller$(END_NAME)
-	$(CC) $(FLAGS) 74_human_adapter.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)74_human_adapter$(END_NAME)
+	$(CC) $(FLAGS) n60_run.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(NAME)
+	$(CC) $(FLAGS) n61_run_debug.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)$(ST_NAME)_debug$(END_NAME)
+	$(CC) $(FLAGS) n70_human_model.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)70_human_model$(END_NAME)
+	$(CC) $(FLAGS) n71_human_view.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)71_human_view$(END_NAME)
+	$(CC) $(FLAGS) n72_human_controller.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)72_human_controller$(END_NAME)
+	$(CC) $(FLAGS) n73_human_adapter.c obj/*.o -L./libft/build -lft -I$(PATH_H) -I./libft -o $(PATH_B)74_human_adapter$(END_NAME)
 
 all: $(NAME)
 
@@ -70,10 +69,10 @@ play_h: re
 
 
 human: re
-	gcc -Wall -Wextra -Werror 70_human_model.c obj/*.o -L./libft/build -lft -I./ -I./libft -o 70_human_model.filler
-	gcc -Wall -Wextra -Werror 71_human_view.c -o 71_human_view.filler obj/*.o -L./libft/build -lft -I./ -I./libft
-	gcc -Wall -Wextra -Werror 72_human_controller.c -o 72_human_controller.filler
-	gcc -Wall -Wextra -Werror 74_human_adapter.c -o 74_human_adapter.filler obj/*.o -L./libft/build -lft -I./ -I./libft
+	gcc -Wall -Wextra -Werror n70_human_model.c obj/*.o -L./libft/build -lft -I./ -I./libft -o 70_human_model.filler
+	gcc -Wall -Wextra -Werror n71_human_view.c -o 71_human_view.filler obj/*.o -L./libft/build -lft -I./ -I./libft
+	gcc -Wall -Wextra -Werror n72_human_controller.c -o 72_human_controller.filler
+	gcc -Wall -Wextra -Werror n73_human_adapter.c -o 74_human_adapter.filler obj/*.o -L./libft/build -lft -I./ -I./libft
 	@echo " "
 	@echo "RUN >>>>"
 	@echo "rm mypipe.*; mkfifo mypipe.map && mkfifo mypipe.cmd && mkfifo mypipe.adp"
@@ -116,18 +115,28 @@ $(PATH_S)n40_map_set_basic.o: n40_map_set_basic.c
 	$(CC) $(CFLAGS) n40_map_set_basic.c $(FLAG_PATH_OBJ)
 $(PATH_S)n41_map_set.o: n41_map_set.c
 	$(CC) $(CFLAGS) n41_map_set.c $(FLAG_PATH_OBJ)
-$(PATH_S)42_map_reset.o: 42_map_reset.c
-	$(CC) $(CFLAGS) 42_map_reset.c $(FLAG_PATH_OBJ)
-$(PATH_S)43_map_force_set.o: 43_map_force_set.c
-	$(CC) $(CFLAGS) 43_map_force_set.c $(FLAG_PATH_OBJ)
-$(PATH_S)44_map_zone.o: 44_map_zone.c
-	$(CC) $(CFLAGS) 44_map_zone.c $(FLAG_PATH_OBJ)
-$(PATH_S)50_game.o: 50_game.c
-	$(CC) $(CFLAGS) 50_game.c $(FLAG_PATH_OBJ)
-$(PATH_S)73_human_send.o: 73_human_send.c
-	$(CC) $(CFLAGS) 73_human_send.c $(FLAG_PATH_OBJ)
-$(PATH_S)__mstack.o: __mstack.c
-	$(CC) $(CFLAGS) __mstack.c $(FLAG_PATH_OBJ)
+$(PATH_S)n42_map_reset.o: n42_map_reset.c
+	$(CC) $(CFLAGS) n42_map_reset.c $(FLAG_PATH_OBJ)
+$(PATH_S)n43_map_diff.o: n43_map_diff.c
+	$(CC) $(CFLAGS) n43_map_diff.c $(FLAG_PATH_OBJ)
+$(PATH_S)n44_map_force_set.o: n44_map_force_set.c
+	$(CC) $(CFLAGS) n44_map_force_set.c $(FLAG_PATH_OBJ)
+$(PATH_S)n45_map_field.o: n45_map_field.c
+	$(CC) $(CFLAGS) n45_map_field.c $(FLAG_PATH_OBJ)
+$(PATH_S)n46_map_zone.o: n46_map_zone.c
+	$(CC) $(CFLAGS) n46_map_zone.c $(FLAG_PATH_OBJ)
+$(PATH_S)n50_game_pack.o: n50_game_pack.c
+	$(CC) $(CFLAGS) n50_game_pack.c $(FLAG_PATH_OBJ)
+$(PATH_S)n51_game_find_send.o: n51_game_find_send.c
+	$(CC) $(CFLAGS) n51_game_find_send.c $(FLAG_PATH_OBJ)
+$(PATH_S)n74_human_send_basic.o: n74_human_send_basic.c
+	$(CC) $(CFLAGS) n74_human_send_basic.c $(FLAG_PATH_OBJ)
+$(PATH_S)n75_human_send.o: n75_human_send.c
+	$(CC) $(CFLAGS) n75_human_send.c $(FLAG_PATH_OBJ)
+$(PATH_S)n_mstack_0.o: n_mstack_0.c
+	$(CC) $(CFLAGS) n_mstack_0.c $(FLAG_PATH_OBJ)
+$(PATH_S)n_mstack_1.o: n_mstack_1.c
+	$(CC) $(CFLAGS) n_mstack_1.c $(FLAG_PATH_OBJ)
 
 
 clean:

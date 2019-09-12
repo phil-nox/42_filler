@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:09:41 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 17:17:20 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/12 18:08:23 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	shadow_calc(t_game *game)
 	as_map(game->map, game->adv);
 	place_pie(game, game->adv, game->pnt[0], game->pnt[1]);
 	reset_val_map(game, game->pnt[0], game->pnt[1]);
-	while ((min_border_val = glob_min_val_around(game, game->adv)) != -1)
+	while ((min_border_val = glob_min_val_around(game->adv)) != -1)
 		set_val_map(game, game->adv, min_border_val);
 	calc_decision(game, &(game->best_score), 1);
 	diff_val_map(game, min_border_val, &tmp, 1);

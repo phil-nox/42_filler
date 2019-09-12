@@ -6,13 +6,13 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:27:28 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 17:28:08 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/12 21:40:03 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void	send_position(int row, int col, int where)
+int	send_position(int row, int col, int where)
 {
 	char	*line;
 	int		fd;
@@ -31,4 +31,5 @@ void	send_position(int row, int col, int where)
 	free(line);
 	line = "\n";
 	write(fd, line, ft_strlen(line));
+	return (1);
 }

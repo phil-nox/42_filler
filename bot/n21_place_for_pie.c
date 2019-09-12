@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 16:54:57 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 17:41:37 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/12 18:15:38 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 **    //|| row >= game->map->row || col >= game->map->col)
 */
 
-int	in_borders(t_game *game, int row, int col)
+int	in_gm(t_map *map, int row, int col)
 {
-	if (row < 0 || col < 0 || row >= game->map->row || col >= game->map->col)
+	if (row < 0 || col < 0 || row >= map->row || col >= map->col)
 		return (0);
 	return (1);
 }
@@ -68,7 +68,7 @@ int	is_a_place(t_game *game, t_map *map, int row, int col)
 		{
 			if (game->pie->map[r][c] == -1)
 				continue;
-			if (!in_borders(game, row + r, col + c))
+			if (!in_gm(map, row + r, col + c))
 				return (-1);
 			tmp = map->map[row + r][col + c];
 			if (tmp == -2)

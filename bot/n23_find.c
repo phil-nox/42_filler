@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:18:01 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 17:27:02 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/12 18:08:18 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	shadow_math(t_game *game, t_score *score, int row, int col)
 	if (game->show_place)
 		debug_place(game->adv);
 	reset_val_map(game, row, col);
-	while ((min_border_val = glob_min_val_around(game, game->adv)) != -1)
+	while ((min_border_val = glob_min_val_around(game->adv)) != -1)
 		set_val_map(game, game->adv, min_border_val);
 	if (game->show_reset_wave_debug)
 		debug_reset(game->adv);
