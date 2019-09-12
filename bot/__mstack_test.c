@@ -44,17 +44,22 @@ int main()
     //printf("%s -> %s -> %s\n", line, line2, line3);
     ft_lstiter(*get_mstack(), &f);
 
+    printf("num_mstack= %d\n", num_mstack());
     free_mstack(line2);
 
     //printf("%s -> %s\n", line, line3);
     ft_lstiter(*get_mstack(), &f);
 
+    printf("num_mstack= %d\n", num_mstack());
     free_mstack(line3);
 
     //printf("%s ->\n", line);
     ft_lstiter(*get_mstack(), &f);
 
+    printf("num_mstack= %d\n", num_mstack());
     free_all_mstack();
+
+    printf("num_mstack= %d\n", num_mstack());
 }
 
 

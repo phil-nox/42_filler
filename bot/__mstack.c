@@ -62,6 +62,7 @@ void	free_all_mstack(void)
 	if (!mstack || !*mstack)
 		return ;
 	free_all_mstack_job(*mstack);
+	*mstack = NULL;
 }
 
 int	add_mstack(void *to_add)
@@ -83,4 +84,19 @@ int	add_mstack(void *to_add)
 	add->content = to_add;
 	ft_lstadd(get_mstack(), add);
 	return (0);
+}
+
+int num_mstack()
+{
+	t_list *mstack;
+	int out;
+
+	out = 0;
+	mstack = *(get_mstack());
+	while (mstack)
+	{
+		++out;
+		mstack = mstack->next;
+	}
+	return (out);
 }

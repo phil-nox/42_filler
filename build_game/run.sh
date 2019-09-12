@@ -49,10 +49,12 @@ while true; do
     choice
     BOT=${PLAYERS[$CUR]}
     echo -en "\n$BOT\n"
-	./filler_visu_human &
+	#./filler_visu_human &
+    open ./r_view.command
+    open ./r_controller.command
     PID_VISU=$!
     echo $PID_VISU
-    ./filler_vm -p1 ./70_human_model.filler -p2 $PATH_BOT$BOT -f ./maps/map01 -t 99 | ./74_human_adapter.filler
+    unbuffer ./filler_vm -p1 ./70_human_model.filler -p2 $PATH_BOT$BOT -f ./maps/map01 | unbuffer -p ./74_human_adapter.filler
     wait $PID_VISU
     echo "next"
 done

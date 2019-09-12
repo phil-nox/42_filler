@@ -93,7 +93,7 @@ int map_incoming (t_game *game, char *line, int fd)
     }
 
     set_player_adv(line, game);
-	free_mstack(line);
+	//free_mstack(line);
     return (0);
 }
 
