@@ -3,7 +3,7 @@
 
 int load_adapter(int *fd_adp, int *fd_vm)
 {
-    *fd_vm = 0;
+    *fd_vm = open(FIFO_VM, O_RDONLY);
     *fd_adp = open(FIFO_ADP, O_WRONLY);
     if (*fd_adp < 1)
     {
@@ -16,13 +16,13 @@ int load_adapter(int *fd_adp, int *fd_vm)
 int main(void)
 {
     t_game_pack game_pack;
-    //int fd_adp;
+    int fd_adp;
     int fd_vm;
 
     fd_vm = 0;
     game_pack_init_bot(&game_pack);
-    //if (load_adapter(&fd_adp, &fd_vm))
-    //    return (1);
+    if (load_adapter(&fd_adp, &fd_vm))
+        return (1);
 
     while (get_next_line(fd_vm, &game_pack.gnl) == 1 && add_mstack(game_pack.gnl) == 0)
     {
@@ -36,13 +36,13 @@ int main(void)
         if (game_pack.decision == 1)
         {
             send_map_to_view(&game_pack.game, game_pack.game.org, 1, 0);
-            //send_map_to_view(&game_pack.game, game_pack.game.org, fd_adp, 0);
+            send_map_to_view(&game_pack.game, game_pack.game.org, fd_adp, 0);
         }
         write(1, game_pack.gnl, ft_strlen(game_pack.gnl));
         write(1, "\n", 2);
-        free_mstack(game_pack.gnl);
     }
-    //close(fd_adp);
+    free_all_mstack();
+    close(fd_adp);
     close(fd_vm);
     return (0);
 }
