@@ -10,26 +10,26 @@ int is_around(t_map *map, int pos, char to_find)
     cg = col_pg(map, pos);
     c = col_p(map, pos);
 
-    if (cg + 1 < map->col && get_val(map, pos + 1) == to_find)
+    if (cg + 1 < map->col && get(map, pos + 1) == to_find)
         return (1);
-    if (cg - 1 >= 0 && get_val(map, pos - 1) == to_find)
+    if (cg - 1 >= 0 && get(map, pos - 1) == to_find)
         return (1);
     if (r > 0)
     {
-        if (get_val(map, pos - map->col) == to_find)
+        if (get(map, pos - map->col) == to_find)
             return (1);
-        if (cg + 1 < map->col && get_val(map, pos + 1 - map->col) == to_find)
+        if (cg + 1 < map->col && get(map, pos + 1 - map->col) == to_find)
             return (1);
-        if (cg - 1 >= 0 && get_val(map, pos - 1 - map->col) == to_find)
+        if (cg - 1 >= 0 && get(map, pos - 1 - map->col) == to_find)
             return (1);
     }
     if (r < map->row - 1)
     {
-        if (get_val(map, pos + map->col) == to_find)
+        if (get(map, pos + map->col) == to_find)
             return (1);
-        if (cg + 1 < map->col && get_val(map, pos + 1 + map->col) == to_find)
+        if (cg + 1 < map->col && get(map, pos + 1 + map->col) == to_find)
             return (1);
-        if (cg - 1 >= 0 && get_val(map, pos - 1 + map->col) == to_find)
+        if (cg - 1 >= 0 && get(map, pos - 1 + map->col) == to_find)
             return (1);
     }
     return (0);

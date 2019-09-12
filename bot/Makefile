@@ -6,7 +6,7 @@
 #    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/04/20 01:33:07 by wgorold          ###   ########.fr        #
+#    Updated: 2019/09/12 17:58:14 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,11 +34,14 @@ PATH_B=./build/
 
 PATH_S=./obj/
 
-SRC= 	00_debug_wfile.o 01_debug_utf8.o \
-		03_debug_color.o 04_debug_param.o 10_read_map.o \
-		20_map_copy.o 21_place_for_pie.o \
-		22_score.o 23_find.o 30_send_pie.o \
-		41_map_set.o  42_map_reset.o  50_game.o \
+SRC= 	n00_debug_wfile.o n01_debug_utf8.o \
+		n03_debug_color.o n04_debug_param.o \
+		n05_debug_metric.o n10_malloc_player.o \
+		n11_read_map.o \
+		n20_map_copy.o n21_place_for_pie.o \
+		n22_score.o n23_find.o n30_send_pie.o \
+		n40_map_set_basic.o \
+		n41_map_set.o  42_map_reset.o  50_game.o \
 		43_map_force_set.o 44_map_zone.o \
 		__mstack.o 73_human_send.o \
 		
@@ -85,28 +88,34 @@ human: re
 	@echo "./filler_vm -p2 ./players/carli.filler -p1 ./70_human_model.filler  -f ./maps/map01 -t 99 | ./74_human_adapter.filler | ./filler_visu_human"
 	@echo "<<<<"
 
-$(PATH_S)00_debug_wfile.o: 00_debug_wfile.c
-	$(CC) $(CFLAGS) 00_debug_wfile.c $(FLAG_PATH_OBJ)
-$(PATH_S)01_debug_utf8.o: 01_debug_utf8.c
-	$(CC) $(CFLAGS) 01_debug_utf8.c $(FLAG_PATH_OBJ)
-$(PATH_S)03_debug_color.o: 03_debug_color.c
-	$(CC) $(CFLAGS) 03_debug_color.c $(FLAG_PATH_OBJ)
-$(PATH_S)04_debug_param.o: 04_debug_param.c
-	$(CC) $(CFLAGS) 04_debug_param.c $(FLAG_PATH_OBJ)
-$(PATH_S)10_read_map.o: 10_read_map.c
-	$(CC) $(CFLAGS) 10_read_map.c $(FLAG_PATH_OBJ)
-$(PATH_S)20_map_copy.o: 20_map_copy.c
-	$(CC) $(CFLAGS) 20_map_copy.c $(FLAG_PATH_OBJ)
-$(PATH_S)21_place_for_pie.o: 21_place_for_pie.c
-	$(CC) $(CFLAGS) 21_place_for_pie.c $(FLAG_PATH_OBJ)
-$(PATH_S)22_score.o: 22_score.c
-	$(CC) $(CFLAGS) 22_score.c $(FLAG_PATH_OBJ)
-$(PATH_S)23_find.o: 23_find.c
-	$(CC) $(CFLAGS) 23_find.c $(FLAG_PATH_OBJ)
-$(PATH_S)30_send_pie.o: 30_send_pie.c
-	$(CC) $(CFLAGS) 30_send_pie.c $(FLAG_PATH_OBJ)
-$(PATH_S)41_map_set.o: 41_map_set.c
-	$(CC) $(CFLAGS) 41_map_set.c $(FLAG_PATH_OBJ)
+$(PATH_S)n00_debug_wfile.o: n00_debug_wfile.c
+	$(CC) $(CFLAGS) n00_debug_wfile.c $(FLAG_PATH_OBJ)
+$(PATH_S)n01_debug_utf8.o: n01_debug_utf8.c
+	$(CC) $(CFLAGS) n01_debug_utf8.c $(FLAG_PATH_OBJ)
+$(PATH_S)n03_debug_color.o: n03_debug_color.c
+	$(CC) $(CFLAGS) n03_debug_color.c $(FLAG_PATH_OBJ)
+$(PATH_S)n04_debug_param.o: n04_debug_param.c
+	$(CC) $(CFLAGS) n04_debug_param.c $(FLAG_PATH_OBJ)
+$(PATH_S)n05_debug_metric.o: n05_debug_metric.c
+	$(CC) $(CFLAGS) n05_debug_metric.c $(FLAG_PATH_OBJ)
+$(PATH_S)n10_malloc_player.o: n10_malloc_player.c
+	$(CC) $(CFLAGS) n10_malloc_player.c $(FLAG_PATH_OBJ)
+$(PATH_S)n11_read_map.o: n11_read_map.c
+	$(CC) $(CFLAGS) n11_read_map.c $(FLAG_PATH_OBJ)
+$(PATH_S)n20_map_copy.o: n20_map_copy.c
+	$(CC) $(CFLAGS) n20_map_copy.c $(FLAG_PATH_OBJ)
+$(PATH_S)n21_place_for_pie.o: n21_place_for_pie.c
+	$(CC) $(CFLAGS) n21_place_for_pie.c $(FLAG_PATH_OBJ)
+$(PATH_S)n22_score.o: n22_score.c
+	$(CC) $(CFLAGS) n22_score.c $(FLAG_PATH_OBJ)
+$(PATH_S)n23_find.o: n23_find.c
+	$(CC) $(CFLAGS) n23_find.c $(FLAG_PATH_OBJ)
+$(PATH_S)n30_send_pie.o: n30_send_pie.c
+	$(CC) $(CFLAGS) n30_send_pie.c $(FLAG_PATH_OBJ)
+$(PATH_S)n40_map_set_basic.o: n40_map_set_basic.c
+	$(CC) $(CFLAGS) n40_map_set_basic.c $(FLAG_PATH_OBJ)
+$(PATH_S)n41_map_set.o: n41_map_set.c
+	$(CC) $(CFLAGS) n41_map_set.c $(FLAG_PATH_OBJ)
 $(PATH_S)42_map_reset.o: 42_map_reset.c
 	$(CC) $(CFLAGS) 42_map_reset.c $(FLAG_PATH_OBJ)
 $(PATH_S)43_map_force_set.o: 43_map_force_set.c

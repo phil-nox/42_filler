@@ -4,25 +4,25 @@ int reset_this(t_game *game, int row, int col, int to_set)
 {
     int cur;
 
-    cur = get_val(game->adv, row, col);
+    cur = get(game->adv, row, col);
     if (cur < 1)
         return (-1);
 
-    if (in_borders(game, row, col + 1) && get_val(game->adv, row, col + 1) == cur - 1)
+    if (in_borders(game, row, col + 1) && get(game->adv, row, col + 1) == cur - 1)
         return (-1);
-    if (in_borders(game, row, col - 1) && get_val(game->adv, row, col - 1) == cur - 1)
+    if (in_borders(game, row, col - 1) && get(game->adv, row, col - 1) == cur - 1)
         return (-1);
-    if (in_borders(game, row + 1, col) && get_val(game->adv, row + 1, col) == cur - 1)
+    if (in_borders(game, row + 1, col) && get(game->adv, row + 1, col) == cur - 1)
         return (-1);
-    if (in_borders(game, row - 1, col) && get_val(game->adv, row - 1, col) == cur - 1)
+    if (in_borders(game, row - 1, col) && get(game->adv, row - 1, col) == cur - 1)
         return (-1);
-    if (in_borders(game, row + 1, col + 1) && get_val(game->adv, row + 1, col + 1) == cur - 1)
+    if (in_borders(game, row + 1, col + 1) && get(game->adv, row + 1, col + 1) == cur - 1)
         return (-1);
-    if (in_borders(game, row + 1, col - 1) && get_val(game->adv, row + 1, col - 1) == cur - 1)
+    if (in_borders(game, row + 1, col - 1) && get(game->adv, row + 1, col - 1) == cur - 1)
         return (-1);
-    if (in_borders(game, row - 1, col + 1) && get_val(game->adv, row - 1, col + 1) == cur - 1)
+    if (in_borders(game, row - 1, col + 1) && get(game->adv, row - 1, col + 1) == cur - 1)
         return (-1);
-    if (in_borders(game, row - 1, col - 1) && get_val(game->adv, row - 1, col - 1) == cur - 1)
+    if (in_borders(game, row - 1, col - 1) && get(game->adv, row - 1, col - 1) == cur - 1)
         return (-1);
     set_val(game->adv, row, col, to_set);
     return (cur);
@@ -33,22 +33,22 @@ int reset_around(t_game *game, int row, int col, int to_set)
     int out;
 
     out = 0;
-    if (in_borders(game, row, col + 1) && get_val(game->adv, row, col + 1) > 0)
+    if (in_borders(game, row, col + 1) && get(game->adv, row, col + 1) > 0)
         out += reset_this(game, row, col + 1, to_set);
-    if (in_borders(game, row, col - 1) && get_val(game->adv, row, col - 1) > 0)
+    if (in_borders(game, row, col - 1) && get(game->adv, row, col - 1) > 0)
         out += reset_this(game, row, col - 1, to_set);
-    if (in_borders(game, row + 1, col) && get_val(game->adv, row + 1, col) > 0)
+    if (in_borders(game, row + 1, col) && get(game->adv, row + 1, col) > 0)
         out += reset_this(game, row + 1, col, to_set);
-    if (in_borders(game, row - 1, col) && get_val(game->adv, row - 1, col) > 0)
+    if (in_borders(game, row - 1, col) && get(game->adv, row - 1, col) > 0)
         out += reset_this(game, row - 1, col, to_set);
 
-    if (in_borders(game, row + 1, col + 1) && get_val(game->adv, row + 1, col + 1) > 0)
+    if (in_borders(game, row + 1, col + 1) && get(game->adv, row + 1, col + 1) > 0)
         out += reset_this(game, row + 1, col + 1, to_set);
-    if (in_borders(game, row + 1, col - 1) && get_val(game->adv, row + 1, col - 1) > 0)
+    if (in_borders(game, row + 1, col - 1) && get(game->adv, row + 1, col - 1) > 0)
         out += reset_this(game, row + 1, col - 1, to_set);
-    if (in_borders(game, row - 1, col + 1) && get_val(game->adv, row - 1, col + 1) > 0)
+    if (in_borders(game, row - 1, col + 1) && get(game->adv, row - 1, col + 1) > 0)
         out += reset_this(game, row - 1, col + 1, to_set);
-    if (in_borders(game, row - 1, col - 1) && get_val(game->adv, row - 1, col - 1) > 0)
+    if (in_borders(game, row - 1, col - 1) && get(game->adv, row - 1, col - 1) > 0)
         out += reset_this(game, row - 1, col - 1, to_set);
     return (out);
 }
@@ -94,7 +94,7 @@ void reset_val_map(t_game *game, int row, int col)
             pnt[1] = -1;
             while (++pnt[1] < game->adv->col)
             {
-                if (get_val_pnt(game->adv, pnt) != val + 1)
+                if (get_pnt(game->adv, pnt) != val + 1)
                     continue;
                 stop += reset_around(game, pnt[0], pnt[1], val);
                 set_val(game->adv, pnt[0], pnt[1], -1);
@@ -126,8 +126,8 @@ void diff_val_map(t_game *game, int min_border_val, t_score *score, char show)
         col = -1;
         while (++col < game->adv->col)
         {
-            val_map = get_val(game->map, row, col);
-            val_adv = get_val(game->adv, row, col);
+            val_map = get(game->map, row, col);
+            val_adv = get(game->adv, row, col);
             if (val_adv == -1 && val_map != -1)
             {
                 score->unreachable += 1;

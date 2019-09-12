@@ -56,7 +56,7 @@ int enemy_score(t_map *org)
         col = -1;
         while (++col < org->col)
         {
-            if (get_val(org, row, col) == 0)
+            if (get(org, row, col) == 0)
                 out += 1;
         }
     }

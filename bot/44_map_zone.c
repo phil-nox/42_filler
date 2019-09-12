@@ -13,8 +13,8 @@ void zones(t_map *fre, t_map *att, t_map *map)
         col = -1;
         while (++col < att->col)
         {
-            tmp_att = get_val(att, row, col);
-            tmp_map = get_val(map, row, col);
+            tmp_att = get(att, row, col);
+            tmp_map = get(map, row, col);
             if (tmp_att < 1)
             {
                 set_val(fre, row, col, tmp_att);
@@ -43,8 +43,8 @@ void zone_diff(t_map *fre, t_map *zon)
         col = -1;
         while (++col < fre->col)
         {
-            tmp_fre = get_val(fre, row, col);
-            tmp_zon = get_val(zon, row, col);
+            tmp_fre = get(fre, row, col);
+            tmp_zon = get(zon, row, col);
             if (tmp_fre == -2 || tmp_fre == 0 || tmp_fre != tmp_zon)
                 continue;
             set_val(fre, row, col, -8);

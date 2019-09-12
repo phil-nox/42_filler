@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillet.h                                           :+:      :+:    :+:   */
+/*   filler.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/08/06 17:54:38 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/12 17:41:37 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void debug_att(t_map *map);
 void debug_metric (t_game *game, char *begin);
 int map_print(int input);
 
+int		one_time_game_malloc(t_game *game);
 int set_player_adv(char *line, t_game *game);
 int set_map(t_game *game, char *keyword, int fd_in);
 int init_map(char *line, t_game *game, char *keyword, int fd_in);
@@ -123,8 +124,8 @@ int set_val_map(t_game *game, t_map *map, int to_find);
 
 int find_place(t_game *game);
 
-int get_val(t_map *map, int row, int col);
-int get_val_pnt(t_map *map, int pnt[2]);
+int get(t_map *map, int row, int col);
+int get_pnt(t_map *map, int pnt[2]);
 //void reset_pie(t_game *game, int row, int col);
 void reset_val_map(t_game *game, int row, int col);
 //int reset_around(t_game *game, int row, int col, int to_set);

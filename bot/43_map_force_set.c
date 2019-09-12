@@ -10,23 +10,23 @@ int set_around_force(t_game *game, t_map *map, int pnt[2], int to_set)
     col = pnt[1];
     out = 0;
 
-    if (in_borders(game, row, col + 1) && (get_val(map, row, col + 1) == -1 || get_val(map, row, col + 1) > to_set)) //"."
+    if (in_borders(game, row, col + 1) && (get(map, row, col + 1) == -1 || get(map, row, col + 1) > to_set)) //"."
         out += set_val(map, row, col + 1, to_set);
-    if (in_borders(game, row, col - 1) && (get_val(map, row, col - 1) == -1 || get_val(map, row, col - 1) > to_set))
+    if (in_borders(game, row, col - 1) && (get(map, row, col - 1) == -1 || get(map, row, col - 1) > to_set))
         out += set_val(map, row, col - 1, to_set);
-    if (in_borders(game, row + 1, col) && (get_val(map, row + 1, col) == -1 || get_val(map, row + 1, col) > to_set))
+    if (in_borders(game, row + 1, col) && (get(map, row + 1, col) == -1 || get(map, row + 1, col) > to_set))
         out += set_val(map, row + 1, col, to_set);
-    if (in_borders(game, row - 1, col) && (get_val(map, row - 1, col) == -1 || get_val(map, row - 1, col) > to_set))
+    if (in_borders(game, row - 1, col) && (get(map, row - 1, col) == -1 || get(map, row - 1, col) > to_set))
         out += set_val(map, row - 1, col, to_set);
 
     
-    if (in_borders(game, row + 1, col + 1) && (get_val(map, row + 1, col + 1) == -1 || get_val(map, row + 1, col + 1) > to_set))
+    if (in_borders(game, row + 1, col + 1) && (get(map, row + 1, col + 1) == -1 || get(map, row + 1, col + 1) > to_set))
         out += set_val(map, row + 1, col + 1, to_set);
-    if (in_borders(game, row + 1, col - 1) && (get_val(map, row + 1, col - 1) == -1 || get_val(map, row + 1, col - 1) > to_set))
+    if (in_borders(game, row + 1, col - 1) && (get(map, row + 1, col - 1) == -1 || get(map, row + 1, col - 1) > to_set))
         out += set_val(map, row + 1, col - 1, to_set);
-    if (in_borders(game, row - 1, col + 1) && (get_val(map, row - 1, col + 1) == -1 || get_val(map, row - 1, col + 1) > to_set))
+    if (in_borders(game, row - 1, col + 1) && (get(map, row - 1, col + 1) == -1 || get(map, row - 1, col + 1) > to_set))
         out += set_val(map, row - 1, col + 1, to_set);
-    if (in_borders(game, row - 1, col - 1) && (get_val(map, row - 1, col - 1) == -1 || get_val(map, row - 1, col - 1) > to_set))
+    if (in_borders(game, row - 1, col - 1) && (get(map, row - 1, col - 1) == -1 || get(map, row - 1, col - 1) > to_set))
         out += set_val(map, row - 1, col - 1, to_set);
     return (out);
 }
@@ -52,7 +52,7 @@ int set_val_map_force(t_game *game, t_map *map, int to_find)
             pnt[1] = -1;
             while (++pnt[1] < map->col)
             {
-                if (get_val_pnt(map, pnt) != to_find) // 0
+                if (get_pnt(map, pnt) != to_find) // 0
                     continue;
                 stop += set_around_force(game, map, pnt, to_set);
             }
@@ -81,10 +81,10 @@ void diff_for_field(t_map *fld, t_map *att)
         col = -1;
         while (++col < fld->col)
         {
-            tmp_fld = get_val(fld, row, col);
+            tmp_fld = get(fld, row, col);
             if (tmp_fld < 1)
                 continue;
-            tmp_att = get_val(att, row, col);
+            tmp_att = get(att, row, col);
             if (tmp_att != tmp_fld)
                 set_val(fld, row, col, tmp_att - tmp_fld);
             else
@@ -106,8 +106,8 @@ void field_and_shadow(t_map *fld, t_map *adv)
         col = -1;
         while (++col < fld->col)
         {
-            tmp_fld = get_val(fld, row, col);
-            tmp_adv = get_val(adv, row, col);
+            tmp_fld = get(fld, row, col);
+            tmp_adv = get(adv, row, col);
             if (tmp_adv < 1 && tmp_fld < 1)
                 continue;
             if (tmp_adv > 0)
