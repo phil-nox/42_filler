@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:18:01 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 22:07:19 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 22:47:07 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int		find_place(t_game *game)
 				count++;
 				math_maps(game, &score, row, col);
 				math_score(game, &score);
-				if (game->show_general_debug)
-					score_debug(&score);
 				if (game->best_score.place_score == -1
 					|| math_decision(game, &score))
 					set_score(game, &score, row, col);

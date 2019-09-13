@@ -6,13 +6,14 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:18:01 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 22:09:46 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 22:45:35 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-# define EPS_FRONT 10
-# define EPS_SHADW 10
+
+#define EPS_FRONT 10
+#define EPS_SHADW 10
 
 int		do_choice(t_game *game)
 {
@@ -34,7 +35,6 @@ int		math_decision(t_game *game, t_score *score)
 		return (do_choice(game));
 	if (frnt_sum_del < -EPS_FRONT)
 		return (0);
-
 	shdw_sun_del = score->diff_sum - game->best_score.diff_sum;
 	if (shdw_sun_del > EPS_SHADW)
 		return (do_choice(game));

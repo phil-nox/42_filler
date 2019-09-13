@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:18:01 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 22:06:54 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 22:44:48 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	init_best_score(t_score *score)
 
 void	init_find_place(t_game *game, int *count)
 {
-	//game->best_score.place_score = -1;
 	init_best_score(&(game->best_score));
 	count = 0;
 	as_map(game->org, game->map);

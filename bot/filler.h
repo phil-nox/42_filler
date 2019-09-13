@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 22:04:49 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 22:49:09 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,8 @@ int					send_to_fd(char *line, int fd_map);
 int					send_to_fd_ln(char *line, int fd_map);
 
 void				math_score(t_game *game, t_score *score);
-void    			score_debug(t_score *score);
+void				score_debug(t_score *score);
 int					math_decision(t_game *game, t_score *score);
+void				score_debug(t_score *score);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:51:15 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 18:55:27 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 22:51:10 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,23 @@ void	debug_metric(t_game *game, char *begin)
 		ft_putstrfile("\n");
 	}
 	ft_putstrfile("\n");
+}
+
+void	score_debug(t_score *score)
+{
+	debug_print("plce_scr= ", 0, 0);
+	debug_num(score->place_score, 0);
+	debug_print("\ndiff_num= ", 0, 0);
+	debug_num(score->diff_num, 0);
+	debug_print("\t\t\t\t\t\t\t\texpn_num= ", 0, 0);
+	debug_num(score->expansion_num, 0);
+	debug_print("\t\t\t\t\t\t\t\tfrnt_num= ", 0, 0);
+	debug_num(score->front_num, 0);
+	debug_print("\ndiff_sum= ", 0, 0);
+	debug_num(score->diff_sum, 0);
+	debug_print("\t\t\t\t\t\t\t\texpn_sum= ", 0, 0);
+	debug_num(score->expansion_sum, 0);
+	debug_print("\t\t\t\t\t\t\t\tfrnt_sum= ", 0, 0);
+	debug_num(score->front_sum, 0);
+	debug_print("\n\n\n", 0, 0);
 }

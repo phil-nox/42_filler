@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 19:23:50 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 19:36:45 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 22:50:45 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	send_position_debug(t_game *game)
 	}
 }
 
-int		find_and_send(t_game *game) //HERE
+int		find_and_send(t_game *game)
 {
 	int found_places;
 	int tmp_enemy_score;
