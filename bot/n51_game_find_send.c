@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 19:23:50 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 20:12:05 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 17:07:09 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		enemy_score(t_map *org)
 	return (out);
 }
 
-void	find_and_send_debug(t_game *game)
+void	send_position_debug(t_game *game)
 {
 	if (game->show_send || game->decision_debug)
 	{
@@ -43,7 +43,7 @@ void	find_and_send_debug(t_game *game)
 	}
 }
 
-int		find_and_send(t_game *game)
+int		find_and_send(t_game *game) //HERE
 {
 	int found_places;
 	int tmp_enemy_score;
@@ -61,7 +61,7 @@ int		find_and_send(t_game *game)
 		game->pnt[0] = 0;
 		game->pnt[1] = 0;
 	}
-	find_and_send_debug(game);
+	send_position_debug(game);
 	send_position(game->pnt[0], game->pnt[1], 0);
 	if (found_places == 0)
 	{

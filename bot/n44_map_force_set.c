@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 18:58:54 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 19:14:54 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 19:25:25 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ void	set_around_force_part0(t_map *map, int pnt[2], int to_set, int *out)
 {
 	if (in_gm(map, pnt[0], pnt[1] + 1) && (get(map, pnt[0], pnt[1] + 1) == -1
 		|| get(map, pnt[0], pnt[1] + 1) > to_set))
-		out += set_val(map, pnt[0], pnt[1] + 1, to_set);
+		*out += set_val(map, pnt[0], pnt[1] + 1, to_set);
 	if (in_gm(map, pnt[0], pnt[1] - 1) && (get(map, pnt[0], pnt[1] - 1) == -1
 		|| get(map, pnt[0], pnt[1] - 1) > to_set))
-		out += set_val(map, pnt[0], pnt[1] - 1, to_set);
+		*out += set_val(map, pnt[0], pnt[1] - 1, to_set);
 	if (in_gm(map, pnt[0] + 1, pnt[1]) && (get(map, pnt[0] + 1, pnt[1]) == -1
 		|| get(map, pnt[0] + 1, pnt[1]) > to_set))
-		out += set_val(map, pnt[0] + 1, pnt[1], to_set);
+		*out += set_val(map, pnt[0] + 1, pnt[1], to_set);
 	if (in_gm(map, pnt[0] - 1, pnt[1]) && (get(map, pnt[0] - 1, pnt[1]) == -1
 		|| get(map, pnt[0] - 1, pnt[1]) > to_set))
-		out += set_val(map, pnt[0] - 1, pnt[1], to_set);
+		*out += set_val(map, pnt[0] - 1, pnt[1], to_set);
 }
 
 void	set_around_force_part1(t_map *map, int pnt[2], int to_set, int *out)
@@ -37,19 +37,19 @@ void	set_around_force_part1(t_map *map, int pnt[2], int to_set, int *out)
 	if (in_gm(map, pnt[0] + 1, pnt[1] + 1)
 		&& (get(map, pnt[0] + 1, pnt[1] + 1) == -1
 		|| get(map, pnt[0] + 1, pnt[1] + 1) > to_set))
-		out += set_val(map, pnt[0] + 1, pnt[1] + 1, to_set);
+		*out += set_val(map, pnt[0] + 1, pnt[1] + 1, to_set);
 	if (in_gm(map, pnt[0] + 1, pnt[1] - 1)
 		&& (get(map, pnt[0] + 1, pnt[1] - 1) == -1
 		|| get(map, pnt[0] + 1, pnt[1] - 1) > to_set))
-		out += set_val(map, pnt[0] + 1, pnt[1] - 1, to_set);
+		*out += set_val(map, pnt[0] + 1, pnt[1] - 1, to_set);
 	if (in_gm(map, pnt[0] - 1, pnt[1] + 1)
 		&& (get(map, pnt[0] - 1, pnt[1] + 1) == -1
 		|| get(map, pnt[0] - 1, pnt[1] + 1) > to_set))
-		out += set_val(map, pnt[0] - 1, pnt[1] + 1, to_set);
+		*out += set_val(map, pnt[0] - 1, pnt[1] + 1, to_set);
 	if (in_gm(map, pnt[0] - 1, pnt[1] - 1)
 		&& (get(map, pnt[0] - 1, pnt[1] - 1) == -1
 		|| get(map, pnt[0] - 1, pnt[1] - 1) > to_set))
-		out += set_val(map, pnt[0] - 1, pnt[1] - 1, to_set);
+		*out += set_val(map, pnt[0] - 1, pnt[1] - 1, to_set);
 }
 
 int		set_around_force(t_map *map, int pnt[2], int to_set)

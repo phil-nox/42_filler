@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 22:00:35 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 19:30:26 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,9 @@ int					find_first_place(t_game *game, t_map *map);
 void				calc_decision(t_game *game, t_score *score, char show);
 int					change_decision(t_score *curr_sc, t_score *aspi_sc);
 
+void				debug_init_maps(t_game *game, char *begin);
+void				init_find_place(t_game *game, int *count);
+void				math_maps(t_game *game, t_score *score, int row, int col);
 int					set_val_map_force(t_game *game, t_map *map, int to_find);
 void				diff_for_field(t_map *fld, t_map *att);
 void				field_and_shadow(t_map *fld, t_map *adv);
