@@ -25,11 +25,43 @@ int	load_adapter(int *fd_adp, int *fd_vm)
 	return (0);
 }
 
+void math_cores(t_map *org, int *cores_1, int *cores_2)
+{
+	int row;
+	int col;
+
+	*cores_1 = 0;
+	*cores_2 = 0;
+	row = -1;
+	while (++row < org->row)
+	{
+		col = -1;
+		while (++col < org->col)
+		{
+			if (get(org, row, col) == 0)
+				*cores_1 += 1;
+			if (get(org, row, col) == -2)
+				*cores_2 += 1;
+		}
+	}
+}
+
 int	main(void)
 {
 	t_game_pack	gm_p;
 	int			fd_adp;
 	int			fd_vm;
+	int 		cores[2];
+	int			last[2];
+	int			flop;
+	int			flop_last;
+
+	cores[0] = 0;
+	cores[1] = 0;
+	last[0] = 0;
+	last[1] = 0;
+	flop = 0;
+	flop_last = 0;
 
 	game_pack_init_bot(&gm_p);
 	if (load_adapter(&fd_adp, &fd_vm))
@@ -37,7 +69,7 @@ int	main(void)
 	while (get_next_line(fd_vm, &gm_p.gnl) == 1 && add_mstack(gm_p.gnl) == 0)
 	{
 		gm_p.game.player = 1;
-		gm_p.decision = map_incoming(&gm_p.game, gm_p.gnl, fd_vm);
+		gm_p.decision = map_incoming(&(gm_p.game), gm_p.gnl, fd_vm, 0);
 		if (gm_p.decision == -1)
 			return (free_all_mstack());
 		if (gm_p.decision == 0)
@@ -45,8 +77,34 @@ int	main(void)
 			free_mstack(gm_p.gnl);
 			continue;
 		}
-		send_map_to_view(&gm_p.game, gm_p.game.org, 1, 0);
-		send_map_to_view(&gm_p.game, gm_p.game.org, fd_adp, 0);
+		
+		math_cores(gm_p.game.org, cores, cores + 1);
+
+		if (cores[0] != last[0] && cores[1] != last[1])
+		{
+			flop = 0;
+		}
+		else if (cores[0] != last[0])
+		{
+			flop = 1;
+			write(1, "flop=  1\n", 9);
+		}
+		else 
+		{
+			flop = -1;
+			write(1, "flop= -1\n", 9);
+		}
+		if (flop_last != 0 && flop == flop_last)
+		{
+			//send_map_to_view(&gm_p.game, gm_p.game.org, 1, 0);
+			send_map_to_view(&gm_p.game, gm_p.game.org, fd_adp, 0);
+			write(1, "flop= <<\n", 9);
+		}
+		last[0] = cores[0];
+		last[1] = cores[1];
+		flop_last = flop;
+		//send_map_to_view(&gm_p.game, gm_p.game.org, 1, 0);
+		//send_map_to_view(&gm_p.game, gm_p.game.org, fd_adp, 0);
 	}
 	free_all_mstack();
 	close(fd_adp);

@@ -68,14 +68,15 @@ void	send_map_to_view(t_game *g, t_map *show, int fd_map, int with_pie)
 	}
 }
 
-int		map_incoming(t_game *game, char *line, int fd)
+int		map_incoming(t_game *game, char *line, int fd, int model)
 {
 	int error;
 
 	error = 0;
-	if ((error = init_map(line, game, PIE_KW, fd)))
+	if ((error = init_map(line, game, PIE_KW, fd)) == 1)
 	{
-		as_map(game->org, game->map);
+		if (model)
+			as_map(game->org, game->map);
 		return (1);
 	}
 	if (error == -1)
@@ -83,7 +84,7 @@ int		map_incoming(t_game *game, char *line, int fd)
 		free_all_mstack();
 		return (-1);
 	}
-	if ((error = init_map(line, game, MAP_KW, fd)))
+	if ((error = init_map(line, game, MAP_KW, fd)) == 1)
 		return (0);
 	if (error == -1)
 	{

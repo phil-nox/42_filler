@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /Users/wgorold/d06_filler_gitlab_adv/build_game
-./74_human_adapter.filler
+cd /Users/PhilippNox/42_ecole/42_filler/build_game
+lldb -o run ./74_human_adapter.filler

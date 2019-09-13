@@ -70,7 +70,7 @@ int		main(void)
 	while (get_next_line(0, &game_p.gnl) == 1 && add_mstack(game_p.gnl) == 0)
 	{
 		for_view(&game_p, fd_map, &set_view_done);
-		game_p.decision = map_incoming(&game_p.game, game_p.gnl, 0);
+		game_p.decision = map_incoming(&game_p.game, game_p.gnl, 0, 1);
 		if (game_p.decision == -1)
 			return (free_all_mstack());
 		if (game_p.decision == 0)

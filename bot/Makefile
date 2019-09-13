@@ -24,7 +24,7 @@ PATH_H =./
 
 CC=gcc
 
-FLAGS= -Wall -Wextra -Werror
+FLAGS= -Wall -Wextra -Werror -g
 
 CFLAGS= -c $(FLAGS)
 

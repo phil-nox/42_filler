@@ -138,7 +138,7 @@ int					place_pie(t_game *game, t_map *map, int row, int col);
 
 int					send_to_fd(char *line, int fd_map);
 int					send_to_fd_ln(char *line, int fd_map);
-int					map_incoming (t_game *game, char *line, int fd);
+int					map_incoming (t_game *game, char *line, int fd, int model);
 int					cmd_apply(t_game *game, int fd_map, char input);
 void				shadow_calc(t_game *game);
 
