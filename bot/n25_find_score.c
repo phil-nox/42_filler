@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:18:01 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 22:50:32 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 23:05:35 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ void	math_score(t_game *game, t_score *score)
 	calc_front(game, score);
 	calc_unreachable(game, score);
 	if (game->show_general_debug)
-		score_debug(&score);
+		score_debug(score);
 }

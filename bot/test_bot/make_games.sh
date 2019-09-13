@@ -1,8 +1,6 @@
 #!/bin/bash
 #run after make
 
-cd games
-
 PATH_R="../resources"
 YOUR_PLY="../build/squid.filler"
 DEBUG_PLY="../build/squid_debug.filler"
@@ -25,7 +23,7 @@ for map in $PATH_R/maps/*; do
         $($CMD)
         echo "$CMD -s $(grep seed filler.trace | sed 's/seed = //')" >> filler.trace
         echo "$CMD_D -s $(grep seed filler.trace | sed 's/seed = //')" >> filler.trace
-        mv filler.trace filler.trace$IDX
+        mv filler.trace ./result/filler.trace$IDX
 
         ((IDX+=1))
         CMD="$CMD_BASE -p2 $YOUR_PLY -p1 $player -f $map -q"
@@ -35,6 +33,6 @@ for map in $PATH_R/maps/*; do
         $($CMD)
         echo "$CMD -s $(grep seed filler.trace | sed 's/seed = //')" >> filler.trace
         echo "$CMD_D -s $(grep seed filler.trace | sed 's/seed = //')"  >> filler.trace
-        mv filler.trace filler.trace$IDX
+        mv filler.trace ./result/filler.trace$IDX
     done
 done
