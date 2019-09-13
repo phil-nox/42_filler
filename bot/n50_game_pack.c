@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 19:23:50 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 20:08:57 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 22:05:13 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ void	game_pack_init_bot(t_game_pack *game_p)
 	game_p->game.decision_debug = 0;
 	game_p->game.show_reset_wave_debug = 0;
 	game_p->game.show_att_debug = 0;
+	game_p->game.show_general_debug = 0;
 	game_p->cmd_l[0] = '\0';
 }

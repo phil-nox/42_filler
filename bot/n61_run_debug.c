@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 20:17:13 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 20:17:46 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 22:05:33 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	main(void)
 	game_p.game.show_att_debug = 0;
 	game_p.game.show_diff_debug = 0;
 	game_p.game.show_score_debug = 0;
-	game_p.game.decision_debug = 1;
+	game_p.game.decision_debug = 0;
+	game_p.game.show_general_debug = 1;
 	while (get_next_line(0, &game_p.gnl) == 1 && add_mstack(game_p.gnl) == 0)
 		if (map_incoming_bot(game_p.gnl, &game_p.game))
 			return (1);

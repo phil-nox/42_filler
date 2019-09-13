@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:09:41 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 18:08:23 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 19:36:50 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,4 @@ int		change_decision(t_score *curr_sc, t_score *aspi_sc)
 		&& curr_sc->place_score < aspi_sc->place_score)
 		return (0);
 	return (1);
-}
-
-void	shadow_calc(t_game *game)
-{
-	int		min_border_val;
-	t_score	tmp;
-
-	if (is_a_place(game, game->map, game->pnt[0], game->pnt[1]) != 1)
-		return ;
-	as_map(game->map, game->adv);
-	place_pie(game, game->adv, game->pnt[0], game->pnt[1]);
-	reset_val_map(game, game->pnt[0], game->pnt[1]);
-	while ((min_border_val = glob_min_val_around(game->adv)) != -1)
-		set_val_map(game, game->adv, min_border_val);
-	calc_decision(game, &(game->best_score), 1);
-	diff_val_map(game, min_border_val, &tmp, 1);
 }

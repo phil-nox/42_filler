@@ -6,7 +6,7 @@
 #    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/09/13 19:29:08 by wgorold          ###   ########.fr        #
+#    Updated: 2019/09/13 22:11:07 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,9 @@ SRC= 	n00_debug_wfile.o n01_debug_utf8.o \
 		n05_debug_metric.o n10_malloc_player.o \
 		n11_read_map.o \
 		n20_map_copy.o n21_place_for_pie.o \
-		n22_score.o n23_find_maps.o n24_find.o n30_send_pie.o \
+		n22_score.o n23_find_maps.o n24_find.o \
+		n25_find_score.o n26_find_decision.o \
+		n30_send_pie.o \
 		n40_map_set_basic.o \
 		n41_map_set.o  n42_map_reset.o  n43_map_diff.o \
 		n44_map_force_set.o n46_map_zone.o n45_map_field.o \
@@ -64,6 +66,12 @@ play: all
 	touch test_debug
 	./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map00 -s 3207
 	@echo "./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map00 -s 3207"
+
+play_d: all
+	rm -rf test_debug
+	touch test_debug
+	./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(ST_NAME)_debug$(END_NAME) -f ./resources/maps/map00 -s 3207
+	@echo "./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(ST_NAME)_debug$(END_NAME) -f ./resources/maps/map00 -s 3207"
 
 play_h: re
 	./resources/filler_vm -p2 ./resources/players//abanlin.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map02
@@ -111,6 +119,10 @@ $(PATH_S)n23_find_maps.o: n23_find_maps.c
 	$(CC) $(CFLAGS) n23_find_maps.c $(FLAG_PATH_OBJ)
 $(PATH_S)n24_find.o: n24_find.c
 	$(CC) $(CFLAGS) n24_find.c $(FLAG_PATH_OBJ)
+$(PATH_S)n25_find_score.o: n25_find_score.c
+	$(CC) $(CFLAGS) n25_find_score.c $(FLAG_PATH_OBJ)
+$(PATH_S)n26_find_decision.o: n26_find_decision.c
+	$(CC) $(CFLAGS) n26_find_decision.c $(FLAG_PATH_OBJ)
 $(PATH_S)n30_send_pie.o: n30_send_pie.c
 	$(CC) $(CFLAGS) n30_send_pie.c $(FLAG_PATH_OBJ)
 $(PATH_S)n40_map_set_basic.o: n40_map_set_basic.c

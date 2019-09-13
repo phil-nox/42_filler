@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 19:30:26 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 22:04:49 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ typedef	struct		s_score
 	int				diff_average;
 	int				diff_num;
 	int				diff_sum;
+	int				expansion_num;
+	int				expansion_sum;
+	int				expansion_avr;
+	int				front_num;
+	int				front_sum;
+	int				front_avr;
 	int				un_score;
 	int				df_score;
 	int				fn_score;
@@ -62,6 +68,7 @@ typedef	struct		s_game
 	char			show_score_debug;
 	char			decision_debug;
 	char			show_att_debug;
+	char			show_general_debug;
 	t_map			*org;
 	t_map			*map;
 	t_map			*adv;
@@ -140,7 +147,6 @@ int					send_to_fd(char *line, int fd_map);
 int					send_to_fd_ln(char *line, int fd_map);
 int					map_incoming (t_game *game, char *line, int fd, int model);
 int					cmd_apply(t_game *game, int fd_map, char input);
-void				shadow_calc(t_game *game);
 
 int					map_incoming_bot(char *gnl, t_game *game);
 void				game_pack_init_bot(t_game_pack *game_p);
@@ -160,5 +166,9 @@ void				zone_diff(t_map *fre, t_map *zon);
 
 int					send_to_fd(char *line, int fd_map);
 int					send_to_fd_ln(char *line, int fd_map);
+
+void				math_score(t_game *game, t_score *score);
+void    			score_debug(t_score *score);
+int					math_decision(t_game *game, t_score *score);
 
 #endif

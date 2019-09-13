@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:18:01 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 19:29:38 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/13 22:06:54 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,32 @@ void	math_maps(t_game *game, t_score *score, int row, int col)
 {
 	enemy_shadow(game, score, row, col);
 	expansion_front(game, row, col);
-	debug_metric(game, "");
+	if (game->show_general_debug)
+		debug_metric(game, "");
+}
+
+void	init_best_score(t_score *score)
+{
+	score->place_score = -1;
+	score->unreachable = 0;
+	score->diff_average = 0;
+	score->diff_num = 0;
+	score->diff_sum = 0;
+	score->expansion_num = 0;
+	score->expansion_sum = 0;
+	score->expansion_avr = 0;
+	score->front_num = 0;
+	score->front_sum = 0;
+	score->front_avr = 0;
+	score->un_score = 0;
+	score->df_score = 0;
+	score->fn_score = 0;
 }
 
 void	init_find_place(t_game *game, int *count)
 {
-	game->best_score.place_score = -1;
+	//game->best_score.place_score = -1;
+	init_best_score(&(game->best_score));
 	count = 0;
 	as_map(game->org, game->map);
 	set_val_map(game, game->map, 0);
@@ -58,5 +78,6 @@ void	init_find_place(t_game *game, int *count)
 	as_map(game->org, game->zon);
 	as_map(game->org, game->fre);
 	zones(game->zon, game->att, game->map);
-	debug_init_maps(game, "");
+	if (game->show_general_debug)
+		debug_init_maps(game, "");
 }
