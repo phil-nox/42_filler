@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 21:32:46 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/16 13:09:16 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/16 17:50:11 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ void	math_cores(t_map *org, int *cores_1, int *cores_2)
 	}
 }
 
+void	for_view(t_game_pack *game_pack, int fd_map)
+{
+	if (ft_strstr(game_pack->gnl, "$$$"))
+		send_to_fd_ln(game_pack->gnl, fd_map);
+}
+
 void	send_trigger(t_game_pack *gm_p, int fd_adp)
 {
 	static int	cores[2];
@@ -76,13 +82,14 @@ int		main(void)
 	t_game_pack	gm_p;
 	int			fd_adp;
 	int			fd_vm;
-
+	
 	game_pack_init_bot(&gm_p);
 	if (load_adapter(&fd_adp, &fd_vm))
 		return (1);
 	while (get_next_line(fd_vm, &gm_p.gnl) == 1 && add_mstack(gm_p.gnl) == 0)
 	{
 		gm_p.game.player = 1;
+		for_view(&gm_p, fd_adp);
 		gm_p.decision = map_incoming(&(gm_p.game), gm_p.gnl, fd_vm, 0);
 		if (gm_p.decision == -1)
 			return (free_all_mstack());
