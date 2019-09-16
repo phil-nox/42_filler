@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 22:25:29 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/04 23:56:29 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/16 16:34:21 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		ft_event_handle_cmd(t_sfml *sfml, sfEvent *event)
 		if (g_state & FLR_SOUN)
 			sfSound_play(sfml->sound);
 	}
-	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyA)
+	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyQ)
 		write(g_fdcmd, CMD_AUTO, CMD_LEN);
 }
 

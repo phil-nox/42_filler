@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   human.h                                            :+:      :+:    :+:   */
+/*   n30_send_pie.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 22:17:53 by wgorold          ###   ########.fr       */
+/*   Created: 2019/09/12 17:27:28 by wgorold           #+#    #+#             */
+/*   Updated: 2019/09/12 21:40:03 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMAN_H
-# define HUMAN_H
-# include <unistd.h>
-# include <fcntl.h>
-# include <sys/stat.h>
-# include <stdio.h>
+#include "filler.h"
 
-# define FIFO_MAP "mypipe.map"
-# define FIFO_CMD "mypipe.cmd"
-# define BUF_SIZE 1024
-#endif
+int	send_position(int row, int col, int where)
+{
+	char	*line;
+	int		fd;
+
+	if (where != 0)
+		fd = get_fdd();
+	else
+		fd = 1;
+	line = ft_itoa(row);
+	write(fd, line, ft_strlen(line));
+	free(line);
+	line = " ";
+	write(fd, line, ft_strlen(line));
+	line = ft_itoa(col);
+	write(fd, line, ft_strlen(line));
+	free(line);
+	line = "\n";
+	write(fd, line, ft_strlen(line));
+	return (1);
+}

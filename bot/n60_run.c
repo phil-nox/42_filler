@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   human.h                                            :+:      :+:    :+:   */
+/*   n60_run.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 22:17:53 by wgorold          ###   ########.fr       */
+/*   Created: 2019/09/12 20:14:57 by wgorold           #+#    #+#             */
+/*   Updated: 2019/09/12 20:16:02 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMAN_H
-# define HUMAN_H
-# include <unistd.h>
-# include <fcntl.h>
-# include <sys/stat.h>
-# include <stdio.h>
+#include "filler.h"
 
-# define FIFO_MAP "mypipe.map"
-# define FIFO_CMD "mypipe.cmd"
-# define BUF_SIZE 1024
-#endif
+int	main(void)
+{
+	t_game_pack game_p;
+
+	game_pack_init_bot(&game_p);
+	while (get_next_line(0, &game_p.gnl) == 1 && add_mstack(game_p.gnl) == 0)
+		if (map_incoming_bot(game_p.gnl, &game_p.game))
+			return (1);
+	debug_print(NULL, 0, -1);
+}
