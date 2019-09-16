@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:18:01 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 22:47:07 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/16 14:12:40 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,27 @@ int		find_first_place(t_game *game, t_map *map)
 				game->pnt[0] = row;
 				game->pnt[1] = col;
 				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
+int		find_last_place(t_game *game, t_map *map)
+{
+	int row;
+	int col;
+
+	row = -game->pie->row;
+	while (++row < map->row)
+	{
+		col = -game->pie->col;
+		while (++col < map->col)
+		{
+			if (is_a_place(game, map, row, col) == 1)
+			{
+				game->pnt[0] = row;
+				game->pnt[1] = col;
 			}
 		}
 	}

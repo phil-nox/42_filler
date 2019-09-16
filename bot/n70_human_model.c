@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 20:24:07 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 21:05:26 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/16 14:11:52 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,14 @@ void	for_view(t_game_pack *game_pack, int fd_map, char *set_view_done)
 
 void	wait_player(t_game_pack *game_p, t_game *game, int fd_map, int fd_cmd)
 {
-	if (is_a_place(game, game->org, game->pnt[0], game->pnt[1]) == -1)
+	if (game->autoplace)
+	{
+		game->pnt[0] = 0;
+		game->pnt[1] = 0;
+		find_last_place(game, game->org);
+		return (send_position(game->pnt[0], game->pnt[1], 0));
+	}
+	else if (is_a_place(game, game->org, game->pnt[0], game->pnt[1]) == -1)
 	{
 		game->pnt[0] = 0;
 		game->pnt[1] = 0;
