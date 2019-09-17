@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 21:10:36 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/16 13:39:07 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/17 19:57:10 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ int		cmd_apply(t_game *game, int fd_map, char input)
 	row = game->pnt[0];
 	col = game->pnt[1];
 	if (input == 'q')
+		game->autoplay = (game->autoplay) ? 0 : 1;
+	if (input == 'x')
 		game->autoplace = (game->autoplace) ? 0 : 1;
 	if (input == 'e')
 		return (send_position(game->pnt[0], game->pnt[1], 0));

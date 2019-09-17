@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/16 13:49:51 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/17 20:01:34 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef	struct		s_game
 	int				player;
 	int				enemy_score;
 	int				autoplace;
+	int				autoplay;
 }					t_game;
 
 typedef	struct		s_game_pack
@@ -173,5 +174,6 @@ void				math_score(t_game *game, t_score *score);
 void				score_debug(t_score *score);
 int					math_decision(t_game *game, t_score *score);
 void				score_debug(t_score *score);
+int					enemy_score(t_map *org);
 
 #endif

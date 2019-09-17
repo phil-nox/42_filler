@@ -86,6 +86,7 @@ else
         echo $TMP_PTY
         ./filler_vm -p1 ./70_human_model.filler -p2 $PATH_BOT$BOT -f ./maps/$MAP -t 99 > $TMP_PTY
         wait $PID_VISU
+        pgrep -f adapter | xargs kill -9
         echo "next"
     done
 fi

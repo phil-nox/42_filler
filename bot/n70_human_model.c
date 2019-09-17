@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 20:24:07 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/17 18:03:44 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/17 20:04:23 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,25 @@ int		load_model(int *fd_cmd, int *fd_map)
 
 void	wait_player(t_game_pack *game_p, t_game *game, int fd_map, int fd_cmd)
 {
+	static int	enemy_scr;
+	int			tmp;
+
+	if ((tmp = enemy_score(game->org)) == enemy_scr)
+		game->autoplay = 1;
+	enemy_scr = tmp;
+	if (game->autoplay)
+	{
+		game->pnt[0] = 0;
+		game->pnt[1] = 0;
+		if (find_last_place(game, game->org) == 0)
+		{
+			free_all_mstack();
+			exit(0);
+		}
+		send_map_to_view(game, game->adv, fd_map, 1);
+		send_position(game->pnt[0], game->pnt[1], 0);
+		return ;
+	}
 	if (game->autoplace)
 	{
 		game->pnt[0] = 0;
@@ -51,6 +70,20 @@ void	wait_player(t_game_pack *game_p, t_game *game, int fd_map, int fd_cmd)
 	}
 }
 
+int		for_view_old(t_game_pack *game_pack, int fd_map)
+{
+	if (ft_strstr(game_pack->gnl, "$$$"))
+	{
+		send_to_fd_ln(game_pack->gnl, fd_map);
+	}
+	if (ft_strstr(game_pack->gnl, "Plateau"))
+	{
+		send_to_fd_ln(game_pack->gnl, fd_map);
+		return (1);
+	}
+	return (0);
+}
+
 int		main(void)
 {
 	t_game_pack	game_p;
@@ -64,6 +97,8 @@ int		main(void)
 		return (1);
 	while (get_next_line(0, &game_p.gnl) == 1 && add_mstack(game_p.gnl) == 0)
 	{
+		if (set_view_done == 0)
+			set_view_done = for_view_old(&game_p, fd_map);
 		game_p.decision = map_incoming(&game_p.game, game_p.gnl, 0, 1);
 		if (game_p.decision == -1)
 			return (free_all_mstack());

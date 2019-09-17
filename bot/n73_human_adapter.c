@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 21:32:46 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/17 18:06:49 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/17 19:58:43 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ void	send_trigger(t_game_pack *gm_p, int fd_adp)
 		flop = -1;
 	if (flop_last != 0 && flop == flop_last)
 	{
+		write(1, "flop_SEND\n", 10);
 		send_map_to_view(&(gm_p->game), gm_p->game.org, fd_adp, 0);
 		send_map_to_view(&(gm_p->game), gm_p->game.org, 1, 0);
-		write(1, "flop_SEND\n", 10);
 	}
 	last[0] = cores[0];
 	last[1] = cores[1];
