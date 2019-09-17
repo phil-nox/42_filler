@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 20:24:07 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/16 17:51:18 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/17 18:03:44 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@ int		load_model(int *fd_cmd, int *fd_map)
 		return (1);
 	}
 	return (0);
-}
-
-void	for_view(t_game_pack *game_pack, int fd_map, char *set_view_done)
-{
-	if (*set_view_done == 0 && ft_strstr(game_pack->gnl, "Plateau"))
-	{
-		send_to_fd_ln(game_pack->gnl, fd_map);
-		*set_view_done = 1;
-	}
 }
 
 void	wait_player(t_game_pack *game_p, t_game *game, int fd_map, int fd_cmd)
@@ -73,7 +64,6 @@ int		main(void)
 		return (1);
 	while (get_next_line(0, &game_p.gnl) == 1 && add_mstack(game_p.gnl) == 0)
 	{
-		for_view(&game_p, fd_map, &set_view_done);
 		game_p.decision = map_incoming(&game_p.game, game_p.gnl, 0, 1);
 		if (game_p.decision == -1)
 			return (free_all_mstack());

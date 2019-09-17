@@ -60,7 +60,12 @@ if [ "$1" == "-t" ]; then
     open ./r_adapter.command
     open ./r_view.command
     open ./r_controller.command
-    ./filler_vm -p1 ./70_human_model.filler -p2 $PATH_BOT$BOT -f ./maps/$MAP -t 99 > mypipe.vm
+    #tail r_here > mypipe.vm
+    sleep 1
+    TMP_PTY=$(cat tmp_pty)
+    echo $TMP_PTY
+    echo "./filler_vm -p1 ./70_human_model.filler -p2 $PATH_BOT$BOT -f ./maps/$MAP -t 99 > $TMP_PTY"
+    ./filler_vm -p1 ./70_human_model.filler -p2 $PATH_BOT$BOT -f ./maps/$MAP -t 99 > $TMP_PTY
 else
     while true; do
         clear
@@ -76,8 +81,13 @@ else
         echo $PID_VISU
         #./74_human_adapter.filler &
         open ./r_adapter.command
-        ./filler_vm -p1 ./70_human_model.filler -p2 $PATH_BOT$BOT -f ./maps/$MAP -t 99 > mypipe.vm
+        sleep 1
+        TMP_PTY=$(cat tmp_pty)
+        echo $TMP_PTY
+        ./filler_vm -p1 ./70_human_model.filler -p2 $PATH_BOT$BOT -f ./maps/$MAP -t 99 > $TMP_PTY
         wait $PID_VISU
         echo "next"
     done
 fi
+
+#tail -f /proc/57222/fd/1
