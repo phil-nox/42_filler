@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 20:24:07 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/16 16:19:04 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/16 17:51:18 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int		load_model(int *fd_cmd, int *fd_map)
 
 void	for_view(t_game_pack *game_pack, int fd_map, char *set_view_done)
 {
-	if (ft_strstr(game_pack->gnl, "$$$"))
-		send_to_fd_ln(game_pack->gnl, fd_map);
 	if (*set_view_done == 0 && ft_strstr(game_pack->gnl, "Plateau"))
 	{
 		send_to_fd_ln(game_pack->gnl, fd_map);
