@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   human_view_control.c                               :+:      :+:    :+:   */
+/*   n72_human_controller.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/12 22:16:02 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 22:17:28 by wgorold          ###   ########.fr       */
+/*   Created: 2019/09/12 21:08:49 by wgorold           #+#    #+#             */
+/*   Updated: 2019/09/12 21:09:06 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "human.h"
+#include <stdio.h>
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	idx;
-
-	idx = 0;
-	while (s[idx])
-		idx++;
-	return (idx);
-}
-
-int		load_view(int *fd_cmd, int *fd_map)
+int	load_controller(int *fd_cmd)
 {
 	*fd_cmd = open(FIFO_CMD, O_WRONLY);
 	printf("fd_cmd=%d\n", *fd_cmd);
@@ -32,41 +23,19 @@ int		load_view(int *fd_cmd, int *fd_map)
 		return (1);
 	}
 	write(1, "open_cmd:\tdone\n", 16);
-	*fd_map = open(FIFO_MAP, O_RDONLY);
-	printf("fd_map=%d\n", *fd_map);
-	if (*fd_map < 1)
-	{
-		write(1, "Failed with open() FIFO_MAP\n", 29);
-		return (1);
-	}
-	write(1, "open_map:\tdone\n", 16);
 	write(1, "open:\tdone\n", 12);
-	write(1, "start! wait fd_cmd\n", 20);
 	return (0);
 }
 
-int		main(void)
+int	main(void)
 {
 	int		fd_cmd;
-	int		fd_map;
-	int		pos;
-	char	line[BUF_SIZE];
+	char	to_send;
 
-	line[0] = '\0';
-	if (load_view(&fd_cmd, &fd_map))
+	if (load_controller(&fd_cmd))
 		return (1);
-	while ((pos = read(fd_map, line, BUF_SIZE)))
-	{
-		line[pos] = '\0';
-		write(1, line, ft_strlen(line));
-		if (line[0] == 'x')
-		{
-			write(fd_cmd, ">x\n", 4);
-			break ;
-		}
-		write(fd_cmd, ">cmd\n", 7);
-	}
+	while (scanf("%c", &to_send))
+		write(fd_cmd, &to_send, 1);
 	close(fd_cmd);
-	close(fd_map);
 	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillet.h                                           :+:      :+:    :+:   */
+/*   filler.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/08/06 17:54:38 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/16 13:49:51 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,39 @@
 # define SHIFT_M 4
 # define MAX_INT 2147483647
 
-#include <unistd.h>
-#include <fcntl.h>
-#include "libft.h"
-#include "get_next_line.h"
-#include "__mstack.h"
-#include "human.h"
+# include <unistd.h>
+# include <fcntl.h>
+# include "libft.h"
+# include "get_next_line.h"
+# include "n_mstack.h"
+# include "human.h"
 
 typedef	struct		s_pnt
 {
-	int 			row;
+	int				row;
 	int				col;
 }					t_pnt;
 
 typedef	struct		s_map
 {
-	int			    row;
-	int 			col;
-	int**        	map;
+	int				row;
+	int				col;
+	int				**map;
 }					t_map;
 
 typedef	struct		s_score
 {
-	int			    place_score;
-	int		       	unreachable;
-	int 			diff_average;
-	int 			diff_num;
+	int				place_score;
+	int				unreachable;
+	int				diff_average;
+	int				diff_num;
 	int				diff_sum;
+	int				expansion_num;
+	int				expansion_sum;
+	int				expansion_avr;
+	int				front_num;
+	int				front_sum;
+	int				front_avr;
 	int				un_score;
 	int				df_score;
 	int				fn_score;
@@ -62,6 +68,7 @@ typedef	struct		s_game
 	char			show_score_debug;
 	char			decision_debug;
 	char			show_att_debug;
+	char			show_general_debug;
 	t_map			*org;
 	t_map			*map;
 	t_map			*adv;
@@ -73,8 +80,9 @@ typedef	struct		s_game
 	t_map			*fields[9];
 	t_score			best_score;
 	int				pnt[2];
-	int 			player;
+	int				player;
 	int				enemy_score;
+	int				autoplace;
 }					t_game;
 
 typedef	struct		s_game_pack
@@ -93,68 +101,77 @@ typedef	struct		s_game_pack
 	int				decision;
 }					t_game_pack;
 
-int get_fdd();
-int ft_putstrfile(char const *s);
-void debug_print(char *str, int next_line, int to_free);
-void debug_num(int num, int next_line);
-//void debug_value_map(t_map *map);
-void debug_value_map_color(t_map *map, char *tab);
-//void debug_value_map_color_adv(t_map *map, char *str);
-void debug_set(t_map *map);
-void debug_place(t_map *map);
-void debug_reset(t_map *map);
-void debug_diff(t_map *map);
-void debug_att(t_map *map);
-void debug_metric (t_game *game, char *begin);
-int map_print(int input);
+int					get_fdd();
+int					ft_putstrfile(char const *s);
+void				debug_print(char *str, int next_line, int to_free);
+void				debug_num(int num, int next_line);
+void				debug_value_map_color(t_map *map, char *tab);
 
-int set_player_adv(char *line, t_game *game);
-int set_map(t_game *game, char *keyword, int fd_in);
-int init_map(char *line, t_game *game, char *keyword, int fd_in);
+void				debug_set(t_map *map);
+void				debug_place(t_map *map);
+void				debug_reset(t_map *map);
+void				debug_diff(t_map *map);
+void				debug_att(t_map *map);
+void				debug_metric (t_game *game, char *begin);
+int					map_print(int input);
 
-void send_position(int row, int col, int where);
+int					one_time_game_malloc(t_game *game);
+int					set_player_adv(char *line, t_game *game);
+int					set_map(t_game *game, char *keyword, int fd_in);
+int					init_map(char *line, t_game *game, char *keyword,
+					int fd_in);
 
-void as_map(t_map *src, t_map *trg);
-int make_map(t_game *game, t_map *src, t_map *trg);
+int					send_position(int row, int col, int where);
 
-int in_borders(t_game *game, int row, int col);
-int set_val(t_map *map, int row, int col, int val);
-int set_val_map(t_game *game, t_map *map, int to_find);
+void				as_map(t_map *src, t_map *trg);
+int					make_map(t_game *game, t_map *src, t_map *trg);
 
-int find_place(t_game *game);
+int					in_gm(t_map *map, int row, int col);
+int					set_val(t_map *map, int row, int col, int val);
+int					set_val_map(t_game *game, t_map *map, int to_find);
 
-int get_val(t_map *map, int row, int col);
-int get_val_pnt(t_map *map, int pnt[2]);
-//void reset_pie(t_game *game, int row, int col);
-void reset_val_map(t_game *game, int row, int col);
-//int reset_around(t_game *game, int row, int col, int to_set);
-int glob_min_val_around(t_game *game, t_map *map);
-void diff_val_map(t_game *game, int min_border_val, t_score *score, char show);
+int					find_place(t_game *game);
 
-void send_map_to_view(t_game *game, t_map *show, int fd_map, int with_pie);
-int is_a_place(t_game *game, t_map *map, int row, int col);
-int place_pie(t_game *game, t_map *map, int row, int col);
+int					get(t_map *map, int row, int col);
+int					get_pnt(t_map *map, int pnt[2]);
+void				reset_val_map(t_game *game, int row, int col);
+int					glob_min_val_around(t_map *map);
+void				diff_val_map(t_game *game, int min_border_val,
+					t_score *score, char show);
 
-int send_to_fd(char *line, int fd_map);
-int send_to_fd_ln(char *line, int fd_map);
-int map_incoming (t_game *game, char *line, int fd);
-int cmd_apply(t_game *game, int fd_map, char input);
-void game_pack_init(t_game_pack *game_p);
-void shadow_calc(t_game *game);
+void				send_map_to_view(t_game *game, t_map *show,
+					int fd_map, int with_pie);
+int					is_a_place(t_game *game, t_map *map, int row, int col);
+int					place_pie(t_game *game, t_map *map, int row, int col);
 
+int					send_to_fd(char *line, int fd_map);
+int					send_to_fd_ln(char *line, int fd_map);
+int					map_incoming (t_game *game, char *line, int fd, int model);
+int					cmd_apply(t_game *game, int fd_map, char input);
 
-int map_incoming_bot(char *gnl, t_game *game);
-void game_pack_init_bot(t_game_pack *game_p);
-int find_first_place(t_game *game, t_map *map);
+int					map_incoming_bot(char *gnl, t_game *game);
+void				game_pack_init_bot(t_game_pack *game_p);
+int					find_first_place(t_game *game, t_map *map);
+int					find_last_place(t_game *game, t_map *map);
 
-void calc_decision(t_game *game, t_score *score, char show);
-int change_decision(t_score *curr_sc, t_score *aspi_sc);
+void				calc_decision(t_game *game, t_score *score, char show);
+int					change_decision(t_score *curr_sc, t_score *aspi_sc);
 
-int set_val_map_force(t_game *game, t_map *map, int to_find);
-void diff_for_field(t_map *fld, t_map *att);
-void field_and_shadow(t_map *fld, t_map *adv);
-void zones(t_map *fre, t_map *att, t_map *map);
-void zone_diff(t_map *fre, t_map *zon);
+void				debug_init_maps(t_game *game, char *begin);
+void				init_find_place(t_game *game, int *count);
+void				math_maps(t_game *game, t_score *score, int row, int col);
+int					set_val_map_force(t_game *game, t_map *map, int to_find);
+void				diff_for_field(t_map *fld, t_map *att);
+void				field_and_shadow(t_map *fld, t_map *adv);
+void				zones(t_map *fre, t_map *att, t_map *map);
+void				zone_diff(t_map *fre, t_map *zon);
 
+int					send_to_fd(char *line, int fd_map);
+int					send_to_fd_ln(char *line, int fd_map);
+
+void				math_score(t_game *game, t_score *score);
+void				score_debug(t_score *score);
+int					math_decision(t_game *game, t_score *score);
+void				score_debug(t_score *score);
 
 #endif

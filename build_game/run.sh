@@ -1,7 +1,8 @@
 #!/bin/bash
-rm mypipe.*; mkfifo mypipe.map && mkfifo mypipe.cmd && mkfifo mypipe.adp
+rm mypipe.*; mkfifo mypipe.map && mkfifo mypipe.cmd && mkfifo mypipe.adp && mkfifo mypipe.vm
 PATH_BOT=./players/
 BOT=carli.filler
+MAP=map01
 PLAYERS=( $(ls ./players) )
 LIM=${#PLAYERS[@]}
 CUR=0
@@ -39,20 +40,44 @@ choice() {
     done
 }
 
-
-while true; do
-    clear
-    echo -e "Use  ⬆️\n"
-    echo -e "  ⬅️  ⬇️  ➡️\n"
-    echo -e "For select press 'space' or 'enter' \n\n"
-    echo -e "For run game select bot 👇\n"
-    choice
-    BOT=${PLAYERS[$CUR]}
-    echo -en "\n$BOT\n"
-	./filler_visu_human &
-    PID_VISU=$!
-    echo $PID_VISU
-    ./filler_vm -p1 ./70_human_model.filler -p2 $PATH_BOT$BOT -f ./maps/map01 -t 99 | ./74_human_adapter.filler
-    wait $PID_VISU
-    echo "next"
+while getopts "bs" OPTION
+do
+	case $OPTION in
+        s)
+            MAP=map00
+            ;;
+		b)
+            MAP=map02
+			;;
+	esac
 done
+
+
+if [ "$1" == "-t" ]; then
+    choice
+	BOT=${PLAYERS[$CUR]}
+    echo -en "\n$BOT\n"
+    open ./r_adapter.command
+    open ./r_view.command
+    open ./r_controller.command
+    ./filler_vm -p1 ./70_human_model.filler -p2 $PATH_BOT$BOT -f ./maps/$MAP -t 99 > mypipe.vm
+else
+    while true; do
+        clear
+        echo -e "Use  ⬆️\n"
+        echo -e "  ⬅️  ⬇️  ➡️\n"
+        echo -e "For select press 'space' or 'enter' \n\n"
+        echo -e "For run game select bot 👇\n"
+        choice
+        BOT=${PLAYERS[$CUR]}
+        echo -en "\n$BOT\n"
+        ./filler_visu_human &
+        PID_VISU=$!
+        echo $PID_VISU
+        #./74_human_adapter.filler &
+        open ./r_adapter.command
+        ./filler_vm -p1 ./70_human_model.filler -p2 $PATH_BOT$BOT -f ./maps/$MAP -t 99 > mypipe.vm
+        wait $PID_VISU
+        echo "next"
+    done
+fi
