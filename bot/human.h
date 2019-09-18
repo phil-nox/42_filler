@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 21:54:02 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/17 17:44:56 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 # define FIFO_CMD "mypipe.cmd"
 # define FIFO_ADP "mypipe.adp"
 # define FIFO_VM "mypipe.vm"
+# define TMP_PTY "tmp_pty"
 # define BUF_SIZE 1024
 #endif

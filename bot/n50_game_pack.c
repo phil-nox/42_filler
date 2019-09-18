@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 19:23:50 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/16 13:36:02 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/17 19:06:40 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	game_pack_init_bot(t_game_pack *game_p)
 {
 	game_pack_init_bot_maps(game_p);
 	game_p->game.autoplace = 0;
+	game_p->game.autoplay = 0;
 	game_p->game.pnt[0] = 0;
 	game_p->game.pnt[1] = 0;
 	game_p->game.enemy_score = 0;

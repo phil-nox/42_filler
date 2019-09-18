@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 21:06:37 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/16 17:45:58 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/17 18:06:13 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ int	main(void)
 	line[0] = '\0';
 	if (load_view(&fd_adp, &fd_map))
 		return (1);
+	pos = read(fd_adp, line, BUF_SIZE);
+	write(1, line, ft_strlen(line));
+	pos = read(fd_adp, line, BUF_SIZE);
+	write(1, line, ft_strlen(line));
 	pos = read(fd_adp, line, BUF_SIZE);
 	write(1, line, ft_strlen(line));
 	while ((pos = read(fd_map, line, BUF_SIZE)))

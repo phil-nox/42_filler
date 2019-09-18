@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:18:01 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/16 14:12:40 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/17 19:28:07 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ int		find_last_place(t_game *game, t_map *map)
 {
 	int row;
 	int col;
+	int find;
 
+	find = 0;
 	row = -game->pie->row;
 	while (++row < map->row)
 	{
@@ -85,8 +87,9 @@ int		find_last_place(t_game *game, t_map *map)
 			{
 				game->pnt[0] = row;
 				game->pnt[1] = col;
+				find = 1;
 			}
 		}
 	}
-	return (0);
+	return (find);
 }

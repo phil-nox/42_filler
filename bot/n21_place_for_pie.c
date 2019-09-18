@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 16:54:57 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 18:15:38 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/18 13:37:16 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ int	is_a_place(t_game *game, t_map *map, int row, int col)
 	int		c;
 	char	tmp;
 	int		count;
+	int		enemy;
 
 	r = -1;
+	enemy = 0;
 	count = 0;
 	while (++r < game->pie->row)
 	{
@@ -73,9 +75,13 @@ int	is_a_place(t_game *game, t_map *map, int row, int col)
 			tmp = map->map[row + r][col + c];
 			if (tmp == -2)
 				count += 1;
-			if (count > 1 || tmp == 0)
-				return ((count > 1) ? -3 : -2);
+			if (tmp == 0)
+				enemy = 1;
 		}
 	}
+	if (enemy)
+		return (-2);
+	if (count > 1)
+		return (-3);
 	return ((count == 0) ? 0 : 1);
 }
