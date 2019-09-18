@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 01:19:14 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/01 01:09:17 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/16 20:56:20 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_player			*ft_init_player(char *img_path, t_sfml *sfml, int8_t human)
 		ft_init_player_shape(p);
 	}
 	if (!human)
-		ft_strlcpy(p->name, "machine", 8);
+		ft_strlcpy(p->name, "player 2", 9);
 	ft_init_player_settext(p, sfml);
 	return (p);
 }

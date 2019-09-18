@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 20:07:20 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/05 00:36:38 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/16 20:51:35 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_text	*ft_init_footer(t_sfml *sfml)
 	sfText_setString(footer->text, "[<]left  [^]up    [space]set  [M]usic");
 	sfText_setFont(footer->text, footer->font);
 	sfText_setCharacterSize(footer->text, P_FONT_SZ / 2);
-	sfText_setString(footer->text_aux, "[>]right [v]down [A]utoset   [S]ound");
+	sfText_setString(footer->text_aux, "[>]right [v]down [X]autoset  [S]ound");
 	sfText_setFont(footer->text_aux, footer->font);
 	sfText_setCharacterSize(footer->text_aux, P_FONT_SZ / 2);
 	pos.y = sfml->height_sc + 490;
@@ -77,7 +77,6 @@ static void		ft_init_sfml_aux(t_sfml *sfml)
 	sfSound_setLoop(sfml->sound, sfFalse);
 	sfMusic_setLoop(sfml->music, sfTrue);
 	sfml->stop = 0;
-	sfml->map_pl = 0;
 	sfml->map_vm = -1;
 	sfml->fd = g_fdmap;
 	pos.x = WIN_POS_X;
@@ -92,8 +91,6 @@ static int8_t	ft_init_sfml(t_sfml *sfml)
 	ft_get_size(&sfml->width, &sfml->height);
 	sfml->cell_cnt = sfml->width * sfml->height;
 	sfml->scale = (double)WIN_HEIGHT / (sfml->height * CELL_SZ);
-//		sfml->height * CELL_SZ > HEIGHT_MAX ?
-//							(double)HEIGHT_MAX / (sfml->height * CELL_SZ) : 1;
 	sfml->height_sc = sfml->height * CELL_SZ * sfml->scale;
 	sfml->width_sc = sfml->width * CELL_SZ * sfml->scale;
 	mode.width = sfml->width_sc + 2 * MARGIN;
