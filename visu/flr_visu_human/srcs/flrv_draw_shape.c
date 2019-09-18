@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 19:43:07 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/04 21:23:51 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/16 20:50:48 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ static void		ft_get_shape(t_sfml *sfml, int cnt)
 	i = 0;
 	while (i < cnt && get_next_line(sfml->fd, &shape[i]) && shape[i])
 		++i;
-	if (sfml->map_vm == -1 || sfml->map_vm >= sfml->map_pl)
-		ft_set_shape(sfml, shape);
+	ft_set_shape(sfml, shape);
 	if (sfml->map_vm == 0 && (g_state & FLR_SOUN))
 	{
 		sfSound_setBuffer(sfml->sound, sfml->sound_buf_er);
@@ -51,6 +50,7 @@ void			ft_draw_shape(t_sfml *sfml)
 	char	*s;
 	char	c;
 	int32_t	ret;
+//int32_t	flags;
 
 	ft_draw_header(sfml);
 	if (g_state & FLR_FIN)
@@ -61,8 +61,15 @@ void			ft_draw_shape(t_sfml *sfml)
 		sfml->fd = g_fdadp;
 		g_state |= FLR_LOSE;
 	}
-	else
-		++sfml->map_pl;
+/*if (!(g_state & FLR_NAME) && sfml->fd != g_fdadp && (ret = read(g_fdadp, &c, 1)) == 1)
+{
+	ft_init_player_name(sfml->p1, g_fdadp, 1);
+	ft_init_player_name(sfml->p2, g_fdadp, 0);
+	flags = fcntl(g_fdadp, F_GETFL, 0);
+	flags &= ~O_NONBLOCK;
+	fcntl(g_fdadp, F_SETFL, flags);
+	g_state |= FLR_NAME;
+}*/
 	while ((ret = get_next_line(sfml->fd, &s)) && (*s != '+'))
 		free(s);
 	if (ret > 0)

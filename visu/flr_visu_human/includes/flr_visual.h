@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 00:02:03 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/05 00:24:31 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/16 20:54:35 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include <errno.h>
 # include <sys/stat.h>
 
-//# define HEIGHT_MAX		2000
-//# define WIDTH_MAX		2500
 # define MARGIN			40
 # define CELL_SZ		30
 # define NAME_MAX		16
@@ -33,6 +31,7 @@
 # define FLR_MUSI		2
 # define FLR_SOUN		4
 # define FLR_LOSE		8
+# define FLR_NAME		16
 
 extern	uint8_t			g_state;
 
@@ -66,7 +65,6 @@ typedef struct			s_sfml
 	int32_t				width_sc;
 	int32_t				stop;
 	uint32_t			cell_cnt;
-	int32_t				map_pl;
 	int32_t				map_vm;
 	int32_t				fd;
 	t_player			*p1;
