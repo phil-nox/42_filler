@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 20:24:07 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/18 15:58:20 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/18 17:06:25 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,8 @@ int		load_model(int *fd_cmd, int *fd_map)
 	return (0);
 }
 
-void	wait_player(t_game_pack *game_p, t_game *game, int fd_map, int fd_cmd)
+int		automove(t_game *game, int fd_map)
 {
-	static int	enemy_scr;
-	int			tmp;
-
-	if ((tmp = enemy_score(game->org)) == enemy_scr)
-		game->autoplay = 1;
-	enemy_scr = tmp;
 	if (game->autoplay)
 	{
 		game->pnt[0] = 0;
@@ -50,7 +44,7 @@ void	wait_player(t_game_pack *game_p, t_game *game, int fd_map, int fd_cmd)
 		}
 		send_map_to_view(game, game->adv, fd_map, 1);
 		send_position(game->pnt[0], game->pnt[1], 0);
-		return ;
+		return (1);
 	}
 	if (game->autoplace)
 	{
@@ -58,6 +52,19 @@ void	wait_player(t_game_pack *game_p, t_game *game, int fd_map, int fd_cmd)
 		game->pnt[1] = 0;
 		find_last_place(game, game->org);
 	}
+	return (0);
+}
+
+void	wait_player(t_game_pack *game_p, t_game *game, int fd_map, int fd_cmd)
+{
+	static int	enemy_scr;
+	int			tmp;
+
+	if ((tmp = enemy_score(game->org)) == enemy_scr)
+		game->autoplay = 1;
+	enemy_scr = tmp;
+	if (automove(game, fd_map))
+		return ;
 	else if (is_a_place(game, game->org, game->pnt[0], game->pnt[1]) == -1)
 	{
 		game->pnt[0] = 0;
@@ -68,6 +75,8 @@ void	wait_player(t_game_pack *game_p, t_game *game, int fd_map, int fd_cmd)
 	{
 		if (cmd_apply(game, fd_map, game_p->cmd_l[0]))
 			break ;
+		if (automove(game, fd_map))
+			return ;
 	}
 }
 
