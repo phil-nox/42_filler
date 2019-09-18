@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 22:25:29 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/04 23:56:29 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/16 19:55:06 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void		ft_event_handle_cmd(t_sfml *sfml, sfEvent *event)
 		write(g_fdcmd, CMD_UP, CMD_LEN);
 	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyDown)
 		write(g_fdcmd, CMD_DOWN, CMD_LEN);
-	if (event->type == sfEvtKeyPressed && (event->key.code == sfKeySpace || 
+	if (event->type == sfEvtKeyPressed && (event->key.code == sfKeySpace ||
 												event->key.code == sfKeyEnter))
 	{
 		write(g_fdcmd, CMD_SET, CMD_LEN);
 		if (g_state & FLR_SOUN)
 			sfSound_play(sfml->sound);
 	}
-	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyA)
+	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyX)
 		write(g_fdcmd, CMD_AUTO, CMD_LEN);
 }
 

@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 23:08:48 by laleta            #+#    #+#             */
-/*   Updated: 2019/08/28 05:11:00 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/16 20:12:18 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # define FIFO_MAP		"mypipe.map"
 # define FIFO_CMD		"mypipe.cmd"
 # define FIFO_ADP		"mypipe.adp"
-# define M_OFFSET		0
 # define HUMAN			1
 # define BOT			0
 
