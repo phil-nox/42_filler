@@ -2,7 +2,7 @@
 rm mypipe.*; mkfifo mypipe.map && mkfifo mypipe.cmd && mkfifo mypipe.adp && mkfifo mypipe.vm
 PATH_BOT=./players/
 BOT=carli.filler
-MAP=map01
+MAP=map00
 PLAYERS=( $(ls ./players) )
 LIM=${#PLAYERS[@]}
 CUR=0

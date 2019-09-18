@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 20:24:07 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/18 13:11:29 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/18 15:58:20 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,9 @@ void	wait_player(t_game_pack *game_p, t_game *game, int fd_map, int fd_cmd)
 {
 	static int	enemy_scr;
 	int			tmp;
-	int			enemy_down;
 
-	enemy_down = 0;
 	if ((tmp = enemy_score(game->org)) == enemy_scr)
-	{
 		game->autoplay = 1;
-		enemy_down = 1;
-	}
 	enemy_scr = tmp;
 	if (game->autoplay)
 	{
@@ -49,12 +44,11 @@ void	wait_player(t_game_pack *game_p, t_game *game, int fd_map, int fd_cmd)
 		game->pnt[1] = 0;
 		if (find_last_place(game, game->org) == 0)
 		{
-			send_map_to_view(game, game->adv, fd_map, 1);
+			send_map_to_view(game, game->adv, fd_map, 0);
 			free_all_mstack();
 			exit(0);
 		}
-		if (enemy_down == 0)
-			send_map_to_view(game, game->adv, fd_map, 1);
+		send_map_to_view(game, game->adv, fd_map, 1);
 		send_position(game->pnt[0], game->pnt[1], 0);
 		return ;
 	}
