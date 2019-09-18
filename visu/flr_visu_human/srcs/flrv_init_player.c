@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 01:19:14 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/16 20:56:20 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/18 15:37:46 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void				ft_init_player_shape(t_player *p)
 	sfRectangleShape_setSize(p->shape_bl, size);
 }
 
-t_player			*ft_init_player(char *img_path, t_sfml *sfml, int8_t human)
+t_player			*ft_init_player(char *img_path, t_sfml *sfml)//, int8_t human)
 {
 	t_player	*p;
 
@@ -79,14 +79,14 @@ t_player			*ft_init_player(char *img_path, t_sfml *sfml, int8_t human)
 		!(p->shape_er = sfRectangleShape_create()) ||
 		!(p->shape_bl = sfRectangleShape_create()))
 		return (NULL);
-	if (human)
-	{
-		if (!ft_init_player_name(p, g_fdmap))
+//	if (human)
+//	{
+		if (!ft_init_player_name(p, g_fdadp))
 			return (NULL);
 		ft_init_player_shape(p);
-	}
-	if (!human)
-		ft_strlcpy(p->name, "player 2", 9);
+//	}
+//	if (!human)
+//		ft_strlcpy(p->name, "player 2", 9);
 	ft_init_player_settext(p, sfml);
 	return (p);
 }

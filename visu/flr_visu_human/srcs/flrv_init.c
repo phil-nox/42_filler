@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 20:07:20 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/16 20:51:35 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/18 15:39:43 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ int8_t			ft_init(int32_t argc, char **argv, t_sfml *sfml)
 	while (++i < argc - 1 && i < 2)
 		img[i] = argv[i + 1];
 	if (!(sfml->p_font = sfFont_createFromFile(P_FONT)) ||
-		!(sfml->p1 = ft_init_player(img[0], sfml, HUMAN)) ||
-		!(sfml->p2 = ft_init_player(img[1], sfml, BOT)) ||
+		!(sfml->p1 = ft_init_player(img[0], sfml)) ||
+		!(sfml->p2 = ft_init_player(img[1], sfml)) ||
 		!(ft_init_sfml(sfml)) ||
 		!(sfml->footer = ft_init_footer(sfml)) ||
 		!(sfml->title = ft_init_title(sfml)))

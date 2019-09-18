@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 00:02:03 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/16 20:54:35 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/18 15:38:51 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct			s_sfml
 }						t_sfml;
 
 int8_t					ft_init(int32_t argc, char **argv, t_sfml *sfml);
-t_player				*ft_init_player(char *img, t_sfml *sfml, int8_t human);
+t_player				*ft_init_player(char *img, t_sfml *sfml);//, int8_t human);
 int8_t					ft_init_player_name(t_player *p, int32_t fd);
 void					ft_draw_shape(t_sfml *sfml);
 void					ft_set_shape(t_sfml *sfml, char **shape);
