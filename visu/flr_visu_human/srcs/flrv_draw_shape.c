@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 19:43:07 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/18 16:03:30 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/18 18:18:17 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void			ft_draw_shape(t_sfml *sfml)
 	char	*s;
 	char	c;
 	int32_t	ret;
-//int32_t	flags;
 
 	ft_draw_header(sfml);
 	if (g_state & FLR_FIN)
@@ -61,15 +60,6 @@ void			ft_draw_shape(t_sfml *sfml)
 		sfml->fd = g_fdadp;
 		g_state |= FLR_LOSE;
 	}
-/*if (!(g_state & FLR_NAME) && sfml->fd != g_fdadp && (ret = read(g_fdadp, &c, 1)) == 1)
-{
-	ft_init_player_name(sfml->p1, g_fdadp, 1);
-	ft_init_player_name(sfml->p2, g_fdadp, 0);
-	flags = fcntl(g_fdadp, F_GETFL, 0);
-	flags &= ~O_NONBLOCK;
-	fcntl(g_fdadp, F_SETFL, flags);
-	g_state |= FLR_NAME;
-}*/
 	while ((ret = get_next_line(sfml->fd, &s)) && (*s != '+'))
 		free(s);
 	if (ret > 0)

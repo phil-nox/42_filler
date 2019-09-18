@@ -6,7 +6,7 @@
 /*   By: laleta <laleta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 22:25:29 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/18 15:09:18 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/18 18:14:15 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ void		ft_event_handle_cmd(t_sfml *sfml, sfEvent *event)
 		if (g_state & FLR_SOUN)
 			sfSound_play(sfml->sound);
 	}
-	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyX)
+	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyQ)
 		write(g_fdcmd, CMD_AUTO, CMD_LEN);
+	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyX)
+		write(g_fdcmd, CMD_WIN, CMD_LEN);
 }
 
-void		ft_event_handle(t_sfml *sfml, sfEvent *event)
+void		ft_event_handle(t_sfml *sfml, sfEvent *event, sfThread *thread_rndr)
 {
 	if (event->type == sfEvtKeyPressed && event->key.code == sfKeyS)
 		g_state = g_state & FLR_SOUN ? g_state & ~FLR_SOUN : g_state | FLR_SOUN;
@@ -46,7 +48,10 @@ void		ft_event_handle(t_sfml *sfml, sfEvent *event)
 	if (event->type == sfEvtClosed ||
 		(event->type == sfEvtKeyPressed && event->key.code == sfKeyEscape) ||
 		(event->type == sfEvtKeyPressed && g_state & FLR_FIN))
+	{
+		sfThread_terminate(thread_rndr);
 		sfRenderWindow_close(sfml->window);
+	}
 	if (!(g_state & (FLR_LOSE | FLR_FIN)))
 		ft_event_handle_cmd(sfml, event);
 }

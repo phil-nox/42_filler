@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 01:19:14 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/18 16:03:31 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/18 18:47:09 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,18 @@ int8_t				ft_init_player_name(t_player *p, int32_t fd)
 		return (0);
 	tmp = s;
 	s += 14;
-	fnd = ft_strchr(s, '/');
-	s = fnd ? ++fnd : ++s;
+	while ((fnd = ft_strchr(s, '/')) != NULL)
+	{
+		s = fnd ? ++fnd : ++s;
+		fnd = s;
+	}
+	s = fnd ? fnd : s;
 	fnd = s;
 	while (*s && *s != '.')
 		s++;
 	ft_strlcpy(p->name, fnd, s - fnd + 1 >= NAME_MAX ? NAME_MAX : s - fnd + 1);
+	p->name[NAME_MAX - 1] = '\0';
+	ft_name_norm(p->name);
 	free(tmp);
 	return (1);
 }
@@ -65,7 +71,7 @@ void				ft_init_player_shape(t_player *p)
 	sfRectangleShape_setSize(p->shape_bl, size);
 }
 
-t_player			*ft_init_player(char *img_path, t_sfml *sfml)//, int8_t human)
+t_player			*ft_init_player(char *img_path, t_sfml *sfml)
 {
 	t_player	*p;
 
@@ -79,14 +85,9 @@ t_player			*ft_init_player(char *img_path, t_sfml *sfml)//, int8_t human)
 		!(p->shape_er = sfRectangleShape_create()) ||
 		!(p->shape_bl = sfRectangleShape_create()))
 		return (NULL);
-//	if (human)
-//	{
-		if (!ft_init_player_name(p, g_fdadp))
-			return (NULL);
-		ft_init_player_shape(p);
-//	}
-//	if (!human)
-//		ft_strlcpy(p->name, "player 2", 9);
+	if (!ft_init_player_name(p, g_fdadp))
+		return (NULL);
+	ft_init_player_shape(p);
 	ft_init_player_settext(p, sfml);
 	return (p);
 }

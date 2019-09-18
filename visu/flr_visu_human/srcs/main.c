@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 19:41:31 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/18 15:29:12 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/18 17:14:14 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,9 @@ int32_t					main(int32_t argc, char **argv)
 	while (sfRenderWindow_isOpen(sfml.window))
 	{
 		while (sfRenderWindow_waitEvent(sfml.window, &event))
-			ft_event_handle(&sfml, &event);
+			ft_event_handle(&sfml, &event, thread_rndr);
 	}
 	ft_destroy_sfml(&sfml);
-	sfThread_wait(thread_rndr);
 	sfThread_destroy(thread_rndr);
 	close(g_fdcmd);
 	close(g_fdmap);
