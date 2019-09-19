@@ -6,7 +6,7 @@
 #    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/09/16 17:28:20 by wgorold          ###   ########.fr        #
+#    Updated: 2019/09/19 14:42:16 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC= 	n00_debug_wfile.o n01_debug_utf8.o \
 		n44_map_force_set.o n46_map_zone.o n45_map_field.o \
 		n50_game_pack.o n51_game_find_send.o\
 		n74_human_send_basic.o n75_human_send.o \
+		n76_human_for_adapter.o n77_human_over_roll.o \
 		n_mstack_0.o n_mstack_1.o
 
 PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
@@ -147,6 +148,10 @@ $(PATH_S)n74_human_send_basic.o: n74_human_send_basic.c
 	$(CC) $(CFLAGS) n74_human_send_basic.c $(FLAG_PATH_OBJ)
 $(PATH_S)n75_human_send.o: n75_human_send.c
 	$(CC) $(CFLAGS) n75_human_send.c $(FLAG_PATH_OBJ)
+$(PATH_S)n76_human_for_adapter.o: n76_human_for_adapter.c
+	$(CC) $(CFLAGS) n76_human_for_adapter.c $(FLAG_PATH_OBJ)
+$(PATH_S)n77_human_over_roll.o: n77_human_over_roll.c
+	$(CC) $(CFLAGS) n77_human_over_roll.c $(FLAG_PATH_OBJ)
 $(PATH_S)n_mstack_0.o: n_mstack_0.c
 	$(CC) $(CFLAGS) n_mstack_0.c $(FLAG_PATH_OBJ)
 $(PATH_S)n_mstack_1.o: n_mstack_1.c
@@ -160,7 +165,7 @@ clean:
 	make clean -C ./libft
 
 fclean: clean
-	find $(PATH_B) -type f -not -name '.gitkeep' -delete
+	find $(PATH_B) -type fd -not -name '.gitkeep' -delete
 	make fclean -C ./libft
 
 re: fclean all

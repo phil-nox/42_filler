@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 21:10:36 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/18 17:44:21 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:03:41 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,66 +96,6 @@ int		map_incoming(t_game *game, char *line, int fd, int model)
 	return (0);
 }
 
-void	find_over_down(t_game *game)
-{
-	int		row;
-
-	row = -game->pie->row;
-	while (++row < game->map->row)
-	{
-		if (is_a_place(game, game->map, row, game->pnt[1]) != -1)
-		{
-			game->pnt[0] = row;
-			return ;
-		}
-	}
-}
-
-void	find_over_up(t_game *game)
-{
-	int		row;
-
-	row = game->map->row;
-	while (--row > -game->pie->row)
-	{
-		if (is_a_place(game, game->map, row, game->pnt[1]) != -1)
-		{
-			game->pnt[0] = row;
-			return ;
-		}
-	}
-}
-
-void	find_over_right(t_game *game)
-{
-	int		col;
-
-	col = -game->pie->col;
-	while (++col < game->map->col)
-	{
-		if (is_a_place(game, game->map, game->pnt[0], col) != -1)
-		{
-			game->pnt[1] = col;
-			return ;
-		}
-	}
-}
-
-void	find_over_left(t_game *game)
-{
-	int		col;
-
-	col = game->map->col;
-	while (--col > -game->pie->col)
-	{
-		if (is_a_place(game, game->map, game->pnt[0], col) != -1)
-		{
-			game->pnt[1] = col;
-			return ;
-		}
-	}
-}
-
 int		cmd_apply(t_game *game, int fd_map, char input)
 {
 	int row;
@@ -178,18 +118,7 @@ int		cmd_apply(t_game *game, int fd_map, char input)
 	if (input == 'a')
 		game->pnt[1] -= 1;
 	if (is_a_place(game, game->map, game->pnt[0], game->pnt[1]) == -1)
-	{
-		game->pnt[0] = row;
-		game->pnt[1] = col;
-		if (input == 's')
-			find_over_down(game);
-		if (input == 'w')
-			find_over_up(game);
-		if (input == 'd')
-			find_over_right(game);
-		if (input == 'a')
-			find_over_left(game);
-	}
+		over_roll(game, input, row, col);
 	send_map_to_view(game, game->adv, fd_map, 1);
 	return (0);
 }

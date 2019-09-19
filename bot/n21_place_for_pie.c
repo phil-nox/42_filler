@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 16:54:57 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/18 13:37:16 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/19 13:34:01 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ int	place_pie(t_game *game, t_map *map, int row, int col)
 	return (out);
 }
 
+int	is_a_place_out(int count, int enemy)
+{
+	if (enemy)
+		return (-2);
+	if (count > 1)
+		return (-3);
+	return ((count == 0) ? 0 : 1);
+}
+
 int	is_a_place(t_game *game, t_map *map, int row, int col)
 {
 	int		r;
@@ -60,9 +69,9 @@ int	is_a_place(t_game *game, t_map *map, int row, int col)
 	int		count;
 	int		enemy;
 
-	r = -1;
 	enemy = 0;
 	count = 0;
+	r = -1;
 	while (++r < game->pie->row)
 	{
 		c = -1;
@@ -72,16 +81,11 @@ int	is_a_place(t_game *game, t_map *map, int row, int col)
 				continue;
 			if (!in_gm(map, row + r, col + c))
 				return (-1);
-			tmp = map->map[row + r][col + c];
-			if (tmp == -2)
+			if ((tmp = map->map[row + r][col + c]) == -2)
 				count += 1;
 			if (tmp == 0)
 				enemy = 1;
 		}
 	}
-	if (enemy)
-		return (-2);
-	if (count > 1)
-		return (-3);
-	return ((count == 0) ? 0 : 1);
+	return (is_a_place_out(count, enemy));
 }

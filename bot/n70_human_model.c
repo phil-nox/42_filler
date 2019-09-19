@@ -6,15 +6,16 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 20:24:07 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/18 17:06:25 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:06:31 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "human.h"
 #include "filler.h"
 
-int		load_model(int *fd_cmd, int *fd_map)
+int		load_model(int *fd_cmd, int *fd_map, int *set_view_done)
 {
+	*set_view_done = 0;
 	*fd_map = open(FIFO_MAP, O_WRONLY);
 	if (*fd_map < 1)
 	{
@@ -99,11 +100,10 @@ int		main(void)
 	t_game_pack	game_p;
 	int			fd_cmd;
 	int			fd_map;
-	char		set_view_done;
+	int			set_view_done;
 
-	set_view_done = 0;
 	game_pack_init_bot(&game_p);
-	if (load_model(&fd_cmd, &fd_map))
+	if (load_model(&fd_cmd, &fd_map, &set_view_done))
 		return (1);
 	while (get_next_line(0, &game_p.gnl) == 1 && add_mstack(game_p.gnl) == 0)
 	{

@@ -6,14 +6,14 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 21:06:37 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/17 18:06:13 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/19 13:45:51 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "human.h"
 #include "filler.h"
 
-int	load_view(int *fd_adp, int *fd_map)
+int		load_view(int *fd_adp, int *fd_map)
 {
 	*fd_adp = open(FIFO_ADP, O_RDONLY);
 	printf("fd_adp=%d\n", *fd_adp);
@@ -36,7 +36,19 @@ int	load_view(int *fd_adp, int *fd_map)
 	return (0);
 }
 
-int	main(void)
+void	show_set_for_view(int fd_adp, char line[BUF_SIZE])
+{
+	int		pos;
+
+	pos = read(fd_adp, line, BUF_SIZE);
+	write(1, line, ft_strlen(line));
+	pos = read(fd_adp, line, BUF_SIZE);
+	write(1, line, ft_strlen(line));
+	pos = read(fd_adp, line, BUF_SIZE);
+	write(1, line, ft_strlen(line));
+}
+
+int		main(void)
 {
 	int		fd_adp;
 	int		fd_map;
@@ -46,12 +58,7 @@ int	main(void)
 	line[0] = '\0';
 	if (load_view(&fd_adp, &fd_map))
 		return (1);
-	pos = read(fd_adp, line, BUF_SIZE);
-	write(1, line, ft_strlen(line));
-	pos = read(fd_adp, line, BUF_SIZE);
-	write(1, line, ft_strlen(line));
-	pos = read(fd_adp, line, BUF_SIZE);
-	write(1, line, ft_strlen(line));
+	show_set_for_view(fd_adp, line);
 	while ((pos = read(fd_map, line, BUF_SIZE)))
 	{
 		line[pos] = '\0';

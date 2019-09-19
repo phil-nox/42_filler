@@ -2,7 +2,7 @@
 rm mypipe.*; mkfifo mypipe.map && mkfifo mypipe.cmd && mkfifo mypipe.adp && mkfifo mypipe.vm
 PATH_BOT=./players/
 BOT=carli.filler
-MAP=map00
+MAP=map01
 PLAYERS=( $(ls ./players) )
 LIM=${#PLAYERS[@]}
 CUR=0
@@ -40,6 +40,25 @@ choice() {
     done
 }
 
+create_cmd() {
+THIS_PATH=$(pwd)
+
+echo $THIS_PATH
+
+echo "#!/bin/bash
+cd $THIS_PATH
+#lldb -o run ./74_human_adapter.filler
+./74_human_adapter.filler" > r_adapter.command
+
+echo "#!/bin/bash
+cd $THIS_PATH
+./72_human_controller.filler" > r_controller.command
+
+echo "#!/bin/bash
+cd $THIS_PATH
+./71_human_view.filler" > r_view.command
+}
+
 while getopts "bs" OPTION
 do
 	case $OPTION in
@@ -52,6 +71,7 @@ do
 	esac
 done
 
+create_cmd
 
 if [ "$1" == "-t" ]; then
     choice

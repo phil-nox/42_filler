@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/17 20:01:34 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/19 14:09:28 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,5 +175,9 @@ void				score_debug(t_score *score);
 int					math_decision(t_game *game, t_score *score);
 void				score_debug(t_score *score);
 int					enemy_score(t_map *org);
+void				over_roll(t_game *game, char input, int row, int col);
+void				show_end(t_game_pack *gm_p, int fd);
+int					for_view_adp(t_game_pack *game_pack, int fd_map);
+void				send_trigger(t_game_pack *gm_p, int fd_adp);
 
 #endif
