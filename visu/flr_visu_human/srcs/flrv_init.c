@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 20:07:20 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/16 20:51:35 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/18 19:01:17 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ static t_text	*ft_init_footer(t_sfml *sfml)
 		!(footer->text = sfText_create()) ||
 		!(footer->text_aux = sfText_create()))
 		return (NULL);
-	sfText_setString(footer->text, "[<]left  [^]up    [space]set  [M]usic");
+	sfText_setString(footer->text, "[<]left  [^]up    [space]set   [M]usic     \
+	press [X] to win!");
 	sfText_setFont(footer->text, footer->font);
 	sfText_setCharacterSize(footer->text, P_FONT_SZ / 2);
-	sfText_setString(footer->text_aux, "[>]right [v]down [X]autoset  [S]ound");
+	sfText_setString(footer->text_aux, "[>]right [v]down [Q]autoplace [S]ound");
 	sfText_setFont(footer->text_aux, footer->font);
 	sfText_setCharacterSize(footer->text_aux, P_FONT_SZ / 2);
 	pos.y = sfml->height_sc + 490;
@@ -121,8 +122,8 @@ int8_t			ft_init(int32_t argc, char **argv, t_sfml *sfml)
 	while (++i < argc - 1 && i < 2)
 		img[i] = argv[i + 1];
 	if (!(sfml->p_font = sfFont_createFromFile(P_FONT)) ||
-		!(sfml->p1 = ft_init_player(img[0], sfml, HUMAN)) ||
-		!(sfml->p2 = ft_init_player(img[1], sfml, BOT)) ||
+		!(sfml->p1 = ft_init_player(img[0], sfml)) ||
+		!(sfml->p2 = ft_init_player(img[1], sfml)) ||
 		!(ft_init_sfml(sfml)) ||
 		!(sfml->footer = ft_init_footer(sfml)) ||
 		!(sfml->title = ft_init_title(sfml)))

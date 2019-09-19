@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/21 19:41:31 by laleta            #+#    #+#             */
-/*   Updated: 2019/09/16 20:32:25 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/18 17:14:14 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static inline int8_t	ft_data_valid(int32_t argc, char **argv, t_sfml *sfml)
 {
 	if (!(ft_check_loadfile(argc, argv)))
 		return (0);
-	if (((g_fdadp = open(FIFO_ADP, O_RDONLY | O_NONBLOCK)) == -1) ||
+	if (((g_fdadp = open(FIFO_ADP, O_RDONLY)) == -1) ||
 		((g_fdmap = open(FIFO_MAP, O_RDONLY)) == -1) ||
 		((g_fdcmd = open(FIFO_CMD, O_WRONLY)) == -1))
 	{
@@ -106,10 +106,9 @@ int32_t					main(int32_t argc, char **argv)
 	while (sfRenderWindow_isOpen(sfml.window))
 	{
 		while (sfRenderWindow_waitEvent(sfml.window, &event))
-			ft_event_handle(&sfml, &event);
+			ft_event_handle(&sfml, &event, thread_rndr);
 	}
 	ft_destroy_sfml(&sfml);
-	sfThread_wait(thread_rndr);
 	sfThread_destroy(thread_rndr);
 	close(g_fdcmd);
 	close(g_fdmap);

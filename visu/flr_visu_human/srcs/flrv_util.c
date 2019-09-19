@@ -6,7 +6,7 @@
 /*   By: laleta <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 22:59:25 by laleta            #+#    #+#             */
-/*   Updated: 2019/08/31 22:59:48 by laleta           ###   ########.fr       */
+/*   Updated: 2019/09/18 18:47:07 by laleta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,21 @@ void		ft_get_size(int32_t *width, int32_t *height)
 	char	*s;
 	char	*tmp;
 
-	while (get_next_line(g_fdmap, &s) && *s != 'P')
+	while (get_next_line(g_fdadp, &s) && *s != 'P')
 		free(s);
 	tmp = s;
 	s += 7;
 	*height = ft_get_nbr(&s);
 	*width = ft_get_nbr(&s);
 	free(tmp);
+}
+
+void		ft_name_norm(char *s)
+{
+	while (*s)
+	{
+		if (*s == '_')
+			*s = ' ';
+		s++;
+	}
 }
