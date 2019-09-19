@@ -6,7 +6,7 @@
 #    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/09/19 14:42:16 by wgorold          ###   ########.fr        #
+#    Updated: 2019/09/19 15:31:46 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -165,7 +165,8 @@ clean:
 	make clean -C ./libft
 
 fclean: clean
-	find $(PATH_B) -type fd -not -name '.gitkeep' -delete
+	find $(PATH_B) -type f -not -name '.gitkeep' -delete
+	#find $(PATH_B) -type d -delete
 	make fclean -C ./libft
 
 re: fclean all
