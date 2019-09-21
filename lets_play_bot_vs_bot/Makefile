@@ -6,13 +6,16 @@
 #    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/09/21 15:43:41 by wgorold          ###   ########.fr        #
+#    Updated: 2019/09/21 20:39:31 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-all:
-	make -C ../bot
-	make -C ../visu
+BOT=../bot/build/squid.filler
+VISU=../visu/filler_visu_vm
+
+all: this
+
+this: $(BOT) $(VISU)
 	cp ../bot/build/70_human_model.filler ./resources_my/
 	cp ../bot/build/71_human_view.filler ./resources_my/
 	cp ../bot/build/72_human_controller.filler ./resources_my/
@@ -28,7 +31,13 @@ all:
 
 	@echo "👇 👇 👇 👇  Now you can run"
 	@echo "./make_games.sh"
-	
+
+$(BOT):
+	make -C ../bot
+
+$(VISU):
+	make -C ../visu
+
 run: all
 	./make_games.sh
 

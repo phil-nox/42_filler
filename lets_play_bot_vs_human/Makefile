@@ -6,7 +6,7 @@
 #    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/21 15:54:21 by wgorold           #+#    #+#              #
-#    Updated: 2019/09/21 15:54:49 by wgorold          ###   ########.fr        #
+#    Updated: 2019/09/21 20:33:57 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ all: visu bot move
 	@echo "rm mypipe.*; mkfifo mypipe.map && mkfifo mypipe.cmd && mkfifo mypipe.adp && mkfifo mypipe.vm" 
 	@echo "./filler_vm -p2 ./players/carli.filler -p1 ./70_human_model.filler  -f ./maps/map01 -t 99 | ./74_human_adapter.filler | ./filler_visu_human" 
 	@echo "---- OR ----"
+	@echo "👇 👇 👇 👇  You can run"
 	@echo "./run.sh" 
 
 bot:
