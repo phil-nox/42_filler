@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:55:40 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 19:54:30 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:14:38 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ void	warning_size_of_pie(char *line, t_game *game, t_map *trg)
 	if (trg->map != NULL && \
 		(game->pie->row > game->org->row || game->pie->col > game->org->col))
 	{
-		debug_print("⚠️⚠️⚠️⚠️ pie > org ⚠️⚠️⚠️⚠️", 1, 0);
-		debug_print(line, 1, 0);
+		debug_print_fd("⚠️⚠️⚠️⚠️ pie > org ⚠️⚠️⚠️⚠️", 1, 0);
+		debug_print_fd(line, 1, 0);
 	}
 }
 
@@ -95,7 +95,7 @@ int		init_map(char *line, t_game *game, char *keyword, int fd_in)
 	if (!ft_strstr(line, keyword))
 		return (0);
 	if (game->show_read_debug)
-		debug_print(line, 1, 0);
+		debug_print_fd(line, 1, 0);
 	trg = (keyword == MAP_KW) ? game->org : game->pie;
 	trg->row = ft_atoi(line + ft_strlen(keyword));
 	num = ft_itoa(trg->row);
@@ -110,7 +110,7 @@ int		init_map(char *line, t_game *game, char *keyword, int fd_in)
 	{
 		debug_value_map_color(trg, "");
 		if (keyword == PIE_KW)
-			debug_print("<<<<<<<< END INPUT <<<<<<<<", 1, 0);
+			debug_print_fd("<<<<<<<< END INPUT <<<<<<<<", 1, 0);
 	}
 	return (out);
 }

@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:26:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 15:35:22 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:13:45 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		get_fdd(void)
 	return (fdd);
 }
 
-void	debug_print(char *str, int next_line, int to_free)
+void	debug_print_fd(char *str, int next_line, int to_free)
 {
 	int fdd;
 
@@ -44,5 +44,5 @@ void	debug_print(char *str, int next_line, int to_free)
 
 void	debug_num(int num, int next_line)
 {
-	debug_print(ft_itoa(num), next_line, 1);
+	debug_print_fd(ft_itoa(num), next_line, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:09:41 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 19:36:50 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:14:48 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,44 @@
 
 void	debug_score(t_score *score)
 {
-	debug_print("place_score= ", 0, 0);
+	debug_print_fd("place_score= ", 0, 0);
 	debug_num(score->place_score, 0);
-	debug_print("\nun_score= ", 0, 0);
+	debug_print_fd("\nun_score= ", 0, 0);
 	debug_num(score->un_score, 0);
-	debug_print("\ndf_score= ", 0, 0);
+	debug_print_fd("\ndf_score= ", 0, 0);
 	debug_num(score->df_score, 0);
-	debug_print("\nfn_score= ", 0, 0);
+	debug_print_fd("\nfn_score= ", 0, 0);
 	debug_num(score->fn_score, 0);
-	debug_print("\nunreachable= ", 0, 0);
+	debug_print_fd("\nunreachable= ", 0, 0);
 	debug_num(score->unreachable, 0);
-	debug_print("\ndiff_average= ", 0, 0);
+	debug_print_fd("\ndiff_average= ", 0, 0);
 	debug_num(score->diff_average, 0);
-	debug_print("\ndiff_num= ", 0, 0);
+	debug_print_fd("\ndiff_num= ", 0, 0);
 	debug_num(score->diff_num, 0);
-	debug_print("\ndiff_sum= ", 0, 0);
+	debug_print_fd("\ndiff_sum= ", 0, 0);
 	debug_num(score->diff_sum, 0);
-	debug_print("\n$$$$$$$$ SCORE $$$$$$$$", 1, 0);
+	debug_print_fd("\n$$$$$$$$ SCORE $$$$$$$$", 1, 0);
 }
 
 void	debug_score_tab(t_score *score)
 {
-	debug_print("\t\t\tplace_score= ", 0, 0);
+	debug_print_fd("\t\t\tplace_score= ", 0, 0);
 	debug_num(score->place_score, 0);
-	debug_print("\n\t\t\tun_score= ", 0, 0);
+	debug_print_fd("\n\t\t\tun_score= ", 0, 0);
 	debug_num(score->un_score, 0);
-	debug_print("\n\t\t\tdf_score= ", 0, 0);
+	debug_print_fd("\n\t\t\tdf_score= ", 0, 0);
 	debug_num(score->df_score, 0);
-	debug_print("\n\t\t\tfn_score= ", 0, 0);
+	debug_print_fd("\n\t\t\tfn_score= ", 0, 0);
 	debug_num(score->fn_score, 0);
-	debug_print("\n\t\t\tunreachable= ", 0, 0);
+	debug_print_fd("\n\t\t\tunreachable= ", 0, 0);
 	debug_num(score->unreachable, 0);
-	debug_print("\n\t\t\tdiff_average= ", 0, 0);
+	debug_print_fd("\n\t\t\tdiff_average= ", 0, 0);
 	debug_num(score->diff_average, 0);
-	debug_print("\n\t\t\tdiff_num= ", 0, 0);
+	debug_print_fd("\n\t\t\tdiff_num= ", 0, 0);
 	debug_num(score->diff_num, 0);
-	debug_print("\n\t\t\tdiff_sum= ", 0, 0);
+	debug_print_fd("\n\t\t\tdiff_sum= ", 0, 0);
 	debug_num(score->diff_sum, 0);
-	debug_print("\n\t\t\t$$$$$$$$ SCORE $$$$$$$$", 1, 0);
+	debug_print_fd("\n\t\t\t$$$$$$$$ SCORE $$$$$$$$", 1, 0);
 }
 
 void	calc_decision(t_game *game, t_score *score, char show)

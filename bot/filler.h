@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/19 14:09:28 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:13:24 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@
 
 # include <unistd.h>
 # include <fcntl.h>
-# include "libft.h"
-# include "get_next_line.h"
+# include "libft_full.h"
 # include "n_mstack.h"
 # include "human.h"
 
@@ -104,7 +103,7 @@ typedef	struct		s_game_pack
 
 int					get_fdd();
 int					ft_putstrfile(char const *s);
-void				debug_print(char *str, int next_line, int to_free);
+void				debug_print_fd(char *str, int next_line, int to_free);
 void				debug_num(int num, int next_line);
 void				debug_value_map_color(t_map *map, char *tab);
 

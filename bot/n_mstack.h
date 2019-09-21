@@ -6,14 +6,14 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 18:44:51 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 22:30:38 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:15:29 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef N_MSTACK_H
 # define N_MSTACK_H
 
-# include "libft.h"
+# include "libft_full.h"
 
 t_list	**get_mstack(void);
 int		free_mstack(void *to_free);

@@ -6,11 +6,10 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 21:44:53 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 21:47:17 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:15:40 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "n_mstack.h"
 
 t_list	**get_mstack(void)

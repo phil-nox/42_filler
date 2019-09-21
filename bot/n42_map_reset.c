@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 18:21:33 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 18:53:58 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:14:58 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,5 @@ void	reset_val_map(t_game *game, int row, int col)
 			debug_value_map_color(game->adv, "");
 	}
 	if (game->show_reset_wave_debug)
-		debug_print("-------- END WAVE reSET --------", 1, 0);
+		debug_print_fd("-------- END WAVE reSET --------", 1, 0);
 }

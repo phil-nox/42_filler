@@ -6,17 +6,17 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 21:08:49 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/17 16:17:05 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:20:01 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "human.h"
-#include <stdio.h>
+#include "human.h"
 
 int	load_controller(int *fd_cmd)
 {
 	*fd_cmd = open(FIFO_CMD, O_WRONLY);
-	printf("fd_cmd=%d\n", *fd_cmd);
+	ft_printf("fd_cmd=%d\n", *fd_cmd);
 	if (*fd_cmd < 1)
 	{
 		write(1, "Failed with open() FIFO_CMD\n", 29);

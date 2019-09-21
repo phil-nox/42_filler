@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:18:01 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/13 22:45:35 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:14:53 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		do_choice(t_game *game)
 	if (game->show_general_debug)
 	{
 		score_debug(&(game->best_score));
-		debug_print("👆👆👆👆👆👆👆👆", 1, 0);
+		debug_print_fd("👆👆👆👆👆👆👆👆", 1, 0);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 17:28:34 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 18:57:33 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:14:55 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		set_val_map(t_game *game, t_map *map, int to_find)
 			debug_value_map_color(map, "");
 	}
 	if (game->show_set_wave_debug)
-		debug_print("|||||||| END WAVE SET ||||||||", 1, 0);
+		debug_print_fd("|||||||| END WAVE SET ||||||||", 1, 0);
 	if (game->show_set_debug)
 		debug_set(map);
 	return (how_far);

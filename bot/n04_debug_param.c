@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 15:51:15 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/12 15:54:32 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:14:17 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	debug_reset(t_map *map)
 void	debug_diff(t_map *map)
 {
 	debug_value_map_color(map, "");
-	debug_print("@@@@@@@@ END DIFF @@@@@@@@", 1, 0);
+	debug_print_fd("@@@@@@@@ END DIFF @@@@@@@@", 1, 0);
 }
 
 void	debug_att(t_map *map)
 {
 	debug_value_map_color(map, "");
-	debug_print("^^^^^^^^ END ATT ^^^^^^^^", 1, 0);
+	debug_print_fd("^^^^^^^^ END ATT ^^^^^^^^", 1, 0);
 }
