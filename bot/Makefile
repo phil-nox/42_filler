@@ -6,7 +6,7 @@
 #    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/09/19 15:31:46 by wgorold          ###   ########.fr        #
+#    Updated: 2019/09/21 17:25:32 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ PATH_H =./
 
 CC=gcc
 
-FLAGS= -Wall -Wextra -Werror -g
+FLAGS= -Wall -Wextra -Werror
 
 CFLAGS= -c $(FLAGS)
 
@@ -52,49 +52,29 @@ SRC= 	n00_debug_wfile.o n01_debug_utf8.o \
 
 PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
 
+all: $(NAME) $(PATH_B)$(NAME) $(PATH_B)$(ST_NAME)_debug$(END_NAME) \
+$(PATH_B)70_human_model$(END_NAME) $(PATH_B)71_human_view$(END_NAME) \
+$(PATH_B)72_human_controller$(END_NAME) $(PATH_B)74_human_adapter$(END_NAME)
+	
 $(NAME): mlibft $(PATH_SRC)
-	$(CC) $(FLAGS) -o $(PATH_B)$(NAME)							n60_run.c 				$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+
+$(PATH_B)$(NAME): n60_run.c
+	$(CC) $(FLAGS) -o $(PATH_B)$(NAME) 							n60_run.c 				$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+
+$(PATH_B)$(ST_NAME)_debug$(END_NAME): n61_run_debug.c
 	$(CC) $(FLAGS) -o $(PATH_B)$(ST_NAME)_debug$(END_NAME)		n61_run_debug.c			$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+
+$(PATH_B)70_human_model$(END_NAME): n70_human_model.c
 	$(CC) $(FLAGS) -o $(PATH_B)70_human_model$(END_NAME)		n70_human_model.c		$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+
+$(PATH_B)71_human_view$(END_NAME): n71_human_view.c
 	$(CC) $(FLAGS) -o $(PATH_B)71_human_view$(END_NAME)			n71_human_view.c		$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+
+$(PATH_B)72_human_controller$(END_NAME): n72_human_controller.c
 	$(CC) $(FLAGS) -o $(PATH_B)72_human_controller$(END_NAME)	n72_human_controller.c	$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+
+$(PATH_B)74_human_adapter$(END_NAME): n73_human_adapter.c
 	$(CC) $(FLAGS) -o $(PATH_B)74_human_adapter$(END_NAME)		n73_human_adapter.c		$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
-
-all: $(NAME)
-
-play: all
-	rm -rf test_debug
-	touch test_debug
-	./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map00 -s 3207
-	@echo "./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map00 -s 3207"
-
-play_d: all
-	rm -rf test_debug
-	touch test_debug
-	./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(ST_NAME)_debug$(END_NAME) -f ./resources/maps/map00 -s 3207
-	@echo "./resources/filler_vm -p2 ./resources/players/carli.filler -p1 $(PATH_B)$(ST_NAME)_debug$(END_NAME) -f ./resources/maps/map00 -s 3207"
-
-play_h: re
-	./resources/filler_vm -p2 ./resources/players//abanlin.filler -p1 $(PATH_B)$(NAME) -f ./resources/maps/map02
-
-human: re
-	gcc -Wall -Wextra -Werror n70_human_model.c obj/*.o -L./libft/build -lft -I./ -I./libft -o 70_human_model.filler
-	gcc -Wall -Wextra -Werror n71_human_view.c -o 71_human_view.filler obj/*.o -L./libft/build -lft -I./ -I./libft
-	gcc -Wall -Wextra -Werror n72_human_controller.c -o 72_human_controller.filler
-	gcc -Wall -Wextra -Werror n73_human_adapter.c -o 74_human_adapter.filler obj/*.o -L./libft/build -lft -I./ -I./libft
-	@echo " "
-	@echo "RUN >>>>"
-	@echo "rm mypipe.*; mkfifo mypipe.map && mkfifo mypipe.cmd && mkfifo mypipe.adp"
-	@echo "./resources/filler_vm -p2 ./resources/players/carli.filler -p1 ./70_human_model.filler  -f ./resources/maps/map00 -t 99 | ./74_human_adapter.filler"
-	@echo "./71_human_view.filler"
-	@echo "./72_human_controller.filler"
-	@echo "<<<<"
-	cp 70_human_model.filler ../visu/
-	cp 74_human_adapter.filler ../visu/
-	@echo "RUN >>>>"
-	@echo "rm mypipe.*; mkfifo mypipe.map && mkfifo mypipe.cmd && mkfifo mypipe.adp"
-	@echo "./filler_vm -p2 ./players/carli.filler -p1 ./70_human_model.filler  -f ./maps/map01 -t 99 | ./74_human_adapter.filler | ./filler_visu_human"
-	@echo "<<<<"
 
 $(PATH_S)n00_debug_wfile.o: n00_debug_wfile.c
 	$(CC) $(CFLAGS) n00_debug_wfile.c $(FLAG_PATH_OBJ)
@@ -161,12 +141,12 @@ mlibft:
 	make all -C ./libft
 
 clean:
-	find $(PATH_S) -type f -not -name '.gitkeep' -delete
 	make clean -C ./libft
+	find $(PATH_S) -type f -not -name '.gitkeep' -delete
 
-fclean: clean
-	find $(PATH_B) -type f -not -name '.gitkeep' -delete
-	#find $(PATH_B) -type d -delete
+fclean:
 	make fclean -C ./libft
+	find $(PATH_S) -type f -not -name '.gitkeep' -delete
+	find ./build -depth 1 -not -name '.gitkeep' -exec rm -rf {} \;
 
 re: fclean all
