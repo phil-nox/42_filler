@@ -49,14 +49,17 @@ echo "#!/bin/bash
 cd $THIS_PATH
 #lldb -o run ./74_human_adapter.filler
 ./74_human_adapter.filler" > r_adapter.command
+chmod +x r_adapter.command
 
 echo "#!/bin/bash
 cd $THIS_PATH
 ./72_human_controller.filler" > r_controller.command
+chmod +x r_controller.command
 
 echo "#!/bin/bash
 cd $THIS_PATH
 ./71_human_view.filler" > r_view.command
+chmod +x r_view.command
 }
 
 while getopts "bs" OPTION

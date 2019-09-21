@@ -6,7 +6,7 @@
 #    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/09/19 16:11:05 by wgorold          ###   ########.fr        #
+#    Updated: 2019/09/21 15:43:41 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,17 +25,21 @@ all:
 	
 	cp ../bot/build/squid.filler ./resources_my/
 	cp ../bot/build/squid_debug.filler ./resources_my/
+
+	@echo "👇 👇 👇 👇  Now you can run"
+	@echo "./make_games.sh"
 	
 run: all
 	./make_games.sh
 
-clean: 
+clean:
+	make clean -C ../bot
+	make clean -C ../visu
 	find ./result -type f -not -name '.gitkeep' -delete
 
 fclean:
 	make fclean -C ../bot
 	make fclean -C ../visu
-	find ./resources_my -type f -not -name '.gitkeep' -delete
 	find ./result -type f -not -name '.gitkeep' -delete
-	find ./resources_my -type d -delete
-	rm -rf filler.trace
+	rm -rf filler.trace test_debug
+	find ./resources_my -depth 1 -not -name '.gitkeep' -exec rm -rf {} \;
