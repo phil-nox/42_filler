@@ -6,16 +6,19 @@
 #    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/21 16:06:58 by wgorold           #+#    #+#              #
-#    Updated: 2019/09/21 16:27:21 by wgorold          ###   ########.fr        #
+#    Updated: 2019/09/21 19:54:48 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+BOT=bot/build/squid.filler
 NAME=wgorold.filler
 
-all: mbot
+all: $(NAME)
+
+$(NAME): $(BOT)
 	cp ./bot/build/squid.filler ./$(NAME)
 
-mbot:
+$(BOT):
 	make -C ./bot
 
 clean:

@@ -6,7 +6,7 @@
 #    By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/03 20:55:37 by wgorold           #+#    #+#              #
-#    Updated: 2019/09/21 17:25:32 by wgorold          ###   ########.fr        #
+#    Updated: 2019/09/21 19:49:58 by wgorold          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ ST_NAME=squid
 END_NAME=.filler
 NAME=$(ST_NAME)$(END_NAME)
 
-PATH_H =./
+LIB=libft/build/libft.a
 
 CC=gcc
 
@@ -28,11 +28,11 @@ FLAGS= -Wall -Wextra -Werror
 
 CFLAGS= -c $(FLAGS)
 
-FLAG_PATH_OBJ= -o $@ -I./libft -I$(PATH_H)
+FLAG_PATH_OBJ= -o $@ -I./libft
 
-PATH_B=./build/
+PATH_B=build/
 
-PATH_S=./obj/
+PATH_S=obj/
 
 SRC= 	n00_debug_wfile.o n01_debug_utf8.o \
 		n03_debug_color.o n04_debug_param.o \
@@ -52,29 +52,44 @@ SRC= 	n00_debug_wfile.o n01_debug_utf8.o \
 
 PATH_SRC= $(patsubst %.o, $(PATH_S)%.o, $(SRC))
 
-all: $(NAME) $(PATH_B)$(NAME) $(PATH_B)$(ST_NAME)_debug$(END_NAME) \
-$(PATH_B)70_human_model$(END_NAME) $(PATH_B)71_human_view$(END_NAME) \
-$(PATH_B)72_human_controller$(END_NAME) $(PATH_B)74_human_adapter$(END_NAME)
-	
-$(NAME): mlibft $(PATH_SRC)
+MAINS=	n60_run.o n61_run_debug.o n70_human_model.o n71_human_view.o n72_human_controller.o n73_human_adapter.o
 
-$(PATH_B)$(NAME): n60_run.c
-	$(CC) $(FLAGS) -o $(PATH_B)$(NAME) 							n60_run.c 				$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+MAINS_SRC= $(patsubst %.o, $(PATH_S)%.o, $(MAINS))
 
-$(PATH_B)$(ST_NAME)_debug$(END_NAME): n61_run_debug.c
-	$(CC) $(FLAGS) -o $(PATH_B)$(ST_NAME)_debug$(END_NAME)		n61_run_debug.c			$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+all: $(PATH_B)$(NAME) $(PATH_B)$(ST_NAME)_debug$(END_NAME) $(PATH_B)70_human_model$(END_NAME) \
+$(PATH_B)71_human_view$(END_NAME) $(PATH_B)72_human_controller$(END_NAME) \
+$(PATH_B)74_human_adapter$(END_NAME)
 
-$(PATH_B)70_human_model$(END_NAME): n70_human_model.c
-	$(CC) $(FLAGS) -o $(PATH_B)70_human_model$(END_NAME)		n70_human_model.c		$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+$(PATH_B)$(NAME): 							$(LIB) $(PATH_SRC) $(MAINS_SRC)
+	$(CC) $(FLAGS) -o $@	$(PATH_S)n60_run.o 					$(PATH_SRC) -L./libft/build -lft -I./libft
 
-$(PATH_B)71_human_view$(END_NAME): n71_human_view.c
-	$(CC) $(FLAGS) -o $(PATH_B)71_human_view$(END_NAME)			n71_human_view.c		$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+$(PATH_B)$(ST_NAME)_debug$(END_NAME):  		$(LIB) $(PATH_SRC) $(MAINS_SRC)
+	$(CC) $(FLAGS) -o $@	$(PATH_S)n61_run_debug.o			$(PATH_SRC) -L./libft/build -lft -I./libft
 
-$(PATH_B)72_human_controller$(END_NAME): n72_human_controller.c
-	$(CC) $(FLAGS) -o $(PATH_B)72_human_controller$(END_NAME)	n72_human_controller.c	$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+$(PATH_B)70_human_model$(END_NAME): 		$(LIB) $(PATH_SRC) $(MAINS_SRC)
+	$(CC) $(FLAGS) -o $@	$(PATH_S)n70_human_model.o			$(PATH_SRC) -L./libft/build -lft -I./libft
 
-$(PATH_B)74_human_adapter$(END_NAME): n73_human_adapter.c
-	$(CC) $(FLAGS) -o $(PATH_B)74_human_adapter$(END_NAME)		n73_human_adapter.c		$(PATH_S)*.o -L./libft/build -lft -I$(PATH_H) -I./libft
+$(PATH_B)71_human_view$(END_NAME): 			$(LIB) $(PATH_SRC) $(MAINS_SRC)
+	$(CC) $(FLAGS) -o $@	$(PATH_S)n71_human_view.o			$(PATH_SRC) -L./libft/build -lft -I./libft
+
+$(PATH_B)72_human_controller$(END_NAME): 	$(LIB) $(PATH_SRC) $(MAINS_SRC)
+	$(CC) $(FLAGS) -o $@	$(PATH_S)n72_human_controller.o		$(PATH_SRC) -L./libft/build -lft -I./libft
+
+$(PATH_B)74_human_adapter$(END_NAME): 		$(LIB) $(PATH_SRC) $(MAINS_SRC)
+	$(CC) $(FLAGS) -o $@	$(PATH_S)n73_human_adapter.o		$(PATH_SRC) -L./libft/build -lft -I./libft
+
+$(PATH_S)n60_run.o: n60_run.c
+	$(CC) $(CFLAGS) n60_run.c $(FLAG_PATH_OBJ)
+$(PATH_S)n61_run_debug.o: n61_run_debug.c
+	$(CC) $(CFLAGS) n61_run_debug.c $(FLAG_PATH_OBJ)
+$(PATH_S)n70_human_model.o: n70_human_model.c
+	$(CC) $(CFLAGS) n70_human_model.c $(FLAG_PATH_OBJ)
+$(PATH_S)n71_human_view.o: n71_human_view.c
+	$(CC) $(CFLAGS) n71_human_view.c $(FLAG_PATH_OBJ)
+$(PATH_S)n72_human_controller.o: n72_human_controller.c
+	$(CC) $(CFLAGS) n72_human_controller.c $(FLAG_PATH_OBJ)
+$(PATH_S)n73_human_adapter.o: n73_human_adapter.c
+	$(CC) $(CFLAGS) n73_human_adapter.c $(FLAG_PATH_OBJ)
 
 $(PATH_S)n00_debug_wfile.o: n00_debug_wfile.c
 	$(CC) $(CFLAGS) n00_debug_wfile.c $(FLAG_PATH_OBJ)
@@ -137,7 +152,7 @@ $(PATH_S)n_mstack_0.o: n_mstack_0.c
 $(PATH_S)n_mstack_1.o: n_mstack_1.c
 	$(CC) $(CFLAGS) n_mstack_1.c $(FLAG_PATH_OBJ)
 
-mlibft:
+$(LIB):
 	make all -C ./libft
 
 clean:
