@@ -6,7 +6,7 @@
 /*   By: wgorold <wgorold@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 21:06:37 by wgorold           #+#    #+#             */
-/*   Updated: 2019/09/19 13:45:51 by wgorold          ###   ########.fr       */
+/*   Updated: 2019/09/21 20:21:07 by wgorold          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int		load_view(int *fd_adp, int *fd_map)
 {
 	*fd_adp = open(FIFO_ADP, O_RDONLY);
-	printf("fd_adp=%d\n", *fd_adp);
+	ft_printf("fd_adp=%d\n", *fd_adp);
 	if (*fd_adp < 1)
 	{
 		write(1, "Failed with open() FIFO_ADP\n", 29);
@@ -24,7 +24,7 @@ int		load_view(int *fd_adp, int *fd_map)
 	}
 	write(1, "open_adp:\tdone\n", 16);
 	*fd_map = open(FIFO_MAP, O_RDONLY);
-	printf("fd_map=%d\n", *fd_map);
+	ft_printf("fd_map=%d\n", *fd_map);
 	if (*fd_map < 1)
 	{
 		write(1, "Failed with open() FIFO_MAP\n", 29);
