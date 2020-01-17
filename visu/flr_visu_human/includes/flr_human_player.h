@@ -13,14 +13,14 @@
 #ifndef FLR_HUMAN_PLAYER_H
 # define FLR_HUMAN_PLAYER_H
 
-# define FIFO_MAP		"mypipe.map"
-# define FIFO_CMD		"mypipe.cmd"
-# define FIFO_ADP		"mypipe.adp"
+# define FIFO_MAP		"../mypipe.map"
+# define FIFO_CMD		"../mypipe.cmd"
+# define FIFO_ADP		"../mypipe.adp"
 
 # define CMD_UP			"w"
 # define CMD_DOWN		"s"
 # define CMD_LEFT		"a"
-# define CMD_RIGHT		"d"
+# define CMD_RIGHT	"d"
 # define CMD_SET		"e"
 # define CMD_AUTO		"q"
 # define CMD_WIN		"x"

@@ -71,6 +71,7 @@ int		load_adapter(t_game_pack *gm_p, int *fd_adp, int *pty, int *view)
 	}
 	if ((*pty = set_pseudoterminal()) < 0)
 		return (1);
+	write(1, "load_adapter() complete\n", 24);
 	return (0);
 }
 
