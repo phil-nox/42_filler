@@ -31,7 +31,7 @@ According to the project conditions we have:
   2. Another bot that allows to play a human to this game.
 
 
-## Getting Started
+## Install and play
 
 Let's run the game in your local machine. Here we will launch the game with visualization in mode "human vs bot".
 
@@ -76,7 +76,7 @@ make
 ```
 
 
-### Advanced run
+## Advanced run
 
 Run the game with your bot.
 ```
