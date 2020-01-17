@@ -4,17 +4,19 @@ Originally this is one of the projects in a branch of algorithms at School 42 . 
 
 <details>
   <summary>Description of the game (original papers):</summary>
+
   Filler is an algorithmic game which consists in filling a grid of a known size in advance
   with pieces of random size and shapes, without the pieces being stacked more than one
   square above each other and without them exceeding the grid. If one of these conditions
   is not met, the game stops.
+
   Each successfully placed piece yields a number of points, and has only one player, the
   goal of the game could be to get the best score possible. However, it is with two players
   that the filler takes all his interest. Each player has for the purpose of placing as many
   pieces as possible while attempting to prevent his opponent from doing the same. At the
   end of the game, the one with the most points wins the match...
 
-  ![Filler](https://github.com/PhilippNox/42_filler/tree/master/resources/img/filler.png)
+  ![Filler](https://raw.githubusercontent.com/PhilippNox/42_filler/master/resources/img/filler.png)
 </details>
 
 According to the project conditions we have:
@@ -27,6 +29,7 @@ According to the project conditions we have:
 🌟 The reason why this project is on github. After achieving the goal. Laleta and I developed next things:
   1. Good looking visualization of the game. (Thanks to Laleta 🙏)
   2. Another bot that allows to play a human to this game.
+
 
 ## Getting Started
 
@@ -42,8 +45,8 @@ This project was developed and launched on Mac OS X.
     ProductVersion:	10.15.1
     BuildVersion:	19B88
 
-    #To check this run in your terminal "sw_vers"
   ```
+  To check this run in your terminal "sw_vers"
 </details>
 <details>
   <summary>With gcc version</summary>
@@ -53,10 +56,10 @@ This project was developed and launched on Mac OS X.
     Target: x86_64-apple-darwin19.0.0
     Thread model: posix
     InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-
-    #To check this run in your terminal "gcc -v"
   ```
+  To check this run in your terminal "gcc -v"
 </details>
+
 
 ### Installing and run
 
@@ -70,6 +73,7 @@ make
 ```
 ./run.sh
 ```
+
 
 ### Advanced run
 
