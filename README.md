@@ -40,6 +40,7 @@ Let's run the game in your local machine. Here we will launch the game with visu
 This project was developed and launched on Mac OS X.
 <details>
   <summary>Mac OS X</summary>
+
   ```
     ProductName:	Mac OS X
     ProductVersion:	10.15.1
@@ -50,6 +51,7 @@ This project was developed and launched on Mac OS X.
 </details>
 <details>
   <summary>With gcc version</summary>
+  
   ```
     Configured with: --prefix=/Library/Developer/CommandLineTools/usr --with-gxx-include-dir=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/4.2.1
     Apple clang version 11.0.0 (clang-1100.0.33.8)
